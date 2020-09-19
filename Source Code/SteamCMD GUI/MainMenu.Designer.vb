@@ -1,10 +1,10 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class MainMenu
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
-    Protected Overrides Sub Dispose( disposing As Boolean)
+    <System.Diagnostics.DebuggerNonUserCode()>
+    Protected Overrides Sub Dispose(disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
@@ -20,7 +20,7 @@ Partial Class MainMenu
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainMenu))
@@ -35,7 +35,7 @@ Partial Class MainMenu
         Me.ExitButton = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.AddCustomGameButton = New System.Windows.Forms.Button()
-        Me.CheckBoxConsole = New System.Windows.Forms.CheckBox()
+        Me.ConsoleCheckBoxUpdate = New System.Windows.Forms.CheckBox()
         Me.ValidateCheckBox = New System.Windows.Forms.CheckBox()
         Me.IdHelpButton = New System.Windows.Forms.Button()
         Me.BrowserButton = New System.Windows.Forms.Button()
@@ -46,7 +46,7 @@ Partial Class MainMenu
         Me.AnonymousCheckBox = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.UsernameTextBox = New System.Windows.Forms.TextBox()
-        Me.PasswdTextBox = New System.Windows.Forms.MaskedTextBox()
+        Me.PasswordTextBox = New System.Windows.Forms.MaskedTextBox()
         Me.GoldSrcModLabel = New System.Windows.Forms.Label()
         Me.GoldSrcModInput = New System.Windows.Forms.TextBox()
         Me.Status = New System.Windows.Forms.TextBox()
@@ -69,7 +69,7 @@ Partial Class MainMenu
         Me.InsecureCheckBox = New System.Windows.Forms.CheckBox()
         Me.DevModeCheckBox = New System.Windows.Forms.CheckBox()
         Me.RunServerButton = New System.Windows.Forms.Button()
-        Me.ConsoleCheckBox = New System.Windows.Forms.CheckBox()
+        Me.ConsoleCheckBoxServer = New System.Windows.Forms.CheckBox()
         Me.BotsCheckBox = New System.Windows.Forms.CheckBox()
         Me.SourceTVCheckBox = New System.Windows.Forms.CheckBox()
         Me.DebugModeCheckBox = New System.Windows.Forms.CheckBox()
@@ -90,6 +90,11 @@ Partial Class MainMenu
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.SrcdsExePathOpen = New System.Windows.Forms.Button()
+        Me.SrcdsExeBrowserButton = New System.Windows.Forms.Button()
+        Me.SrcdsExePathTextBox = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.ConsoleTab = New System.Windows.Forms.TabPage()
         Me.ConsoleConnect = New System.Windows.Forms.Button()
         Me.ConsoleIPPrint = New System.Windows.Forms.Button()
@@ -129,11 +134,6 @@ Partial Class MainMenu
         Me.DonateButton = New System.Windows.Forms.PictureBox()
         Me.IPTextbox = New System.Windows.Forms.TextBox()
         Me.IPButton = New System.Windows.Forms.Button()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.SrcdsExePathTextBox = New System.Windows.Forms.TextBox()
-        Me.SrcdsExeBrowserButton = New System.Windows.Forms.Button()
-        Me.SrcdsExePathOpen = New System.Windows.Forms.Button()
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -144,11 +144,11 @@ Partial Class MainMenu
         Me.GroupBox6.SuspendLayout()
         CType(Me.UDPPortTexBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MaxPlayersTexBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox5.SuspendLayout()
         Me.ConsoleTab.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.DonateButton, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox5.SuspendLayout()
         Me.SuspendLayout()
         '
         'GamesList
@@ -216,7 +216,7 @@ Partial Class MainMenu
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.AddCustomGameButton)
-        Me.GroupBox2.Controls.Add(Me.CheckBoxConsole)
+        Me.GroupBox2.Controls.Add(Me.ConsoleCheckBoxUpdate)
         Me.GroupBox2.Controls.Add(Me.ValidateCheckBox)
         Me.GroupBox2.Controls.Add(Me.IdHelpButton)
         Me.GroupBox2.Controls.Add(Me.BrowserButton)
@@ -227,7 +227,7 @@ Partial Class MainMenu
         Me.GroupBox2.Controls.Add(Me.AnonymousCheckBox)
         Me.GroupBox2.Controls.Add(Me.Label1)
         Me.GroupBox2.Controls.Add(Me.UsernameTextBox)
-        Me.GroupBox2.Controls.Add(Me.PasswdTextBox)
+        Me.GroupBox2.Controls.Add(Me.PasswordTextBox)
         Me.GroupBox2.Controls.Add(Me.GamesList)
         Me.GroupBox2.Controls.Add(Me.GoldSrcModLabel)
         Me.GroupBox2.Controls.Add(Me.GoldSrcModInput)
@@ -241,11 +241,11 @@ Partial Class MainMenu
         Me.AddCustomGameButton.Name = "AddCustomGameButton"
         Me.AddCustomGameButton.UseVisualStyleBackColor = True
         '
-        'CheckBoxConsole
+        'ConsoleCheckBoxUpdate
         '
-        resources.ApplyResources(Me.CheckBoxConsole, "CheckBoxConsole")
-        Me.CheckBoxConsole.Name = "CheckBoxConsole"
-        Me.CheckBoxConsole.UseVisualStyleBackColor = True
+        resources.ApplyResources(Me.ConsoleCheckBoxUpdate, "ConsoleCheckBoxUpdate")
+        Me.ConsoleCheckBoxUpdate.Name = "ConsoleCheckBoxUpdate"
+        Me.ConsoleCheckBoxUpdate.UseVisualStyleBackColor = True
         '
         'ValidateCheckBox
         '
@@ -313,11 +313,11 @@ Partial Class MainMenu
         resources.ApplyResources(Me.UsernameTextBox, "UsernameTextBox")
         Me.UsernameTextBox.Name = "UsernameTextBox"
         '
-        'PasswdTextBox
+        'PasswordTextBox
         '
-        resources.ApplyResources(Me.PasswdTextBox, "PasswdTextBox")
-        Me.PasswdTextBox.Name = "PasswdTextBox"
-        Me.PasswdTextBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        resources.ApplyResources(Me.PasswordTextBox, "PasswordTextBox")
+        Me.PasswordTextBox.Name = "PasswordTextBox"
+        Me.PasswordTextBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         '
         'GoldSrcModLabel
         '
@@ -421,7 +421,7 @@ Partial Class MainMenu
         Me.GroupBox6.Controls.Add(Me.InsecureCheckBox)
         Me.GroupBox6.Controls.Add(Me.DevModeCheckBox)
         Me.GroupBox6.Controls.Add(Me.RunServerButton)
-        Me.GroupBox6.Controls.Add(Me.ConsoleCheckBox)
+        Me.GroupBox6.Controls.Add(Me.ConsoleCheckBoxServer)
         Me.GroupBox6.Controls.Add(Me.BotsCheckBox)
         Me.GroupBox6.Controls.Add(Me.SourceTVCheckBox)
         Me.GroupBox6.Controls.Add(Me.DebugModeCheckBox)
@@ -478,13 +478,11 @@ Partial Class MainMenu
         Me.RunServerButton.Name = "RunServerButton"
         Me.RunServerButton.UseVisualStyleBackColor = True
         '
-        'ConsoleCheckBox
+        'ConsoleCheckBoxServer
         '
-        resources.ApplyResources(Me.ConsoleCheckBox, "ConsoleCheckBox")
-        Me.ConsoleCheckBox.Checked = True
-        Me.ConsoleCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ConsoleCheckBox.Name = "ConsoleCheckBox"
-        Me.ConsoleCheckBox.UseVisualStyleBackColor = True
+        resources.ApplyResources(Me.ConsoleCheckBoxServer, "ConsoleCheckBoxServer")
+        Me.ConsoleCheckBoxServer.Name = "ConsoleCheckBoxServer"
+        Me.ConsoleCheckBoxServer.UseVisualStyleBackColor = True
         '
         'BotsCheckBox
         '
@@ -609,6 +607,41 @@ Partial Class MainMenu
         '
         resources.ApplyResources(Me.Label5, "Label5")
         Me.Label5.Name = "Label5"
+        '
+        'GroupBox5
+        '
+        Me.GroupBox5.Controls.Add(Me.SrcdsExePathOpen)
+        Me.GroupBox5.Controls.Add(Me.SrcdsExeBrowserButton)
+        Me.GroupBox5.Controls.Add(Me.SrcdsExePathTextBox)
+        Me.GroupBox5.Controls.Add(Me.Label3)
+        resources.ApplyResources(Me.GroupBox5, "GroupBox5")
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.TabStop = False
+        '
+        'SrcdsExePathOpen
+        '
+        Me.SrcdsExePathOpen.BackgroundImage = Global.SteamCMD_GUI.My.Resources.Resources.Folder
+        resources.ApplyResources(Me.SrcdsExePathOpen, "SrcdsExePathOpen")
+        Me.SrcdsExePathOpen.Name = "SrcdsExePathOpen"
+        Me.SrcdsExePathOpen.TabStop = False
+        Me.SrcdsExePathOpen.UseVisualStyleBackColor = True
+        '
+        'SrcdsExeBrowserButton
+        '
+        resources.ApplyResources(Me.SrcdsExeBrowserButton, "SrcdsExeBrowserButton")
+        Me.SrcdsExeBrowserButton.Name = "SrcdsExeBrowserButton"
+        Me.SrcdsExeBrowserButton.UseVisualStyleBackColor = True
+        '
+        'SrcdsExePathTextBox
+        '
+        resources.ApplyResources(Me.SrcdsExePathTextBox, "SrcdsExePathTextBox")
+        Me.SrcdsExePathTextBox.Name = "SrcdsExePathTextBox"
+        Me.SrcdsExePathTextBox.TabStop = False
+        '
+        'Label3
+        '
+        resources.ApplyResources(Me.Label3, "Label3")
+        Me.Label3.Name = "Label3"
         '
         'ConsoleTab
         '
@@ -847,41 +880,6 @@ Partial Class MainMenu
         Me.IPButton.TabStop = False
         Me.IPButton.UseVisualStyleBackColor = False
         '
-        'Label3
-        '
-        resources.ApplyResources(Me.Label3, "Label3")
-        Me.Label3.Name = "Label3"
-        '
-        'SrcdsExePathTextBox
-        '
-        resources.ApplyResources(Me.SrcdsExePathTextBox, "SrcdsExePathTextBox")
-        Me.SrcdsExePathTextBox.Name = "SrcdsExePathTextBox"
-        Me.SrcdsExePathTextBox.TabStop = False
-        '
-        'SrcdsExeBrowserButton
-        '
-        resources.ApplyResources(Me.SrcdsExeBrowserButton, "SrcdsExeBrowserButton")
-        Me.SrcdsExeBrowserButton.Name = "SrcdsExeBrowserButton"
-        Me.SrcdsExeBrowserButton.UseVisualStyleBackColor = True
-        '
-        'SrcdsExePathOpen
-        '
-        Me.SrcdsExePathOpen.BackgroundImage = Global.SteamCMD_GUI.My.Resources.Resources.Folder
-        resources.ApplyResources(Me.SrcdsExePathOpen, "SrcdsExePathOpen")
-        Me.SrcdsExePathOpen.Name = "SrcdsExePathOpen"
-        Me.SrcdsExePathOpen.TabStop = False
-        Me.SrcdsExePathOpen.UseVisualStyleBackColor = True
-        '
-        'GroupBox5
-        '
-        Me.GroupBox5.Controls.Add(Me.SrcdsExePathOpen)
-        Me.GroupBox5.Controls.Add(Me.SrcdsExeBrowserButton)
-        Me.GroupBox5.Controls.Add(Me.SrcdsExePathTextBox)
-        Me.GroupBox5.Controls.Add(Me.Label3)
-        resources.ApplyResources(Me.GroupBox5, "GroupBox5")
-        Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.TabStop = False
-        '
         'MainMenu
         '
         resources.ApplyResources(Me, "$this")
@@ -914,14 +912,14 @@ Partial Class MainMenu
         Me.GroupBox6.PerformLayout()
         CType(Me.UDPPortTexBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MaxPlayersTexBox, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox5.PerformLayout()
         Me.ConsoleTab.ResumeLayout(False)
         Me.ConsoleTab.PerformLayout()
         Me.ContextMenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         CType(Me.DonateButton, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox5.ResumeLayout(False)
-        Me.GroupBox5.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -935,7 +933,7 @@ Partial Class MainMenu
     Friend WithEvents AnonymousCheckBox As System.Windows.Forms.CheckBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents UsernameTextBox As System.Windows.Forms.TextBox
-    Friend WithEvents PasswdTextBox As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents PasswordTextBox As System.Windows.Forms.MaskedTextBox
     Friend WithEvents BrowserButton As System.Windows.Forms.Button
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents ServerPath As System.Windows.Forms.TextBox
@@ -981,7 +979,7 @@ Partial Class MainMenu
     Friend WithEvents InsecureCheckBox As System.Windows.Forms.CheckBox
     Friend WithEvents DebugModeCheckBox As System.Windows.Forms.CheckBox
     Friend WithEvents DevModeCheckBox As System.Windows.Forms.CheckBox
-    Friend WithEvents ConsoleCheckBox As System.Windows.Forms.CheckBox
+    Friend WithEvents ConsoleCheckBoxServer As System.Windows.Forms.CheckBox
     Friend WithEvents BotsCheckBox As System.Windows.Forms.CheckBox
     Friend WithEvents SourceTVCheckBox As System.Windows.Forms.CheckBox
     Friend WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
@@ -1024,7 +1022,7 @@ Partial Class MainMenu
     Friend WithEvents GoldSrcModLabel As System.Windows.Forms.Label
     Friend WithEvents GoldSrcModInput As System.Windows.Forms.TextBox
     Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents CheckBoxConsole As System.Windows.Forms.CheckBox
+    Friend WithEvents ConsoleCheckBoxUpdate As System.Windows.Forms.CheckBox
     Friend WithEvents AddCustomGameButton As System.Windows.Forms.Button
     Friend WithEvents DonateButton As System.Windows.Forms.PictureBox
     Friend WithEvents ConsoleIPPrint As System.Windows.Forms.Button

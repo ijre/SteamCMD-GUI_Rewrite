@@ -8,9 +8,9 @@ Imports Ookii
 Imports Ookii.Dialogs
 
 Module Module1
-    Public SteamCMDExePath, SteamAppID, Login, ServerPathInstallation, ValidateApp, GoldSrcMod, Program, Game, PathForLog As String
+    Public GoldSrcMod As String
     ' Run Server
-    Public SrcdsExePath, GameMod, ServerName, ServerMap, NetworkType, MaxPlayers, RCON, UDPPort, DebugMode, SourceTV, ConsoleMode, InsecureMode, NoBots, DevMode, AdditionalCommands, Parameters As String
+    Public GameMod, ServerName, ServerMap, NetworkType, MaxPlayers, RCON, UDPPort, DebugMode, SourceTV, ConsoleMode, InsecureMode, NoBots, DevMode, AdditionalCommands, Parameters As String
     ' Strings
     Public CantFindSteamCMDString As String
     Public GameDictionary As Dictionary(Of String, String) = New Dictionary(Of String, String)
@@ -50,13 +50,12 @@ Public Class MainMenu
         End If
         If File.Exists("Settings/SteamCMDPath.xml") Then
             Dim XmlConfig As XmlReader = New XmlTextReader("Settings/SteamCMDPath.xml")
-            While (XmlConfig.Read())
+            While XmlConfig.Read()
                 Dim type = XmlConfig.NodeType
-                If (type = XmlNodeType.Element) Then
-                    If (XmlConfig.Name = "CMDPath") Then
+                If type = XmlNodeType.Element Then
+                    If XmlConfig.Name = "CMDPath" Then
                         ExePath.Text = XmlConfig.ReadInnerXml.ToString()
                         FolderBrowserDialog1.SelectedPath = ExePath.Text
-                        SteamCMDExePath = ExePath.Text
                         LogMenu.Enabled = True
                     End If
                 End If
@@ -99,9 +98,9 @@ Public Class MainMenu
 
     ' Autosave log
     Private Sub SaveLog()
-        Dim ConsoleContent As String = DateTime.Now & " from " & Program & vbCrLf & "______________________" & vbCrLf & Game & vbCrLf & PathForLog & vbCrLf & "______________________" & vbCrLf & ConsoleOutput.Text
+        Dim ConsoleContent As String = DateTime.Now & " from SteamCmd.exe" & vbCrLf & "______________________" & vbCrLf & "Game: " & GamesList.Text & vbCrLf & "Server path: " & """" & ServerPath.Text & """" & vbCrLf & "______________________" & vbCrLf & ConsoleOutput.Text
 
-        Dim LogFileName As String = Program & " Log-" & DateTime.Now.ToString("dd.MM.yyyy") & " @ " & DateTime.Now.ToString("HH;mm")
+        Dim LogFileName As String = "SteamCMD.exe" & " Log-" & DateTime.Now.ToString("dd.MM.yyyy") & " @ " & DateTime.Now.ToString("HH;mm")
         File.WriteAllText("Logs\" & LogFileName & ".txt", ConsoleContent)
     End Sub
 
@@ -170,7 +169,6 @@ Public Class MainMenu
         If FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
             If My.Computer.FileSystem.FileExists(FolderBrowserDialog1.SelectedPath & "\steamcmd.exe") Then
                 ExePath.Text = FolderBrowserDialog1.SelectedPath
-                SteamCMDExePath = FolderBrowserDialog1.SelectedPath
 
                 Dim CMDConfig As New XmlWriterSettings()
                 CMDConfig.Indent = True
@@ -183,7 +181,7 @@ Public Class MainMenu
                     .WriteStartElement("SteamCMD-Config")
 
                     .WriteStartElement("CMDPath")
-                    .WriteString(SteamCMDExePath)
+                    .WriteString(ExePath.Text)
                     .WriteEndElement()
 
                     .WriteEndElement()
@@ -207,10 +205,10 @@ Public Class MainMenu
     Private Sub AnonymousCheckBox_CheckedChanged() Handles AnonymousCheckBox.CheckedChanged
         If AnonymousCheckBox.Checked = True Then
             UsernameTextBox.Enabled = False
-            PasswdTextBox.Enabled = False
+            PasswordTextBox.Enabled = False
         Else
             UsernameTextBox.Enabled = True
-            PasswdTextBox.Enabled = True
+            PasswordTextBox.Enabled = True
         End If
     End Sub
 
@@ -237,16 +235,7 @@ Public Class MainMenu
     End Sub
 
     Private Sub GamesList_SelectedIndexChanged() Handles GamesList.SelectedIndexChanged, GamesList.EnabledChanged
-        If TypeOf (GamesList.SelectedValue) Is KeyValuePair(Of String, String) Then
-            SteamAppID = GamesList.SelectedValue.Key
-        ElseIf TypeOf (GamesList.SelectedValue) Is Integer Then
-            SteamAppID = GamesList.SelectedValue.ToString()
-        ElseIf TypeOf (GamesList.SelectedValue) Is String Then
-            SteamAppID = GamesList.SelectedValue
-        End If
-
-
-        If Not SteamAppID = 90 Then
+        If Not GamesList.SelectedValue = 90 Then
             GoldSrcModInput.Hide()
             GoldSrcModLabel.Hide()
             AddCustomGameButton.Show()
@@ -255,44 +244,32 @@ Public Class MainMenu
             GoldSrcModLabel.Show()
             AddCustomGameButton.Hide()
         End If
-        Status.Text = "Game to install: " & GamesList.Text & " - Steam App ID:" & SteamAppID
+        Status.Text = "Game to install: " & GamesList.Text & " - Steam App ID:" & GamesList.SelectedValue
         Status.BackColor = Color.FromArgb(240, 240, 240)
     End Sub
 
     Private Sub ValidateCheckBox_CheckedChanged() Handles ValidateCheckBox.CheckedChanged
         If ValidateCheckBox.Checked = True Then
-            ValidateApp = " validate"
             Status.Text = "The files will be checked and validated."
-        Else
-            ValidateApp = ""
         End If
     End Sub
 
     Private Sub UpdateServerButton_Click() Handles UpdateServerButton.Click
-        FolderBrowserDialog1.SelectedPath = SteamCMDExePath
+        FolderBrowserDialog1.SelectedPath = ExePath.Text
         If My.Computer.FileSystem.FileExists(FolderBrowserDialog1.SelectedPath & "\steamcmd.exe") Then
-            If SteamAppID = Nothing Then
+            If GamesList.SelectedValue = Nothing Then
                 Status.Text = "Steam App ID not defined"
                 Status.BackColor = Color.FromArgb(240, 200, 200)
                 My.Computer.Audio.PlaySystemSound(
                     Media.SystemSounds.Hand)
             Else
-                If AnonymousCheckBox.Checked = True Then
-                    Login = "anonymous"
-                Else
-                    Dim UserName As String
-                    Dim Passwd As String
-                    UserName = UsernameTextBox.Text
-                    Passwd = PasswdTextBox.Text
-                    Login = UserName & " " & Passwd
-                End If
                 If UsernameTextBox.Text = Nothing AndAlso AnonymousCheckBox.Checked = False Then
                     Status.Text = "Please, type your Steam name."
                     Status.BackColor = Color.FromArgb(240, 200, 200)
                     My.Computer.Audio.PlaySystemSound(
                         Media.SystemSounds.Hand)
                 Else
-                    If PasswdTextBox.Text = Nothing AndAlso AnonymousCheckBox.Checked = False Then
+                    If PasswordTextBox.Text = Nothing AndAlso AnonymousCheckBox.Checked = False Then
                         Status.Text = "Please, type your Steam password. You can install many games as 'anonymous'."
                         Status.BackColor = Color.FromArgb(240, 200, 200)
                         My.Computer.Audio.PlaySystemSound(
@@ -313,16 +290,15 @@ Public Class MainMenu
                                 My.Computer.Audio.PlaySystemSound(
                                     Media.SystemSounds.Hand)
                             End If
-                            ServerPathInstallation = Chr(34) & ServerPath.Text & Chr(34)
                             Status.Text = "Installing/Updating..."
                             Status.BackColor = Color.FromArgb(240, 240, 240)
 
-                            If CheckBoxConsole.Checked = False Then
+                            If ConsoleCheckBoxUpdate.Checked = False Then
                                 p = New Process
-                                With (p.StartInfo)
-                                    .FileName = SteamCMDExePath & "\steamcmd.exe"
+                                With p.StartInfo
+                                    .FileName = ExePath.Text & "\steamcmd.exe"
                                     .UseShellExecute = False
-                                    .Arguments = "SteamCmd +login " & Login & " +force_install_dir " & ServerPathInstallation & GoldSrcMod & " +app_update " & SteamAppID & ValidateApp
+                                    .Arguments = "SteamCmd +login " & If(AnonymousCheckBox.Checked, "anonymous", UsernameTextBox.Text & " " & PasswordTextBox.Text) & " +force_install_dir " & """" & ServerPath.Text & """" & GoldSrcMod & " +app_update " & GamesList.SelectedValue & If((ValidateCheckBox.Checked), " validate", "")
                                 End With
                                 p.Start()
                             Else
@@ -351,19 +327,19 @@ Public Class MainMenu
     Private Sub ThreadTaskSteamCMD()
         Control.CheckForIllegalCrossThreadCalls = False
         p = New Process
-        With (p.StartInfo)
-            .FileName = SteamCMDExePath & "\steamcmd.exe"
+        With p.StartInfo
+            .FileName = ExePath.Text & "\steamcmd.exe"
             .UseShellExecute = False
             .CreateNoWindow = True
             .RedirectStandardOutput = True
             .RedirectStandardInput = True
             .RedirectStandardError = True
-            .Arguments = "SteamCmd +login " & Login & " +force_install_dir " & ServerPathInstallation & GoldSrcMod & " +app_update " & SteamAppID & ValidateApp
+            .Arguments = "SteamCmd +login " & If(AnonymousCheckBox.Checked, "anonymous", UsernameTextBox.Text & " " & PasswordTextBox.Text) & " +force_install_dir " & """" & ServerPath.Text & """" & GoldSrcMod & " +app_update " & GamesList.SelectedValue & If((ValidateCheckBox.Checked), " validate", "")
         End With
 
         p.Start()
 
-        If CheckBoxConsole.Checked = True Then
+        If ConsoleCheckBoxUpdate.Checked = True Then
             Dim pStreamWriter As StreamWriter = p.StandardInput
             p.BeginOutputReadLine()
             p.BeginErrorReadLine()
@@ -398,7 +374,6 @@ Public Class MainMenu
         If FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
             If My.Computer.FileSystem.FileExists(FolderBrowserDialog1.SelectedPath & "\srcds.exe") Then
                 SrcdsExePathTextBox.Text = FolderBrowserDialog1.SelectedPath
-                SrcdsExePath = FolderBrowserDialog1.SelectedPath
                 MapList.Enabled = True
                 Status.Text = "Current path of 'srcds.exe' is " & FolderBrowserDialog1.SelectedPath
                 Status.BackColor = Color.FromArgb(240, 240, 240)
@@ -423,7 +398,7 @@ Public Class MainMenu
     End Sub
 
     Private Sub SrcdsExePathOpen_Click() Handles SrcdsExePathOpen.Click
-        Process.Start("explorer.exe", SrcdsExePath)
+        Process.Start("explorer.exe", SrcdsExePathTextBox.Text)
     End Sub
 
     Private Sub ModList_SelectedIndex() Handles ModList.SelectedIndexChanged, ModList.EnabledChanged
@@ -472,8 +447,8 @@ Public Class MainMenu
             GameMod = CustomModTextBox.Text
             DebugModeCheckBox.Enabled = False
             SourceTVCheckBox.Enabled = False
-            ConsoleCheckBox.Checked = False
-            ConsoleCheckBox.Enabled = False
+            ConsoleCheckBoxServer.Checked = False
+            ConsoleCheckBoxServer.Enabled = False
             InsecureCheckBox.Enabled = False
             BotsCheckBox.Enabled = False
             DevModeCheckBox.Enabled = False
@@ -484,8 +459,8 @@ Public Class MainMenu
             CustomModTextBox.Enabled = False
             DebugModeCheckBox.Enabled = True
             SourceTVCheckBox.Enabled = True
-            ConsoleCheckBox.Checked = True
-            ConsoleCheckBox.Enabled = True
+            ConsoleCheckBoxServer.Checked = True
+            ConsoleCheckBoxServer.Enabled = True
             InsecureCheckBox.Enabled = True
             BotsCheckBox.Enabled = True
             DevModeCheckBox.Enabled = True
@@ -565,8 +540,8 @@ Public Class MainMenu
         End If
     End Sub
 
-    Private Sub ConsoleCheckBox_CheckedChanged() Handles ConsoleCheckBox.CheckedChanged
-        If ConsoleCheckBox.Checked = True Then
+    Private Sub ConsoleCheckBox_CheckedChanged() Handles ConsoleCheckBoxServer.CheckedChanged
+        If ConsoleCheckBoxServer.Checked = True Then
             ConsoleMode = "-console "
         Else
             ConsoleMode = ""
@@ -626,8 +601,8 @@ Public Class MainMenu
                         Status.BackColor = Color.FromArgb(240, 240, 240)
 
                         Dim p As New Process
-                        With (p.StartInfo)
-                            .FileName = SrcdsExePath & "\srcds.exe"
+                        With p.StartInfo
+                            .FileName = SrcdsExePathTextBox.Text & "\srcds.exe"
                             .UseShellExecute = False
                             .CreateNoWindow = False
                             .Arguments = Parameters & "-game " & GameMod & " -port " & UDPPort & " +hostname " & Chr(34) & ServerName & Chr(34) & " +map " & ServerMap & " +maxplayers " & MaxPlayers & " +sv_lan " & NetworkComboBox.SelectedIndex & " " & AdditionalCommands
@@ -688,7 +663,7 @@ Public Class MainMenu
         SaveFileDialog1.Filter = "Extensible Markup Language (*.xml)|*.xml"
         SaveFileDialog1.FileName = "Config.xml"
 
-        If SrcdsExePath = Nothing Then
+        If SrcdsExePathTextBox.Text = Nothing Then
             Status.Text = "Please, select where is located the file 'srcds.exe'."
             Status.BackColor = Color.FromArgb(240, 200, 200)
         Else
@@ -706,7 +681,7 @@ Public Class MainMenu
                     .WriteStartElement("Server-Config")
 
                     .WriteStartElement("Path")
-                    .WriteString(SrcdsExePath)
+                    .WriteString(SrcdsExePathTextBox.Text)
                     .WriteEndElement()
 
                     .WriteStartElement("Game")
@@ -714,7 +689,11 @@ Public Class MainMenu
                     .WriteEndElement()
 
                     .WriteStartElement("SaveLogin")
-                    .WriteString(SaveLoginDetails.Checked)
+                    .WriteString(SaveLoginDetails.CheckState)
+                    .WriteEndElement()
+
+                    .WriteStartElement("LoginAnon")
+                    .WriteString(AnonymousCheckBox.CheckState)
                     .WriteEndElement()
 
                     If SaveLoginDetails.Checked Then
@@ -723,9 +702,17 @@ Public Class MainMenu
                         .WriteEndElement()
 
                         .WriteStartElement("LoginPass")
-                        .WriteString(PasswdTextBox.Text)
+                        .WriteString(PasswordTextBox.Text)
                         .WriteEndElement()
                     End If
+
+                    .WriteStartElement("ValidateFiles")
+                    .WriteString(ValidateCheckBox.CheckState)
+                    .WriteEndElement()
+
+                    .WriteStartElement("UseGUIConsoleUpdate")
+                    .WriteString(ConsoleCheckBoxUpdate.CheckState)
+                    .WriteEndElement()
 
                     .WriteStartElement("HostName")
                     .WriteString(ServerName)
@@ -734,11 +721,9 @@ Public Class MainMenu
                     If ModList.Enabled = False Then
                         .WriteStartElement("CustomMod")
                         .WriteString(CustomModTextBox.Text)
-
                     Else
                         .WriteStartElement("Mod")
                         .WriteString(ModList.Text)
-
                     End If
                     .WriteEndElement()
 
@@ -770,8 +755,8 @@ Public Class MainMenu
                     .WriteValue(SourceTVCheckBox.CheckState)
                     .WriteEndElement()
 
-                    .WriteStartElement("ConsoleMode")
-                    .WriteValue(ConsoleCheckBox.CheckState)
+                    .WriteStartElement("UseGUIConsoleServer")
+                    .WriteValue(ConsoleCheckBoxServer.CheckState)
                     .WriteEndElement()
 
                     .WriteStartElement("Insecure")
@@ -809,15 +794,15 @@ Public Class MainMenu
 
         If XmlConfigOpenFileDialog.ShowDialog() = DialogResult.OK Then
             Dim XmlConfig As XmlReader = New XmlTextReader(XmlConfigOpenFileDialog.FileName)
-            While (XmlConfig.Read())
+            While XmlConfig.Read()
                 Dim type = XmlConfig.NodeType
-                If (type = XmlNodeType.Element) Then
-                    If (XmlConfig.Name = "SteamCMD") Then
-                        SteamCMDExePath = XmlConfig.ReadInnerXml.ToString()
+                If type = XmlNodeType.Element Then
+                    If XmlConfig.Name = "SteamCMD" Then
+                        ExePath.Text = XmlConfig.ReadInnerXml.ToString()
                     End If
-                    If (XmlConfig.Name = "Path") Then
-                        SrcdsExePath = XmlConfig.ReadInnerXml.ToString()
-                        SrcdsExePathTextBox.Text = SrcdsExePath
+                    If XmlConfig.Name = "Path" Then
+                        SrcdsExePathTextBox.Text = XmlConfig.ReadInnerXml.ToString()
+                        ServerPath.Text = XmlConfig.ReadInnerXml().ToString()
                         MapList.Enabled = True
                         CFGMenu.Enabled = True
                         CommonFilesMenu.Enabled = True
@@ -825,70 +810,79 @@ Public Class MainMenu
                         RunServerButton.Enabled = True
                         SrcdsExePathOpen.Enabled = True
                     End If
-                    If (XmlConfig.Name = "HostName") Then
+                    If XmlConfig.Name = "Game" Then
+                        GamesList.SelectedIndex = CInt(XmlConfig.ReadInnerXml().ToString())
+                    End If
+                    If XmlConfig.Name = "SaveLogin" Then
+                        SaveLoginDetails.Checked = Val(XmlConfig.ReadInnerXml.Chars(0))
+                    End If
+                    If XmlConfig.Name = "LoginAnon" Then
+                        AnonymousCheckBox.Checked = Val(XmlConfig.ReadInnerXml.Chars(0))
+                    End If
+                    If XmlConfig.Name = "LoginUser" Then
+                        UsernameTextBox.Text = XmlConfig.ReadInnerXml.ToString()
+                    End If
+                    If XmlConfig.Name = "LoginPass" Then
+                        PasswordTextBox.Text = XmlConfig.ReadInnerXml.ToString()
+                    End If
+                    If XmlConfig.Name = "ValidateFiles" Then
+                        ValidateCheckBox.Checked = Val(XmlConfig.ReadInnerXml.Chars(0))
+                    End If
+                    If XmlConfig.Name = "UseGUIConsoleUpdate" Then
+                        ConsoleCheckBoxUpdate.Checked = Val(XmlConfig.ReadInnerXml.Chars(0))
+                    End If
+                    If XmlConfig.Name = "HostName" Then
                         ServerNameTextBox.Text = XmlConfig.ReadInnerXml.ToString()
                     End If
-                    If (XmlConfig.Name = "Mod") Then
+                    If XmlConfig.Name = "Mod" Then
                         ModList.Text = XmlConfig.ReadInnerXml.ToString()
                         'Define the game with ModList.Text
                         ModList_SelectedIndex()
                     End If
-                    If (XmlConfig.Name = "CustomMod") Then
+                    If XmlConfig.Name = "CustomMod" Then
                         CustomModTextBox.Text = XmlConfig.ReadInnerXml.ToString
                         CustomModCheckBox.Checked = True
                     End If
-                    If (XmlConfig.Name = "Map") Then
+                    If XmlConfig.Name = "Map" Then
                         MapList.Enabled = True
                         ServerMap = XmlConfig.ReadInnerXml.ToString()
                         MapList.Text = ServerMap
                     End If
-                    If (XmlConfig.Name = "Network") Then
+                    If XmlConfig.Name = "Network" Then
                         NetworkComboBox.SelectedIndex = XmlConfig.ReadInnerXml.ToString()
                     End If
-                    If (XmlConfig.Name = "Players") Then
+                    If XmlConfig.Name = "Players" Then
                         MaxPlayers = XmlConfig.ReadInnerXml.ToString
                         MaxPlayersTexBox.Value = MaxPlayers
                     End If
-                    If (XmlConfig.Name = "RCON") Then
+                    If XmlConfig.Name = "RCON" Then
                         RCON = XmlConfig.ReadInnerXml.ToString
                         RconTextBox.Text = RCON
                         CheckBoxMask.Checked = True
                     End If
-                    If (XmlConfig.Name = "Port") Then
+                    If XmlConfig.Name = "Port" Then
                         UDPPort = XmlConfig.ReadInnerXml.ToString
                         UDPPortTexBox.Value = UDPPort
                     End If
-                    If (XmlConfig.Name = "Debug") Then
+                    If XmlConfig.Name = "Debug" Then
                         DebugModeCheckBox.Checked = Val(XmlConfig.ReadInnerXml.Chars(0))
                     End If
-                    If (XmlConfig.Name = "SourceTV") Then
+                    If XmlConfig.Name = "SourceTV" Then
                         SourceTVCheckBox.Checked = Val(XmlConfig.ReadInnerXml.Chars(0))
                     End If
-                    If (XmlConfig.Name = "ConsoleMode") Then
-                        ConsoleCheckBox.Checked = Val(XmlConfig.ReadInnerXml.Chars(0))
+                    If XmlConfig.Name = "UseGuiConsoleServer" Then
+                        ConsoleCheckBoxServer.Checked = Val(XmlConfig.ReadInnerXml.Chars(0))
                     End If
-                    If (XmlConfig.Name = "Insecure") Then
-                        If (XmlConfig.ReadInnerXml.Chars(0) = "0") Then
-                            InsecureCheckBox.Checked = False
-                        Else
-                            InsecureCheckBox.Checked = True
-                        End If
+                    If XmlConfig.Name = "Insecure" Then
+                        InsecureCheckBox.Checked = Val(XmlConfig.ReadInnerXml.Chars(0))
                     End If
-                    If (XmlConfig.Name = "NoBots") Then
-                        If (XmlConfig.ReadInnerXml.Chars(0) = "0") Then
-                            BotsCheckBox.Checked = False
-                        Else
-                            BotsCheckBox.Checked = True
-                        End If
+                    If XmlConfig.Name = "NoBots" Then
+                        BotsCheckBox.Checked = Val(XmlConfig.ReadInnerXml.Chars(0))
                     End If
-                    If (XmlConfig.Name = "DevMode") Then
-                        If (XmlConfig.ReadInnerXml.Chars(0) = "0") Then
-                            DevModeCheckBox.Checked = False
-                        Else
-                            DevModeCheckBox.Checked = True
-                        End If
+                    If XmlConfig.Name = "DevMode" Then
+                        DevModeCheckBox.Checked = Val(XmlConfig.ReadInnerXml.Chars(0))
                     End If
-                    If (XmlConfig.Name = "AdditionalCommands") Then
+                    If XmlConfig.Name = "AdditionalCommands" Then
                         AdditionalCommands = XmlConfig.ReadInnerXml.ToString
                     End If
                 End If
@@ -950,7 +944,7 @@ Public Class MainMenu
 
     Private Sub MenuTxt_Click(ByVal sender As System.Object, ByVal e As EventArgs) Handles MotdTxtButton.Click, MapcycleTxtButton.Click, MaplistTxtButton.Click
         Dim TxtFile As ToolStripMenuItem = CType(sender, ToolStripMenuItem)
-        Dim MotdPath As String = SrcdsExePath & "\" & GameMod & "\" & TxtFile.Text & ".txt"
+        Dim MotdPath As String = SrcdsExePathTextBox.Text & "\" & GameMod & "\" & TxtFile.Text & ".txt"
         If File.Exists(MotdPath) Then
             Process.Start(MotdPath)
         Else
@@ -1020,9 +1014,6 @@ Public Class MainMenu
             Dim result As Integer = MessageBox.Show("Really want to stop and close SteamCMD?", "Stop SteamCMD", MessageBoxButtons.YesNo)
             If result = DialogResult.Yes Then
                 If Not proc.HasExited Then
-                    Game = "Game: " & GamesList.Text
-                    Program = "SteamCmd.exe"
-                    PathForLog = "Server path: " & ServerPathInstallation
                     SaveLog()
                     proc.Kill()
                     ConsoleInput.Enabled = False
@@ -1069,14 +1060,14 @@ Public Class MainMenu
         Name = InputBox("Custom Game Name")
         ID = InputBox("Custom Game App ID")
 
-        If ("" = Name) Then
+        If "" = Name Then
             My.Computer.Audio.PlaySystemSound(
             Media.SystemSounds.Hand)
             MessageBox.Show("Custom Game Name was not entered.", "Add Custom Game Error")
             Return
         End If
 
-        If ("" = ID) Then
+        If "" = ID Then
             My.Computer.Audio.PlaySystemSound(
             Media.SystemSounds.Hand)
             MessageBox.Show("Custom Game ID was not entered.", "Add Custom Game Error")
@@ -1085,7 +1076,7 @@ Public Class MainMenu
 
         Dim TestInt As Integer = 0
         Integer.TryParse(ID, TestInt)
-        If (TestInt = 0) Then
+        If TestInt = 0 Then
             My.Computer.Audio.PlaySystemSound(
             Media.SystemSounds.Hand)
             MessageBox.Show("Custom Game ID was not a number (e.x 444880).", "Add Custom Game Error")
@@ -1104,14 +1095,14 @@ Public Class MainMenu
     Private Sub LoadGamesList()
         Dim XmlDoc As XmlReader = New XmlTextReader("Settings/SteamCMDGames.xml")
         'XmlDoc.ReadToFollowing("Games")
-        While (XmlDoc.Read())
+        While XmlDoc.Read()
             Dim type = XmlDoc.NodeType
-            If (type = XmlNodeType.Element) Then
-                If (XmlDoc.Name = "Game") Then
+            If type = XmlNodeType.Element Then
+                If XmlDoc.Name = "Game" Then
                     XmlDoc.MoveToAttribute("id")
                     Dim ID As String = XmlDoc.Value
                     XmlDoc.Read() 'move pointer to next node part
-                    If (XmlDoc.NodeType = XmlNodeType.Text) Then
+                    If XmlDoc.NodeType = XmlNodeType.Text Then
                         Dim Name As String = XmlDoc.Value
                         GameDictionary.Add(ID, Name)
                     End If

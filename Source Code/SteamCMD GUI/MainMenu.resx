@@ -399,31 +399,31 @@
   <data name="&gt;&gt;AddCustomGameButton.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="CheckBoxConsole.AutoSize" type="System.Boolean, mscorlib">
+  <data name="ConsoleCheckBoxUpdate.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="CheckBoxConsole.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="ConsoleCheckBoxUpdate.Location" type="System.Drawing.Point, System.Drawing">
     <value>103, 178</value>
   </data>
-  <data name="CheckBoxConsole.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 17</value>
+  <data name="ConsoleCheckBoxUpdate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>108, 17</value>
   </data>
-  <data name="CheckBoxConsole.TabIndex" type="System.Int32, mscorlib">
+  <data name="ConsoleCheckBoxUpdate.TabIndex" type="System.Int32, mscorlib">
     <value>20</value>
   </data>
-  <data name="CheckBoxConsole.Text" xml:space="preserve">
-    <value>Use the Console</value>
+  <data name="ConsoleCheckBoxUpdate.Text" xml:space="preserve">
+    <value>Use GUI Console</value>
   </data>
-  <data name="&gt;&gt;CheckBoxConsole.Name" xml:space="preserve">
-    <value>CheckBoxConsole</value>
+  <data name="&gt;&gt;ConsoleCheckBoxUpdate.Name" xml:space="preserve">
+    <value>ConsoleCheckBoxUpdate</value>
   </data>
-  <data name="&gt;&gt;CheckBoxConsole.Type" xml:space="preserve">
+  <data name="&gt;&gt;ConsoleCheckBoxUpdate.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;CheckBoxConsole.Parent" xml:space="preserve">
+  <data name="&gt;&gt;ConsoleCheckBoxUpdate.Parent" xml:space="preserve">
     <value>GroupBox2</value>
   </data>
-  <data name="&gt;&gt;CheckBoxConsole.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;ConsoleCheckBoxUpdate.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="ValidateCheckBox.AutoSize" type="System.Boolean, mscorlib">
@@ -690,28 +690,28 @@
   <data name="&gt;&gt;UsernameTextBox.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
-  <data name="PasswdTextBox.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="PasswordTextBox.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9.75pt, style=Bold</value>
   </data>
-  <data name="PasswdTextBox.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="PasswordTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 90</value>
   </data>
-  <data name="PasswdTextBox.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="PasswordTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 22</value>
   </data>
-  <data name="PasswdTextBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="PasswordTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="&gt;&gt;PasswdTextBox.Name" xml:space="preserve">
-    <value>PasswdTextBox</value>
+  <data name="&gt;&gt;PasswordTextBox.Name" xml:space="preserve">
+    <value>PasswordTextBox</value>
   </data>
-  <data name="&gt;&gt;PasswdTextBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;PasswordTextBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.MaskedTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;PasswdTextBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;PasswordTextBox.Parent" xml:space="preserve">
     <value>GroupBox2</value>
   </data>
-  <data name="&gt;&gt;PasswdTextBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;PasswordTextBox.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
   <data name="GoldSrcModLabel.AutoSize" type="System.Boolean, mscorlib">
@@ -1167,31 +1167,31 @@
   <data name="&gt;&gt;RunServerButton.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="ConsoleCheckBox.AutoSize" type="System.Boolean, mscorlib">
+  <data name="ConsoleCheckBoxServer.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="ConsoleCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="ConsoleCheckBoxServer.Location" type="System.Drawing.Point, System.Drawing">
     <value>196, 156</value>
   </data>
-  <data name="ConsoleCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 17</value>
+  <data name="ConsoleCheckBoxServer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>108, 17</value>
   </data>
-  <data name="ConsoleCheckBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="ConsoleCheckBoxServer.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
   </data>
-  <data name="ConsoleCheckBox.Text" xml:space="preserve">
-    <value>Console Mode</value>
+  <data name="ConsoleCheckBoxServer.Text" xml:space="preserve">
+    <value>Use GUI Console</value>
   </data>
-  <data name="&gt;&gt;ConsoleCheckBox.Name" xml:space="preserve">
-    <value>ConsoleCheckBox</value>
+  <data name="&gt;&gt;ConsoleCheckBoxServer.Name" xml:space="preserve">
+    <value>ConsoleCheckBoxServer</value>
   </data>
-  <data name="&gt;&gt;ConsoleCheckBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;ConsoleCheckBoxServer.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ConsoleCheckBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;ConsoleCheckBoxServer.Parent" xml:space="preserve">
     <value>GroupBox6</value>
   </data>
-  <data name="&gt;&gt;ConsoleCheckBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;ConsoleCheckBoxServer.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
   <data name="BotsCheckBox.AutoSize" type="System.Boolean, mscorlib">

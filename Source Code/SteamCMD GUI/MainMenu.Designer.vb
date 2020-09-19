@@ -42,6 +42,7 @@ Partial Class MainMenu
         Me.UpdateServerButton = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ServerPath = New System.Windows.Forms.TextBox()
+        Me.SaveLoginDetails = New System.Windows.Forms.CheckBox()
         Me.AnonymousCheckBox = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.UsernameTextBox = New System.Windows.Forms.TextBox()
@@ -89,11 +90,6 @@ Partial Class MainMenu
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.SrcdsExePathOpen = New System.Windows.Forms.Button()
-        Me.SrcdsExeBrowserButton = New System.Windows.Forms.Button()
-        Me.SrcdsExePathTextBox = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.ConsoleTab = New System.Windows.Forms.TabPage()
         Me.ConsoleConnect = New System.Windows.Forms.Button()
         Me.ConsoleIPPrint = New System.Windows.Forms.Button()
@@ -133,6 +129,11 @@ Partial Class MainMenu
         Me.DonateButton = New System.Windows.Forms.PictureBox()
         Me.IPTextbox = New System.Windows.Forms.TextBox()
         Me.IPButton = New System.Windows.Forms.Button()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.SrcdsExePathTextBox = New System.Windows.Forms.TextBox()
+        Me.SrcdsExeBrowserButton = New System.Windows.Forms.Button()
+        Me.SrcdsExePathOpen = New System.Windows.Forms.Button()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -143,11 +144,11 @@ Partial Class MainMenu
         Me.GroupBox6.SuspendLayout()
         CType(Me.UDPPortTexBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MaxPlayersTexBox, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox5.SuspendLayout()
         Me.ConsoleTab.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.DonateButton, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox5.SuspendLayout()
         Me.SuspendLayout()
         '
         'GamesList
@@ -222,6 +223,7 @@ Partial Class MainMenu
         Me.GroupBox2.Controls.Add(Me.UpdateServerButton)
         Me.GroupBox2.Controls.Add(Me.Label2)
         Me.GroupBox2.Controls.Add(Me.ServerPath)
+        Me.GroupBox2.Controls.Add(Me.SaveLoginDetails)
         Me.GroupBox2.Controls.Add(Me.AnonymousCheckBox)
         Me.GroupBox2.Controls.Add(Me.Label1)
         Me.GroupBox2.Controls.Add(Me.UsernameTextBox)
@@ -284,6 +286,14 @@ Partial Class MainMenu
         resources.ApplyResources(Me.ServerPath, "ServerPath")
         Me.ServerPath.Name = "ServerPath"
         Me.ServerPath.TabStop = False
+        '
+        'SaveLoginDetails
+        '
+        resources.ApplyResources(Me.SaveLoginDetails, "SaveLoginDetails")
+        Me.SaveLoginDetails.Name = "SaveLoginDetails"
+        Me.SaveLoginDetails.ThreeState = True
+        Me.ToolTip1.SetToolTip(Me.SaveLoginDetails, resources.GetString("SaveLoginDetails.ToolTip"))
+        Me.SaveLoginDetails.UseVisualStyleBackColor = True
         '
         'AnonymousCheckBox
         '
@@ -600,41 +610,6 @@ Partial Class MainMenu
         resources.ApplyResources(Me.Label5, "Label5")
         Me.Label5.Name = "Label5"
         '
-        'GroupBox5
-        '
-        Me.GroupBox5.Controls.Add(Me.SrcdsExePathOpen)
-        Me.GroupBox5.Controls.Add(Me.SrcdsExeBrowserButton)
-        Me.GroupBox5.Controls.Add(Me.SrcdsExePathTextBox)
-        Me.GroupBox5.Controls.Add(Me.Label3)
-        resources.ApplyResources(Me.GroupBox5, "GroupBox5")
-        Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.TabStop = False
-        '
-        'SrcdsExePathOpen
-        '
-        Me.SrcdsExePathOpen.BackgroundImage = Global.SteamCMD_GUI.My.Resources.Resources.Folder
-        resources.ApplyResources(Me.SrcdsExePathOpen, "SrcdsExePathOpen")
-        Me.SrcdsExePathOpen.Name = "SrcdsExePathOpen"
-        Me.SrcdsExePathOpen.TabStop = False
-        Me.SrcdsExePathOpen.UseVisualStyleBackColor = True
-        '
-        'SrcdsExeBrowserButton
-        '
-        resources.ApplyResources(Me.SrcdsExeBrowserButton, "SrcdsExeBrowserButton")
-        Me.SrcdsExeBrowserButton.Name = "SrcdsExeBrowserButton"
-        Me.SrcdsExeBrowserButton.UseVisualStyleBackColor = True
-        '
-        'SrcdsExePathTextBox
-        '
-        resources.ApplyResources(Me.SrcdsExePathTextBox, "SrcdsExePathTextBox")
-        Me.SrcdsExePathTextBox.Name = "SrcdsExePathTextBox"
-        Me.SrcdsExePathTextBox.TabStop = False
-        '
-        'Label3
-        '
-        resources.ApplyResources(Me.Label3, "Label3")
-        Me.Label3.Name = "Label3"
-        '
         'ConsoleTab
         '
         Me.ConsoleTab.Controls.Add(Me.ConsoleConnect)
@@ -872,6 +847,41 @@ Partial Class MainMenu
         Me.IPButton.TabStop = False
         Me.IPButton.UseVisualStyleBackColor = False
         '
+        'Label3
+        '
+        resources.ApplyResources(Me.Label3, "Label3")
+        Me.Label3.Name = "Label3"
+        '
+        'SrcdsExePathTextBox
+        '
+        resources.ApplyResources(Me.SrcdsExePathTextBox, "SrcdsExePathTextBox")
+        Me.SrcdsExePathTextBox.Name = "SrcdsExePathTextBox"
+        Me.SrcdsExePathTextBox.TabStop = False
+        '
+        'SrcdsExeBrowserButton
+        '
+        resources.ApplyResources(Me.SrcdsExeBrowserButton, "SrcdsExeBrowserButton")
+        Me.SrcdsExeBrowserButton.Name = "SrcdsExeBrowserButton"
+        Me.SrcdsExeBrowserButton.UseVisualStyleBackColor = True
+        '
+        'SrcdsExePathOpen
+        '
+        Me.SrcdsExePathOpen.BackgroundImage = Global.SteamCMD_GUI.My.Resources.Resources.Folder
+        resources.ApplyResources(Me.SrcdsExePathOpen, "SrcdsExePathOpen")
+        Me.SrcdsExePathOpen.Name = "SrcdsExePathOpen"
+        Me.SrcdsExePathOpen.TabStop = False
+        Me.SrcdsExePathOpen.UseVisualStyleBackColor = True
+        '
+        'GroupBox5
+        '
+        Me.GroupBox5.Controls.Add(Me.SrcdsExePathOpen)
+        Me.GroupBox5.Controls.Add(Me.SrcdsExeBrowserButton)
+        Me.GroupBox5.Controls.Add(Me.SrcdsExePathTextBox)
+        Me.GroupBox5.Controls.Add(Me.Label3)
+        resources.ApplyResources(Me.GroupBox5, "GroupBox5")
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.TabStop = False
+        '
         'MainMenu
         '
         resources.ApplyResources(Me, "$this")
@@ -904,14 +914,14 @@ Partial Class MainMenu
         Me.GroupBox6.PerformLayout()
         CType(Me.UDPPortTexBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MaxPlayersTexBox, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox5.ResumeLayout(False)
-        Me.GroupBox5.PerformLayout()
         Me.ConsoleTab.ResumeLayout(False)
         Me.ConsoleTab.PerformLayout()
         Me.ContextMenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         CType(Me.DonateButton, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox5.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -948,10 +958,6 @@ Partial Class MainMenu
     Friend WithEvents TabMenu As System.Windows.Forms.TabControl
     Friend WithEvents UpdateTab As System.Windows.Forms.TabPage
     Friend WithEvents RunTab As System.Windows.Forms.TabPage
-    Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
-    Friend WithEvents SrcdsExeBrowserButton As System.Windows.Forms.Button
-    Friend WithEvents SrcdsExePathTextBox As System.Windows.Forms.TextBox
-    Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents GroupBox6 As System.Windows.Forms.GroupBox
     Friend WithEvents CustomModTextBox As System.Windows.Forms.TextBox
     Friend WithEvents ModList As System.Windows.Forms.ComboBox
@@ -990,7 +996,6 @@ Partial Class MainMenu
     Friend WithEvents SaveFileDialog1 As System.Windows.Forms.SaveFileDialog
     Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AboutToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents SrcdsExePathOpen As System.Windows.Forms.Button
     Friend WithEvents ToolsMenu As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CFGMenu As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NewFileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -1025,5 +1030,10 @@ Partial Class MainMenu
     Friend WithEvents ConsoleIPPrint As System.Windows.Forms.Button
     Friend WithEvents IPTextbox As System.Windows.Forms.TextBox
     Friend WithEvents IPButton As System.Windows.Forms.Button
-
+    Friend WithEvents SaveLoginDetails As CheckBox
+    Friend WithEvents GroupBox5 As GroupBox
+    Friend WithEvents SrcdsExePathOpen As Button
+    Friend WithEvents SrcdsExeBrowserButton As Button
+    Friend WithEvents SrcdsExePathTextBox As TextBox
+    Friend WithEvents Label3 As Label
 End Class

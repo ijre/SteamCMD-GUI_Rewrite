@@ -4,15 +4,13 @@ Imports System.IO
 Imports System.Net
 Imports System.Xml
 Imports System.Text
-Imports Ookii
-Imports Ookii.Dialogs
 
 Module Module1
-    Public GoldSrcMod As String
+    Public SteamAppID, GoldSrcMod As String
     ' Run Server
-    Public GameMod, ServerName, ServerMap, NetworkType, MaxPlayers, RCON, UDPPort, DebugMode, SourceTV, ConsoleMode, InsecureMode, NoBots, DevMode, AdditionalCommands, Parameters As String
+    Public GameMod, ServerName, ServerMap, NetworkType, MaxPlayers, UDPPort, DebugMode, SourceTV, ConsoleMode, InsecureMode, NoBots, DevMode, AdditionalCommands, Parameters As String
     ' Strings
-    Public CantFindSteamCMDString As String
+    Public CantFindSteamCMDString As String = "Can't find the file ""steamcmd.exe""!"
     Public GameDictionary As Dictionary(Of String, String) = New Dictionary(Of String, String)
 End Module
 
@@ -38,30 +36,10 @@ Public Class MainMenu
         ThrSteamCMD = New Thread(AddressOf ThreadTaskSteamCMD)
         ModList.SelectedIndex = 1
         NetworkComboBox.SelectedIndex = 0
-        ConsoleCommandList.SelectedIndex = 0
-        Status.Text = ""
-        Tips()
-        IPPrint()
         If Not Directory.Exists("Settings") Then
             Directory.CreateDirectory("Settings")
         End If
-        If Not Directory.Exists("Logs") Then
-            Directory.CreateDirectory("Logs")
-        End If
-        If File.Exists("Settings/SteamCMDPath.xml") Then
-            Dim XmlConfig As XmlReader = New XmlTextReader("Settings/SteamCMDPath.xml")
-            While XmlConfig.Read()
-                Dim type = XmlConfig.NodeType
-                If type = XmlNodeType.Element Then
-                    If XmlConfig.Name = "CMDPath" Then
-                        ExePath.Text = XmlConfig.ReadInnerXml.ToString()
-                        FolderBrowserDialog1.SelectedPath = ExePath.Text
-                        LogMenu.Enabled = True
-                    End If
-                End If
-            End While
-            XmlConfig.Close()
-        End If
+
         If File.Exists("Settings/SteamCMDGames.xml") Then
             LoadGamesList()
         Else
@@ -71,37 +49,10 @@ Public Class MainMenu
         GamesList.DisplayMember = "Value"
         GamesList.ValueMember = "Key"
         GamesList.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged
-        GamesList.SelectedIndex = 1
+        GamesList.SelectedIndex = 0
 
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0F, 13.0F)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-    End Sub
-
-    Private Sub Tips()
-        ToolTip1.SetToolTip(OpenFolderButton, "Open current folder")
-        ToolTip1.SetToolTip(CheckBoxMask, "Mask/Unmask RCON")
-        ToolTip1.SetToolTip(AddButton, "Add more command-line parameters")
-        ToolTip1.SetToolTip(ConsoleConnect, "Connect to server")
-        ToolTip1.SetToolTip(ConsoleOpenLog, "Open logs folder")
-        ToolTip1.SetToolTip(ConsoleSaveLog, "Save the current log")
-        ToolTip1.SetToolTip(ConsoleClearLog, "Clear log")
-        ToolTip1.SetToolTip(DonateButton, "Donate via PayPal")
-        CantFindSteamCMDString = "Can't find the file 'steamcmd.exe'!"
-    End Sub
-
-    Private Sub IPPrint() Handles ConsoleIPPrint.Click
-        For Each LocalIP As System.Net.IPAddress In IPs.AddressList
-            ConsoleOutput.Text = "Local IP address:" & vbCr & vbTab & LocalIP.ToString & vbCr & vbCr & "Public IP address:" & vbCr & vbTab & PublicIP
-        Next
-        IPTextbox.Text = PublicIP
-    End Sub
-
-    ' Autosave log
-    Private Sub SaveLog()
-        Dim ConsoleContent As String = DateTime.Now & " from SteamCmd.exe" & vbCrLf & "______________________" & vbCrLf & "Game: " & GamesList.Text & vbCrLf & "Server path: " & """" & ServerPath.Text & """" & vbCrLf & "______________________" & vbCrLf & ConsoleOutput.Text
-
-        Dim LogFileName As String = "SteamCMD.exe" & " Log-" & DateTime.Now.ToString("dd.MM.yyyy") & " @ " & DateTime.Now.ToString("HH;mm")
-        File.WriteAllText("Logs\" & LogFileName & ".txt", ConsoleContent)
     End Sub
 
     ' Resize tabs
@@ -111,26 +62,11 @@ Public Class MainMenu
             GroupBox3.Show()
             AboutButton.Show()
             ExitButton.Show()
-            DonateButton.Show()
             DonwloadBar.Show()
             TabMenu.Size = New Size(417, 303)
             Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0F, 13.0F)
             Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         End If
-    End Sub
-
-    Private Sub ConsoleTab_Click() Handles ConsoleTab.Enter
-        GroupBox1.Hide()
-        GroupBox3.Hide()
-        AboutButton.Hide()
-        ExitButton.Hide()
-        DonateButton.Hide()
-        DonwloadBar.Hide()
-        TabMenu.Size = New Size(588, 303)
-        ConsoleTab.Size = New Size(580, 277)
-        ConsoleOutput.Size = New Size(539, 238)
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0F, 13.0F)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
     End Sub
 
     ' Update/install server inputs
@@ -147,10 +83,6 @@ Public Class MainMenu
             Status.Text = "Downloading..."
             Status.BackColor = Color.FromArgb(240, 240, 240)
         End If
-    End Sub
-
-    Private Sub OpenFolderButton_Click() Handles OpenFolderButton.Click
-        Process.Start("explorer.exe", ".")
     End Sub
 
     Private Sub WC_DownloadProgressChanged(ByVal sender As Object, ByVal e As DownloadProgressChangedEventArgs) Handles WC.DownloadProgressChanged
@@ -172,22 +104,6 @@ Public Class MainMenu
 
                 Dim CMDConfig As New XmlWriterSettings()
                 CMDConfig.Indent = True
-
-                Dim XmlWrt As XmlWriter = XmlWriter.Create("Settings/SteamCMDPath.xml", CMDConfig)
-                With XmlWrt
-                    .WriteStartDocument()
-                    .WriteComment("Config used by SteamCMD GUI")
-                    .WriteComment("This config it's loaded automatically.")
-                    .WriteStartElement("SteamCMD-Config")
-
-                    .WriteStartElement("CMDPath")
-                    .WriteString(ExePath.Text)
-                    .WriteEndElement()
-
-                    .WriteEndElement()
-                    .WriteEndDocument()
-                End With
-                XmlWrt.Close()
 
                 LogMenu.Enabled = True
                 Status.Text = "Current path of 'steamcmd.exe' is " & FolderBrowserDialog1.SelectedPath
@@ -235,7 +151,15 @@ Public Class MainMenu
     End Sub
 
     Private Sub GamesList_SelectedIndexChanged() Handles GamesList.SelectedIndexChanged, GamesList.EnabledChanged
-        If Not GamesList.SelectedValue = 90 Then
+        If TypeOf (GamesList.SelectedValue) Is KeyValuePair(Of String, String) Then
+            SteamAppID = GamesList.SelectedValue.Key
+        ElseIf TypeOf (GamesList.SelectedValue) Is Integer Then
+            SteamAppID = GamesList.SelectedValue.ToString()
+        ElseIf TypeOf (GamesList.SelectedValue) Is String Then
+            SteamAppID = GamesList.SelectedValue
+        End If
+
+        If Not SteamAppID = 90 Then
             GoldSrcModInput.Hide()
             GoldSrcModLabel.Hide()
             AddCustomGameButton.Show()
@@ -244,7 +168,8 @@ Public Class MainMenu
             GoldSrcModLabel.Show()
             AddCustomGameButton.Hide()
         End If
-        Status.Text = "Game to install: " & GamesList.Text & " - Steam App ID:" & GamesList.SelectedValue
+
+        Status.Text = "Game to install: " & GamesList.Text & " - Steam App ID:" & SteamAppID
         Status.BackColor = Color.FromArgb(240, 240, 240)
     End Sub
 
@@ -293,22 +218,7 @@ Public Class MainMenu
                             Status.Text = "Installing/Updating..."
                             Status.BackColor = Color.FromArgb(240, 240, 240)
 
-                            If ConsoleCheckBoxUpdate.Checked = False Then
-                                p = New Process
-                                With p.StartInfo
-                                    .FileName = ExePath.Text & "\steamcmd.exe"
-                                    .UseShellExecute = False
-                                    .Arguments = "SteamCmd +login " & If(AnonymousCheckBox.Checked, "anonymous", UsernameTextBox.Text & " " & PasswordTextBox.Text) & " +force_install_dir " & """" & ServerPath.Text & """" & GoldSrcMod & " +app_update " & GamesList.SelectedValue & If((ValidateCheckBox.Checked), " validate", "")
-                                End With
-                                p.Start()
-                            Else
-                                ConsoleTab_Click()
-                                TabMenu.SelectedTab = ConsoleTab
-
-                                ' Clear console, Run subprocess and stream
-                                ConsoleOutput.Clear()
-                                ThrSteamCMD.Start()
-                            End If
+                            ThrSteamCMD.Start()
                         End If
                     End If
                 End If
@@ -338,35 +248,6 @@ Public Class MainMenu
         End With
 
         p.Start()
-
-        If ConsoleCheckBoxUpdate.Checked = True Then
-            Dim pStreamWriter As StreamWriter = p.StandardInput
-            p.BeginOutputReadLine()
-            p.BeginErrorReadLine()
-            ConsoleInput.Enabled = True
-            ConsoleButton.Enabled = True
-            p.WaitForExit()
-        End If
-    End Sub
-
-    Private Sub p_OutputDataReceived(ByVal sender As Object, ByVal e As System.Diagnostics.DataReceivedEventArgs) Handles p.OutputDataReceived
-        AppendOutputText(vbCrLf & e.Data)
-    End Sub
-
-    Private Sub ExecuteButton_Click() Handles ConsoleButton.Click
-        p.StandardInput.WriteLine(ConsoleInput.Text)
-        p.StandardInput.Flush()
-        ConsoleInput.Text = ""
-    End Sub
-
-    Private Delegate Sub AppendOutputTextDelegate(ByVal text As String)
-    Private Sub AppendOutputText(ByVal text As String)
-        If ConsoleOutput.InvokeRequired Then
-            Dim myDelegate As New AppendOutputTextDelegate(AddressOf AppendOutputText)
-            Me.Invoke(myDelegate, text)
-        Else
-            ConsoleOutput.AppendText(text)
-        End If
     End Sub
 
     'Run server inputs
@@ -447,8 +328,6 @@ Public Class MainMenu
             GameMod = CustomModTextBox.Text
             DebugModeCheckBox.Enabled = False
             SourceTVCheckBox.Enabled = False
-            ConsoleCheckBoxServer.Checked = False
-            ConsoleCheckBoxServer.Enabled = False
             InsecureCheckBox.Enabled = False
             BotsCheckBox.Enabled = False
             DevModeCheckBox.Enabled = False
@@ -459,8 +338,6 @@ Public Class MainMenu
             CustomModTextBox.Enabled = False
             DebugModeCheckBox.Enabled = True
             SourceTVCheckBox.Enabled = True
-            ConsoleCheckBoxServer.Checked = True
-            ConsoleCheckBoxServer.Enabled = True
             InsecureCheckBox.Enabled = True
             BotsCheckBox.Enabled = True
             DevModeCheckBox.Enabled = True
@@ -494,16 +371,6 @@ Public Class MainMenu
         Status.Text = "The map of the server will be: " & ServerMap
     End Sub
 
-    Private Sub CheckBoxMask_CheckedChanged() Handles CheckBoxMask.CheckedChanged
-        If CheckBoxMask.Checked = True Then
-            RconTextBox.PasswordChar = "*"
-            RconTextBox.Font = New Font("Microsoft Sans Serif", 9.75, FontStyle.Bold)
-        Else
-            RconTextBox.PasswordChar = ""
-            RconTextBox.Font = New Font("Microsoft Sans Serif", 8.25, FontStyle.Regular)
-        End If
-    End Sub
-
     Private Sub MaxPlayersTexBox_ValueChanged() Handles MaxPlayersTexBox.TextChanged
         MaxPlayers = MaxPlayersTexBox.Value
         Status.Text = "Max players set to " & MaxPlayers
@@ -512,10 +379,6 @@ Public Class MainMenu
     Private Sub NetworkComboBox_SelectedIndexChanged() Handles NetworkComboBox.SelectedIndexChanged
         NetworkType = NetworkComboBox.SelectedIndex
         Status.Text = "Cvar sv_lan set to " & NetworkType
-    End Sub
-
-    Private Sub RconTextBox_MaskInputRejected() Handles RconTextBox.TextChanged
-        RCON = RconTextBox.Text
     End Sub
 
     Private Sub UDPPortTexBox_ValueChanged() Handles UDPPortTexBox.TextChanged
@@ -537,14 +400,6 @@ Public Class MainMenu
             SourceTV = ""
         Else
             SourceTV = "-nohltv "
-        End If
-    End Sub
-
-    Private Sub ConsoleCheckBox_CheckedChanged() Handles ConsoleCheckBoxServer.CheckedChanged
-        If ConsoleCheckBoxServer.Checked = True Then
-            ConsoleMode = "-console "
-        Else
-            ConsoleMode = ""
         End If
     End Sub
 
@@ -626,7 +481,7 @@ Public Class MainMenu
     End Sub
 
     Private Sub CheckUpdatesButton_Click() Handles CheckUpdatesButton.Click
-        Process.Start("https://github.com/DioJoestar/SteamCMD-GUI#last-changes")
+        Process.Start("https://github.com/ijre/SteamCMD-GUI/releases/latest")
     End Sub
 
     Private Sub SMButton_Click() Handles SMButton.Click
@@ -653,10 +508,6 @@ Public Class MainMenu
         Close()
     End Sub
 
-    Private Sub DonateButton_Click() Handles DonateButton.Click
-        Process.Start("https://www.paypal.me/DioJoestar")
-    End Sub
-
     'Menu buttons
     Private Sub SaveMenu_Click() Handles SaveMenu.Click, SaveButton.Click
         SaveFileDialog1.InitialDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Settings")
@@ -677,6 +528,12 @@ Public Class MainMenu
                     .WriteStartDocument()
                     .WriteComment("Config used by SteamCMD GUI")
                     .WriteStartElement("Config")
+
+                    .WriteStartElement("SteamCMD-Config")
+
+                    .WriteStartElement("SteamCMD-Path")
+                    .WriteString("")
+                    .WriteEndElement()
 
                     .WriteStartElement("Server-Config")
 
@@ -710,10 +567,6 @@ Public Class MainMenu
                     .WriteString(ValidateCheckBox.CheckState)
                     .WriteEndElement()
 
-                    .WriteStartElement("UseGUIConsoleUpdate")
-                    .WriteString(ConsoleCheckBoxUpdate.CheckState)
-                    .WriteEndElement()
-
                     .WriteStartElement("HostName")
                     .WriteString(ServerName)
                     .WriteEndElement()
@@ -739,10 +592,6 @@ Public Class MainMenu
                     .WriteString(MaxPlayers)
                     .WriteEndElement()
 
-                    .WriteStartElement("RCON")
-                    .WriteString(RCON)
-                    .WriteEndElement()
-
                     .WriteStartElement("Port")
                     .WriteString(UDPPort)
                     .WriteEndElement()
@@ -753,10 +602,6 @@ Public Class MainMenu
 
                     .WriteStartElement("SourceTV")
                     .WriteValue(SourceTVCheckBox.CheckState)
-                    .WriteEndElement()
-
-                    .WriteStartElement("UseGUIConsoleServer")
-                    .WriteValue(ConsoleCheckBoxServer.CheckState)
                     .WriteEndElement()
 
                     .WriteStartElement("Insecure")
@@ -828,9 +673,6 @@ Public Class MainMenu
                     If XmlConfig.Name = "ValidateFiles" Then
                         ValidateCheckBox.Checked = Val(XmlConfig.ReadInnerXml.Chars(0))
                     End If
-                    If XmlConfig.Name = "UseGUIConsoleUpdate" Then
-                        ConsoleCheckBoxUpdate.Checked = Val(XmlConfig.ReadInnerXml.Chars(0))
-                    End If
                     If XmlConfig.Name = "HostName" Then
                         ServerNameTextBox.Text = XmlConfig.ReadInnerXml.ToString()
                     End If
@@ -855,11 +697,6 @@ Public Class MainMenu
                         MaxPlayers = XmlConfig.ReadInnerXml.ToString
                         MaxPlayersTexBox.Value = MaxPlayers
                     End If
-                    If XmlConfig.Name = "RCON" Then
-                        RCON = XmlConfig.ReadInnerXml.ToString
-                        RconTextBox.Text = RCON
-                        CheckBoxMask.Checked = True
-                    End If
                     If XmlConfig.Name = "Port" Then
                         UDPPort = XmlConfig.ReadInnerXml.ToString
                         UDPPortTexBox.Value = UDPPort
@@ -869,9 +706,6 @@ Public Class MainMenu
                     End If
                     If XmlConfig.Name = "SourceTV" Then
                         SourceTVCheckBox.Checked = Val(XmlConfig.ReadInnerXml.Chars(0))
-                    End If
-                    If XmlConfig.Name = "UseGuiConsoleServer" Then
-                        ConsoleCheckBoxServer.Checked = Val(XmlConfig.ReadInnerXml.Chars(0))
                     End If
                     If XmlConfig.Name = "Insecure" Then
                         InsecureCheckBox.Checked = Val(XmlConfig.ReadInnerXml.Chars(0))
@@ -888,7 +722,6 @@ Public Class MainMenu
                 End If
             End While
             XmlConfig.Close()
-            TabMenu.SelectedTab = RunTab
             GroupBox1.Show()
             GroupBox3.Show()
             Status.Text = "The config file has been loaded."
@@ -1007,52 +840,6 @@ Public Class MainMenu
         Process.Start(path)
     End Sub
 
-    ' Console Tab
-    Private Sub ConsoleConnect_Click() Handles ConsoleConnect.Click
-        'Stop steamcmd.exe
-        For Each proc As Process In Process.GetProcessesByName("steamcmd")
-            Dim result As Integer = MessageBox.Show("Really want to stop and close SteamCMD?", "Stop SteamCMD", MessageBoxButtons.YesNo)
-            If result = DialogResult.Yes Then
-                If Not proc.HasExited Then
-                    SaveLog()
-                    proc.Kill()
-                    ConsoleInput.Enabled = False
-                    ConsoleButton.Enabled = False
-                End If
-                Status.Text = "SteamCMD closed."
-                Status.BackColor = Color.FromArgb(240, 200, 200)
-                My.Computer.Audio.PlaySystemSound(
-                    Media.SystemSounds.Hand)
-            End If
-        Next proc
-    End Sub
-
-    Private Sub ConsoleOpenLog_Click() Handles ConsoleOpenLog.Click
-        Process.Start("explorer.exe", ".\Logs")
-    End Sub
-
-    Private Sub ConsoleSaveLog_Click() Handles ConsoleSaveLog.Click
-        SaveFileDialog1.InitialDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Logs")
-        SaveFileDialog1.DefaultExt = "*.txt"
-        SaveFileDialog1.Filter = "Text Files (*.txt)|*.txt"
-        SaveFileDialog1.FileName = "log.txt"
-
-        If (SaveFileDialog1.ShowDialog() = DialogResult.OK) _
-            AndAlso (SaveFileDialog1.FileName.Length > 0) Then
-            File.WriteAllText(SaveFileDialog1.FileName, ConsoleOutput.Text)
-            Process.Start(SaveFileDialog1.FileName)
-            Status.Text = "File " & Path.GetFileName(SaveFileDialog1.FileName) & " has been saved in Logs folder."
-        End If
-    End Sub
-
-    Private Sub ConsoleClearLog_Click() Handles ConsoleClearLog.Click
-        Dim result As Integer = MessageBox.Show("Really want to clear all the content?", "Clear console", MessageBoxButtons.YesNo)
-        If result = DialogResult.Yes Then
-            ConsoleOutput.Clear()
-            Status.Text = "The console has been cleaned."
-        End If
-    End Sub
-
     Private Sub AddCustomGameButton_Click(ByVal sender As Object, ByVal e As EventArgs) Handles AddCustomGameButton.Click
         Dim Name As String = ""
         Dim ID As String = ""
@@ -1153,17 +940,5 @@ Public Class MainMenu
         Clipboard.SetText(PublicIP, TextDataFormat.UnicodeText)
         Status.Text = "Public IP copied"
         Status.BackColor = Color.FromArgb(240, 240, 240)
-    End Sub
-
-    Private Sub AnonymousCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles AnonymousCheckBox.CheckedChanged, SaveLoginDetails.CheckedChanged
-
-    End Sub
-
-    Private Sub SrcdsExePath_Browser(sender As Object, e As EventArgs) Handles SrcdsExePathTextBox.Click, SrcdsExeBrowserButton.Click
-
-    End Sub
-
-    Private Sub SrcdsExePathOpen_Click(sender As Object, e As EventArgs) Handles SrcdsExePathOpen.Click
-
     End Sub
 End Class

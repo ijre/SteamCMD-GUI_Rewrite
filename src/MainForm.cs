@@ -50,14 +50,12 @@ namespace SteamCMD_GUI_Rewrite
             using var diag = new SaveFileDialog
             {
                 DefaultExt = "txt",
-                Filter = "text files (*.txt) | (*.txt)",
+                Filter = "text files (*.txt) | *.txt",
                 RestoreDirectory = true,
                 InitialDirectory = SettingsDir
             };
             if (diag.ShowDialog() != DialogResult.OK)
                 return;
-
-            string file = diag.FileName.Replace(")", "");
 
             string buff = "";
 
@@ -67,7 +65,7 @@ namespace SteamCMD_GUI_Rewrite
 
                 for (int groups = 0; groups < tabObj.Controls.Count; groups++)
                 {
-                    if (tabObj.Controls[groups] is not GroupBox)
+                    if (tabObj.Controls[groups].GetType() != typeof(GroupBox))
                         continue;
 
                     var groupObj = tabObj.Controls[groups];
@@ -99,7 +97,7 @@ namespace SteamCMD_GUI_Rewrite
                 }
             }
 
-            File.WriteAllText(file, buff);
+            File.WriteAllText(diag.FileName, buff);
         }
 
         private void LoadSettings_Click(object sender, EventArgs e)

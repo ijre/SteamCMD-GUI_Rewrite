@@ -56,6 +56,7 @@ namespace SteamCMD_GUI_Rewrite
             this.GroupBox5 = new System.Windows.Forms.GroupBox();
             this.AddLaunchParams = new System.Windows.Forms.Button();
             this.GroupBox6 = new System.Windows.Forms.GroupBox();
+            this.Rcon = new System.Windows.Forms.TextBox();
             this.Insecure = new System.Windows.Forms.CheckBox();
             this.DevMessages = new System.Windows.Forms.CheckBox();
             this.RunServer = new System.Windows.Forms.Button();
@@ -79,7 +80,6 @@ namespace SteamCMD_GUI_Rewrite
             this.FileStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.LoadSettings = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.ToolsStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.DownloadSteamCMD = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,7 +88,6 @@ namespace SteamCMD_GUI_Rewrite
             this.ValveDeveloperCommunity = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.AdditionalCommands = new System.Windows.Forms.TextBox();
-            this.Rcon = new System.Windows.Forms.TextBox();
             this.UpdateTab.SuspendLayout();
             this.SteamCMDConfigGroup.SuspendLayout();
             this.ServerConfigGroup.SuspendLayout();
@@ -413,6 +412,13 @@ namespace SteamCMD_GUI_Rewrite
             this.GroupBox6.TabStop = false;
             this.GroupBox6.Text = "Game Configuration";
             // 
+            // Rcon
+            // 
+            this.Rcon.Location = new System.Drawing.Point(244, 134);
+            this.Rcon.Name = "Rcon";
+            this.Rcon.Size = new System.Drawing.Size(91, 20);
+            this.Rcon.TabIndex = 16;
+            // 
             // Insecure
             // 
             this.Insecure.AutoSize = true;
@@ -649,8 +655,7 @@ namespace SteamCMD_GUI_Rewrite
             // 
             this.FileStripMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.SaveSettings,
-            this.LoadSettings,
-            this.ToolStripSeparator3});
+            this.LoadSettings});
             this.FileStripMenu.Name = "FileStripMenu";
             this.FileStripMenu.Size = new System.Drawing.Size(37, 20);
             this.FileStripMenu.Text = "File";
@@ -659,20 +664,17 @@ namespace SteamCMD_GUI_Rewrite
             // 
             this.SaveSettings.Name = "SaveSettings";
             this.SaveSettings.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.SaveSettings.Size = new System.Drawing.Size(143, 22);
+            this.SaveSettings.Size = new System.Drawing.Size(180, 22);
             this.SaveSettings.Text = "Save";
+            this.SaveSettings.Click += new System.EventHandler(this.SaveSettings_Click);
             // 
             // LoadSettings
             // 
             this.LoadSettings.Name = "LoadSettings";
             this.LoadSettings.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.LoadSettings.Size = new System.Drawing.Size(143, 22);
+            this.LoadSettings.Size = new System.Drawing.Size(180, 22);
             this.LoadSettings.Text = "Load";
-            // 
-            // ToolStripSeparator3
-            // 
-            this.ToolStripSeparator3.Name = "ToolStripSeparator3";
-            this.ToolStripSeparator3.Size = new System.Drawing.Size(140, 6);
+            this.LoadSettings.Click += new System.EventHandler(this.LoadSettings_Click);
             // 
             // MenuStrip
             // 
@@ -745,13 +747,6 @@ namespace SteamCMD_GUI_Rewrite
             this.AdditionalCommands.WordWrap = false;
             this.AdditionalCommands.KeyUp += new System.Windows.Forms.KeyEventHandler(this.AdditionalCommands_KeyUp);
             this.AdditionalCommands.Leave += new System.EventHandler(this.AdditionalCommands_Leave);
-            // 
-            // Rcon
-            // 
-            this.Rcon.Location = new System.Drawing.Point(244, 134);
-            this.Rcon.Name = "Rcon";
-            this.Rcon.Size = new System.Drawing.Size(91, 20);
-            this.Rcon.TabIndex = 16;
             // 
             // MainForm
             // 
@@ -829,7 +824,6 @@ namespace SteamCMD_GUI_Rewrite
         private System.Windows.Forms.ToolStripMenuItem FileStripMenu;
         private System.Windows.Forms.ToolStripMenuItem SaveSettings;
         private System.Windows.Forms.ToolStripMenuItem LoadSettings;
-        private System.Windows.Forms.ToolStripSeparator ToolStripSeparator3;
         private System.Windows.Forms.MenuStrip MenuStrip;
         private System.Windows.Forms.ToolStripMenuItem ToolsStripMenu;
         private System.Windows.Forms.ToolStripMenuItem DownloadSteamCMD;

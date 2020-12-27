@@ -45,6 +45,68 @@ namespace SteamCMD_GUI_Rewrite
         }
 
         #region Events
+        private void SaveSettings_Click(object sender, EventArgs e)
+        {
+            using var diag = new SaveFileDialog
+            {
+                DefaultExt = "txt",
+                Filter = "text files (*.txt) | (*.txt)",
+                RestoreDirectory = true,
+                InitialDirectory = SettingsDir
+            };
+            if (diag.ShowDialog() != DialogResult.OK)
+                return;
+
+            string file = diag.FileName.Replace(")", "");
+
+            string buff = "";
+
+            for (int tab = 0; tab < MainTabs.TabCount; tab++)
+            {
+                var tabObj = MainTabs.TabPages[tab];
+
+                for (int groups = 0; groups < tabObj.Controls.Count; groups++)
+                {
+                    if (tabObj.Controls[groups] is not GroupBox)
+                        continue;
+
+                    var groupObj = tabObj.Controls[groups];
+
+                    for (int children = 0; children < groupObj.Controls.Count; children++)
+                    {
+                        string input;
+
+                        var childObj = groupObj.Controls[children];
+
+                        switch (childObj)
+                        {
+                            case NumericUpDown _:
+                            case TextBox _:
+                                input = childObj.Text;
+                                break;
+                            case CheckBox child:
+                                input = ((int)child.CheckState).ToString();
+                                break;
+                            case ComboBox child:
+                                input = child.SelectedIndex.ToString();
+                                break;
+                            default:
+                                continue;
+                        }
+
+                        buff += $"{groupObj.Controls[children].Name} {input}\n";
+                    }
+                }
+            }
+
+            File.WriteAllText(file, buff);
+        }
+
+        private void LoadSettings_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void UpdateServerButton_Click(object sender, EventArgs e)
         {
             string arguments = "SteamCmd +login ";

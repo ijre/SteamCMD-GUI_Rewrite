@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -49,8 +50,9 @@ namespace SteamCMD_GUI_Rewrite
         {
             using var diag = new SaveFileDialog
             {
+                Title = "Choose where to save your config",
                 DefaultExt = "txt",
-                Filter = "text files (*.txt) | *.txt",
+                Filter = "(*.txt) | *.txt",
                 RestoreDirectory = true,
                 InitialDirectory = SettingsDir
             };
@@ -59,42 +61,46 @@ namespace SteamCMD_GUI_Rewrite
 
             string buff = "";
 
-            for (int tab = 0; tab < MainTabs.TabCount; tab++)
+            var interactable = GetAllInteractables().ToArray();
+
+            for (int i = 0; i < interactable.Length; i++)
             {
-                var tabObj = MainTabs.TabPages[tab];
+                string input = "";
 
-                for (int groups = 0; groups < tabObj.Controls.Count; groups++)
+                bool user = interactable[i].Name == Username.Name;
+                bool pass = interactable[i].Name == Password.Name;
+
+                if (user && !SaveLoginDetails.Checked
+                    || pass && SaveLoginDetails.CheckState != CheckState.Checked)
                 {
-                    if (tabObj.Controls[groups].GetType() != typeof(GroupBox))
-                        continue;
+                    continue;
+                }
 
-                    var groupObj = tabObj.Controls[groups];
-
-                    for (int children = 0; children < groupObj.Controls.Count; children++)
-                    {
-                        string input;
-
-                        var childObj = groupObj.Controls[children];
-
-                        switch (childObj)
+                switch (interactable[i])
+                {
+                    case NumericUpDown _:
+                    case TextBox _:
+                        input = interactable[i].Text;
+                        break;
+                    case CheckBox child:
+                        input = ((int)child.CheckState).ToString();
+                        break;
+                    case ComboBox child:
+                        if (child.Name != MapList.Name)
                         {
-                            case NumericUpDown _:
-                            case TextBox _:
-                                input = childObj.Text;
-                                break;
-                            case CheckBox child:
-                                input = ((int)child.CheckState).ToString();
-                                break;
-                            case ComboBox child:
-                                input = child.SelectedIndex.ToString();
-                                break;
-                            default:
-                                continue;
+                            input = child.SelectedIndex.ToString();
+                        }
+                        else if (child.SelectedIndex != -1)
+                        {
+                            input = child.SelectedItem.ToString();
                         }
 
-                        buff += $"{groupObj.Controls[children].Name} {input}\n";
-                    }
+                        break;
+                    default:
+                        continue;
                 }
+
+                buff += $"{interactable[i].Name} {input}\n";
             }
 
             File.WriteAllText(diag.FileName, buff);
@@ -172,7 +178,26 @@ namespace SteamCMD_GUI_Rewrite
         {
             string root = GameInfo[GameListRunTab.SelectedIndex][2];
 
-            var maps = Directory.GetFiles($"{SrcdsPath.Text.Substring(0, SrcdsPath.Text.LastIndexOf("\\"))}\\{root}\\maps").ToList();
+            List<string> maps;
+
+            try
+            {
+                maps = Directory.GetFiles($"{SrcdsPath.Text.Substring(0, SrcdsPath.Text.LastIndexOf("\\"))}\\{root}\\maps").ToList();
+            }
+            catch (DirectoryNotFoundException)
+            {
+                if (lastCount != -2)
+                {
+                    MessageBox.Show("Error! Invalid directory or game for said directory. Please try again.", "Invalid Directory", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                lastCount = -2;
+
+                // HACK: Because this event happens on leaving the control as well as entering, we don't want to yell at the user a second time
+                // So I re-use the lastCount var as it'll be an invalid number anyways
+
+                return;
+            }
 
             if (maps.Count != lastCount)
             {
@@ -180,7 +205,7 @@ namespace SteamCMD_GUI_Rewrite
                 MapList.Items.Clear();
             }
             else
-                return; // no need to constantly do this expensive loop if nothing's changed
+                return;
 
             for (int i = 0; i < maps.Count; i++)
             {
@@ -196,6 +221,31 @@ namespace SteamCMD_GUI_Rewrite
         #endregion // Events
 
         #region Helpers
+        private List<Control> GetAllInteractables()
+        {
+            List<Control> buff = new List<Control>();
+
+            for (int tab = 0; tab < MainTabs.TabCount; tab++)
+            {
+                var tabObj = MainTabs.TabPages[tab];
+
+                for (int groups = 0; groups < tabObj.Controls.Count; groups++)
+                {
+                    if (tabObj.Controls[groups].GetType() != typeof(GroupBox))
+                        continue;
+
+                    var groupObj = tabObj.Controls[groups];
+
+                    for (int children = 0; children < groupObj.Controls.Count; children++)
+                    {
+                        buff.Add(groupObj.Controls[children]);
+                    }
+                }
+            }
+
+            return buff;
+        }
+
         private static void StartCLI(string path, string args)
         {
             Process process = new Process
@@ -250,7 +300,7 @@ namespace SteamCMD_GUI_Rewrite
         #region SmallEvents
         private void SteamCMDPathBrowse_Click(object sender, EventArgs e)
         {
-            string file = GetFile("Select the steamcmd.exe file", "steamcmd.exe");
+            string file = GetFile("Select your steamcmd.exe file", "steamcmd.exe");
 
             if (string.IsNullOrWhiteSpace(file))
                 return;
@@ -261,7 +311,7 @@ namespace SteamCMD_GUI_Rewrite
 
         private void ServerPathBrowse_Click(object sender, EventArgs e)
         {
-            string folder = GetFolder("Select the root of the server");
+            string folder = GetFolder("Select the root of your server");
 
             if (string.IsNullOrWhiteSpace(folder))
                 return;
@@ -307,6 +357,17 @@ namespace SteamCMD_GUI_Rewrite
                 e.SuppressKeyPress = true;
                 AdditionalCommands_Leave(sender, new EventArgs());
             }
+        }
+
+        private void AnonymousLogin_CheckedChanged(object sender, EventArgs e)
+        {
+            SaveLoginDetails.Visible = Username.Enabled = Password.Enabled = !AnonymousLogin.Checked;
+            // what if there's a mantrain
+        }
+
+        private void SaveLoginDetails_VisibleChanged(object sender, EventArgs e)
+        {
+            SaveLoginDetails.Checked = false;
         }
 
         private void CheckForUpdates_Click(object sender, EventArgs e)

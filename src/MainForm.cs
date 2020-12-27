@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 using Microsoft.WindowsAPICodePack.Dialogs;
 
-namespace SteamCMD_GUI_Rewrite
+namespace SteamCMD_GUI
 {
     public partial class MainForm : Form
     {
@@ -53,7 +53,6 @@ namespace SteamCMD_GUI_Rewrite
                 Title = "Choose where to save your config",
                 DefaultExt = "txt",
                 Filter = "(*.txt) | *.txt",
-                RestoreDirectory = true,
                 InitialDirectory = SettingsDir
             };
             if (diag.ShowDialog() != DialogResult.OK)
@@ -61,9 +60,9 @@ namespace SteamCMD_GUI_Rewrite
 
             string buff = "";
 
-            var interactable = GetAllInteractables().ToArray();
+            var interactable = GetAllInteractables();
 
-            for (int i = 0; i < interactable.Length; i++)
+            for (int i = 0; i < interactable.Count; i++)
             {
                 string input = "";
 
@@ -108,7 +107,68 @@ namespace SteamCMD_GUI_Rewrite
 
         private void LoadSettings_Click(object sender, EventArgs e)
         {
+            using var diag = new OpenFileDialog
+            {
+                Title = "Choose which config to load",
+                DefaultExt = "txt",
+                Filter = "(*.txt) | *.txt",
+                InitialDirectory = SettingsDir
+            };
+            if (diag.ShowDialog() != DialogResult.OK)
+                return;
 
+            var lines = File.ReadAllLines(diag.FileName);
+            var totalInteractables = GetAllInteractables();
+
+            string mapToSelect = "";
+
+            for (int lineIndex = 0; lineIndex < lines.Length; lineIndex++)
+            {
+                var lineSplit = new[]
+                {
+                    lines[lineIndex].Substring(0, lines[lineIndex].IndexOf(" ")),
+                    lines[lineIndex].Substring(lines[lineIndex].IndexOf(" ")).TrimStart()
+                };
+
+                for (int interactable = 0; interactable < totalInteractables.Count; interactable++)
+                {
+                    if (lineSplit[0] != totalInteractables[interactable].Name)
+                    {
+                        continue;
+                    }
+
+                    switch (totalInteractables[interactable])
+                    {
+                        case NumericUpDown _:
+                        case TextBox _:
+                            totalInteractables[interactable].Text = lineSplit[1];
+                            break;
+                        case CheckBox child:
+                            child.CheckState = (CheckState)int.Parse(lineSplit[1]);
+                            break;
+                        case ComboBox child:
+                            if (child.Name != MapList.Name)
+                            {
+                                child.SelectedIndex = int.Parse(lineSplit[1]);
+                            }
+                            else
+                            {
+                                mapToSelect = lineSplit[1];
+                            }
+
+                            break;
+                        default:
+                            continue;
+                    }
+                }
+            }
+
+            RunServer.Enabled = true;
+            UpdateServer.Enabled = true;
+            MapList.Enabled = true;
+            MapList_EnterOrLeave(sender, EventArgs.Empty); // called to refresh list
+
+            MapList.SelectedItem = mapToSelect;
         }
 
         private void UpdateServerButton_Click(object sender, EventArgs e)
@@ -212,8 +272,8 @@ namespace SteamCMD_GUI_Rewrite
                 if (!maps[i].EndsWith(".bsp"))
                     maps.RemoveAt(i);
 
-                maps[i] = maps[i].Substring(maps[i].LastIndexOf("\\") + 1);
-                maps[i] = maps[i].Remove(maps[i].LastIndexOf("."), 4);
+                maps[i] = maps[i].Substring(maps[i].LastIndexOf("\\") + 1); // remove slashes from absolute dir
+                maps[i] = maps[i].Remove(maps[i].LastIndexOf("."), 4); // remove ext because it breaks srcds
             }
 
             MapList.Items.AddRange(maps.ToArray());
@@ -242,6 +302,8 @@ namespace SteamCMD_GUI_Rewrite
                     }
                 }
             }
+
+            buff.Add(AdditionalCommands);
 
             return buff;
         }

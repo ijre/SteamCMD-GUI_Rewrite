@@ -69,22 +69,42 @@ namespace SteamCMD_GUI_Rewrite
                 arguments += " validate";
 
 
-            Process process = new Process
-            {
-                StartInfo =
-                {
-                    FileName = SteamCMDPath.Text,
-                    UseShellExecute = false,
-                    Arguments = arguments
-                }
-            };
-
-            process.Start();
+            StartCLI(SteamCMDPath.Text, arguments);
         }
 
         private void RunServerButton_Click(object sender, EventArgs e)
         {
+            string buttonParams = "";
 
+            if (SourceTV.Checked)
+            {
+                buttonParams += "+tv_enable 1 ";
+            }
+            else
+            {
+                buttonParams += "-nohltv ";
+            }
+
+            if (Insecure.Checked)
+            {
+                buttonParams += "-insecure ";
+            }
+            if (NoBots.Checked)
+            {
+                buttonParams += "-nobots ";
+            }
+            if (DevMessages.Checked)
+            {
+                buttonParams += "-dev ";
+            }
+
+            string arguments =
+                $"-console -game {GameInfo[GameListRunTab.SelectedIndex][2]} -port {UDPPort.Text} +hostname \"{Hostname.Text}\" " +
+                $"+map {MapList.SelectedItem} +maxplayers {MaxPlayers.Text} +sv_lan {NetworkType.SelectedIndex} " +
+                $"+rcon_password {Rcon.Text} {buttonParams} {AdditionalCommands.Text}";
+
+
+            StartCLI(SrcdsPath.Text, arguments);
         }
 
         private int lastCount;
@@ -108,6 +128,7 @@ namespace SteamCMD_GUI_Rewrite
                     maps.RemoveAt(i);
 
                 maps[i] = maps[i].Substring(maps[i].LastIndexOf("\\") + 1);
+                maps[i] = maps[i].Remove(maps[i].LastIndexOf("."), 4);
             }
 
             MapList.Items.AddRange(maps.ToArray());
@@ -115,6 +136,21 @@ namespace SteamCMD_GUI_Rewrite
         #endregion // Events
 
         #region Helpers
+        private static void StartCLI(string path, string args)
+        {
+            Process process = new Process
+            {
+                StartInfo =
+                {
+                    FileName = path,
+                    Arguments = args,
+                    UseShellExecute = false
+                }
+            };
+
+            process.Start();
+        }
+
         private static string[][] GetDefaultGames()
         {
             return new[]
@@ -183,6 +219,34 @@ namespace SteamCMD_GUI_Rewrite
 
             SrcdsPath.Text = file;
             MapList.Enabled = true;
+        }
+
+        private void MapList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RunServer.Enabled = MapList.SelectedIndex != -1 && !string.IsNullOrWhiteSpace(MapList.SelectedItem.ToString());
+        }
+
+        private void AddLaunchParams_Click(object sender, EventArgs e)
+        {
+            AdditionalCommands.Visible = true;
+            AdditionalCommands.BringToFront();
+            AdditionalCommands.Focus();
+        }
+
+        private void AdditionalCommands_Leave(object sender, EventArgs e)
+        {
+            AdditionalCommands.Visible = false;
+            AdditionalCommands.SendToBack();
+            AdditionalCommands.Text = AdditionalCommands.Text.Replace("\r\n", " ");
+        }
+
+        private void AdditionalCommands_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                e.SuppressKeyPress = true;
+                AdditionalCommands_Leave(sender, new EventArgs());
+            }
         }
 
         private void CheckForUpdates_Click(object sender, EventArgs e)

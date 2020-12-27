@@ -46,9 +46,8 @@ namespace SteamCMD_GUI_Rewrite
             this.label12 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.Label1 = new System.Windows.Forms.Label();
+            this.Password = new System.Windows.Forms.TextBox();
             this.Username = new System.Windows.Forms.TextBox();
-            this.Password = new System.Windows.Forms.MaskedTextBox();
             this.GameListUpdateTab = new System.Windows.Forms.ComboBox();
             this.SrcdsPathBrowse = new System.Windows.Forms.Button();
             this.SrcdsPath = new System.Windows.Forms.TextBox();
@@ -168,9 +167,8 @@ namespace SteamCMD_GUI_Rewrite
             this.ServerConfigGroup.Controls.Add(this.label12);
             this.ServerConfigGroup.Controls.Add(this.label14);
             this.ServerConfigGroup.Controls.Add(this.label9);
-            this.ServerConfigGroup.Controls.Add(this.Label1);
-            this.ServerConfigGroup.Controls.Add(this.Username);
             this.ServerConfigGroup.Controls.Add(this.Password);
+            this.ServerConfigGroup.Controls.Add(this.Username);
             this.ServerConfigGroup.Controls.Add(this.GameListUpdateTab);
             this.ServerConfigGroup.Location = new System.Drawing.Point(4, 57);
             this.ServerConfigGroup.Name = "ServerConfigGroup";
@@ -239,14 +237,16 @@ namespace SteamCMD_GUI_Rewrite
             // 
             this.SaveLoginDetails.AutoSize = true;
             this.SaveLoginDetails.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.SaveLoginDetails.Location = new System.Drawing.Point(181, 100);
+            this.SaveLoginDetails.Location = new System.Drawing.Point(181, 92);
             this.SaveLoginDetails.Name = "SaveLoginDetails";
-            this.SaveLoginDetails.Size = new System.Drawing.Size(130, 17);
+            this.SaveLoginDetails.Size = new System.Drawing.Size(159, 17);
             this.SaveLoginDetails.TabIndex = 6;
-            this.SaveLoginDetails.Text = "Save Details in Config";
+            this.SaveLoginDetails.Text = "Save Login Details in Config";
             this.SaveLoginDetails.ThreeState = true;
             this.ToolTip.SetToolTip(this.SaveLoginDetails, "Half check means it will only save your username");
             this.SaveLoginDetails.UseVisualStyleBackColor = true;
+            this.SaveLoginDetails.Visible = false;
+            this.SaveLoginDetails.VisibleChanged += new System.EventHandler(this.SaveLoginDetails_VisibleChanged);
             // 
             // AnonymousLogin
             // 
@@ -254,18 +254,19 @@ namespace SteamCMD_GUI_Rewrite
             this.AnonymousLogin.Checked = true;
             this.AnonymousLogin.CheckState = System.Windows.Forms.CheckState.Checked;
             this.AnonymousLogin.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.AnonymousLogin.Location = new System.Drawing.Point(181, 74);
+            this.AnonymousLogin.Location = new System.Drawing.Point(181, 66);
             this.AnonymousLogin.Name = "AnonymousLogin";
             this.AnonymousLogin.Size = new System.Drawing.Size(124, 17);
             this.AnonymousLogin.TabIndex = 6;
             this.AnonymousLogin.Text = "Login as Anonymous";
             this.AnonymousLogin.UseVisualStyleBackColor = true;
+            this.AnonymousLogin.CheckedChanged += new System.EventHandler(this.AnonymousLogin_CheckedChanged);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label12.Location = new System.Drawing.Point(40, 101);
+            this.label12.Location = new System.Drawing.Point(40, 93);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(30, 13);
             this.label12.TabIndex = 8;
@@ -285,37 +286,27 @@ namespace SteamCMD_GUI_Rewrite
             // 
             this.label9.AutoSize = true;
             this.label9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label9.Location = new System.Drawing.Point(40, 75);
+            this.label9.Location = new System.Drawing.Point(40, 67);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(29, 13);
             this.label9.TabIndex = 8;
             this.label9.Text = "User";
             // 
-            // Label1
+            // Password
             // 
-            this.Label1.AutoSize = true;
-            this.Label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label1.Location = new System.Drawing.Point(75, 56);
-            this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(33, 13);
-            this.Label1.TabIndex = 8;
-            this.Label1.Text = "Login";
+            this.Password.Enabled = false;
+            this.Password.Location = new System.Drawing.Point(75, 89);
+            this.Password.Name = "Password";
+            this.Password.Size = new System.Drawing.Size(100, 20);
+            this.Password.TabIndex = 1;
             // 
             // Username
             // 
-            this.Username.Location = new System.Drawing.Point(75, 72);
+            this.Username.Enabled = false;
+            this.Username.Location = new System.Drawing.Point(75, 64);
             this.Username.Name = "Username";
             this.Username.Size = new System.Drawing.Size(100, 20);
             this.Username.TabIndex = 1;
-            // 
-            // Password
-            // 
-            this.Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.Password.Location = new System.Drawing.Point(75, 96);
-            this.Password.Name = "Password";
-            this.Password.PasswordChar = '*';
-            this.Password.Size = new System.Drawing.Size(100, 22);
-            this.Password.TabIndex = 2;
             // 
             // GameListUpdateTab
             // 
@@ -664,7 +655,7 @@ namespace SteamCMD_GUI_Rewrite
             // 
             this.SaveSettings.Name = "SaveSettings";
             this.SaveSettings.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.SaveSettings.Size = new System.Drawing.Size(180, 22);
+            this.SaveSettings.Size = new System.Drawing.Size(143, 22);
             this.SaveSettings.Text = "Save";
             this.SaveSettings.Click += new System.EventHandler(this.SaveSettings_Click);
             // 
@@ -672,7 +663,7 @@ namespace SteamCMD_GUI_Rewrite
             // 
             this.LoadSettings.Name = "LoadSettings";
             this.LoadSettings.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.LoadSettings.Size = new System.Drawing.Size(180, 22);
+            this.LoadSettings.Size = new System.Drawing.Size(143, 22);
             this.LoadSettings.Text = "Load";
             this.LoadSettings.Click += new System.EventHandler(this.LoadSettings_Click);
             // 
@@ -795,9 +786,7 @@ namespace SteamCMD_GUI_Rewrite
         private System.Windows.Forms.Label Label2;
         private System.Windows.Forms.TextBox ServerPath;
         private System.Windows.Forms.CheckBox AnonymousLogin;
-        private System.Windows.Forms.Label Label1;
         private System.Windows.Forms.TextBox Username;
-        private System.Windows.Forms.MaskedTextBox Password;
         private System.Windows.Forms.ComboBox GameListUpdateTab;
         private System.Windows.Forms.Button SrcdsPathBrowse;
         private System.Windows.Forms.TextBox SrcdsPath;
@@ -841,6 +830,7 @@ namespace SteamCMD_GUI_Rewrite
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox AdditionalCommands;
         private System.Windows.Forms.TextBox Rcon;
+        private System.Windows.Forms.TextBox Password;
     }
 }
 

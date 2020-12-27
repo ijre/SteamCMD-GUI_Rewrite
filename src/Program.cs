@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SteamCMD_GUI_Rewrite
+namespace SteamCMD_GUI
 {
     static class Program
     {

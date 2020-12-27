@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0885576D-6552-41FA-AF9D-CD62EF774087}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>SteamCMD_GUI_Rewrite</RootNamespace>
-    <AssemblyName>SteamCMD-GUI_Rewrite</AssemblyName>
+    <RootNamespace>SteamCMD_GUI</RootNamespace>
+    <AssemblyName>SteamCMD-GUI</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

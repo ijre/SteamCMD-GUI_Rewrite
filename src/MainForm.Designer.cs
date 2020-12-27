@@ -1,5 +1,5 @@
 ﻿
-namespace SteamCMD_GUI_Rewrite
+namespace SteamCMD_GUI
 {
     partial class MainForm
     {
@@ -363,7 +363,7 @@ namespace SteamCMD_GUI_Rewrite
             // 
             // AddLaunchParams
             // 
-            this.AddLaunchParams.BackgroundImage = global::SteamCMD_GUI_Rewrite.Properties.Resources.Add;
+            this.AddLaunchParams.BackgroundImage = global::SteamCMD_GUI.Properties.Resources.Add;
             this.AddLaunchParams.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.AddLaunchParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.AddLaunchParams.Location = new System.Drawing.Point(243, 175);

@@ -1,17 +1,17 @@
-================= Original Author =====================================
+================= Original Repo Author =====================================
 |	Raúl 'Dio Joestar' Jiménez Carrillo
 |
-=================  Rewrite Author  =====================================
+================= Rewrite Author =====================================
 |	Paige 'ijre' Seivertson
 
-=================  Contributors   =====================================
+================= Contributors (Original Repo) =====================================
 |	Christoph 'Giswald'
 |	Chris Walker 'Captnwalker1'
 |	'Melo88'
 |
-=================  Donators   ========================================
+================= Donators (Original Repo) ========================================
 |    'ZOAG'		08/30/2016
-================= Special Thanks  =====================================
+================= Special Thanks (Original Repo) =====================================
 |	Hans Passant    	~ Help with the code at Stack Overflow    	(http://stackoverflow.com/questions/20874108/creating-a-handles-for-each-new-item-in-a-dropdownitems)
 |	CyberStars		~ Some suggestions at AlliedModders		(https://forums.alliedmods.net/showpost.php?p=2114456&postcount=3)
 |	OneTouch		~ French guide at Steam Community		(http://steamcommunity.com/sharedfiles/filedetails/?id=230908126)

@@ -1,6 +1,9 @@
 ================= Original Author =====================================
 |	Raúl 'Dio Joestar' Jiménez Carrillo
 |
+=================  Rewrite Author  =====================================
+|	Paige 'ijre' Seivertson
+
 =================  Contributors   =====================================
 |	Christoph 'Giswald'
 |	Chris Walker 'Captnwalker1'

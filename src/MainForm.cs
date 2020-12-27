@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
-using Microsoft.WindowsAPICodePack;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using Microsoft.WindowsAPICodePack.Shell;
 
 namespace SteamCMD_GUI_Rewrite
 {
@@ -20,27 +19,32 @@ namespace SteamCMD_GUI_Rewrite
         {
             InitializeComponent();
 
+            for (int i = 0; i < GameInfo.GetLength(0); i++)
+            {
+                GameListUpdateTab.Items.Add(GameInfo[i][1]);
+                GameListRunTab.Items.Add(GameInfo[i][1]);
+            }
+
             if (!Directory.Exists(SettingsDir))
             {
                 Directory.CreateDirectory(SettingsDir);
             }
 
-            for (int i = 0; i < GameInfo.GetLength(0); i++)
-            {
-                GameListUpdateTab.Items.Add(GameInfo[i][1]);
-            }
-            GameListRunTab = GameListUpdateTab;
-
             if (!File.Exists(CustomGamesList))
             {
-                File.WriteAllText(CustomGamesList, "");
+                // TODO: write tutorial for adding custom games
             }
             else if (!string.IsNullOrWhiteSpace(File.ReadAllText(CustomGamesList)))
             {
                 // TODO: handle loading custom games
             }
+
+            GameListUpdateTab.SelectedIndex = 0;
+            GameListRunTab.SelectedIndex = 0;
+            NetworkType.SelectedIndex = 0;
         }
 
+        #region Events
         private void UpdateServerButton_Click(object sender, EventArgs e)
         {
             string arguments = "SteamCmd +login ";
@@ -50,7 +54,7 @@ namespace SteamCMD_GUI_Rewrite
             }
             else if (!string.IsNullOrWhiteSpace(Username.Text) && !string.IsNullOrWhiteSpace(Password.Text))
             {
-                arguments += $"{Username} {Password} ";
+                arguments += $"{Username.Text} {Password.Text} ";
             }
             else
             {
@@ -78,14 +82,46 @@ namespace SteamCMD_GUI_Rewrite
             process.Start();
         }
 
+        private void RunServerButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private int lastCount;
+        private void MapList_EnterOrLeave(object sender, EventArgs e)
+        {
+            string root = GameInfo[GameListRunTab.SelectedIndex][2];
+
+            var maps = Directory.GetFiles($"{SrcdsPath.Text.Substring(0, SrcdsPath.Text.LastIndexOf("\\"))}\\{root}\\maps").ToList();
+
+            if (maps.Count != lastCount)
+            {
+                lastCount = maps.Count;
+                MapList.Items.Clear();
+            }
+            else
+                return; // no need to constantly do this expensive loop if nothing's changed
+
+            for (int i = 0; i < maps.Count; i++)
+            {
+                if (!maps[i].EndsWith(".bsp"))
+                    maps.RemoveAt(i);
+
+                maps[i] = maps[i].Substring(maps[i].LastIndexOf("\\") + 1);
+            }
+
+            MapList.Items.AddRange(maps.ToArray());
+        }
+        #endregion // Events
+
         #region Helpers
         private static string[][] GetDefaultGames()
         {
             return new[]
             {
-                new[] { "232250", "Team Fortress 2" },
-                new[] { "740", "Counter-Strike: Global Offensive" },
-                new[] { "232330", "Counter-Strike: Source" }
+                new[] { "232250", "Team Fortress 2", "tf" },
+                new[] { "740", "Counter-Strike: Global Offensive", "csgo" },
+                new[] { "232330", "Counter-Strike: Source", "cstrike" }
             };
         }
 
@@ -106,15 +142,16 @@ namespace SteamCMD_GUI_Rewrite
             using var diag = new OpenFileDialog
             {
                 Title = title,
+                RestoreDirectory = true,
                 Filter = $"|{fileName}"
             };
 
             return diag.ShowDialog() == DialogResult.OK ? diag.FileName : "";
         }
-        #endregion
+        #endregion // Helpers
 
-        #region SmallClickEvents
         // small as in a few lines of code
+        #region SmallEvents
         private void SteamCMDPathBrowse_Click(object sender, EventArgs e)
         {
             string file = GetFile("Select the steamcmd.exe file", "steamcmd.exe");
@@ -123,22 +160,29 @@ namespace SteamCMD_GUI_Rewrite
                 return;
 
             SteamCMDPath.Text = file;
-
-            if (!string.IsNullOrWhiteSpace(ServerPath.Text))
-                UpdateServer.Enabled = true;
+            UpdateServer.Enabled = !string.IsNullOrWhiteSpace(ServerPath.Text);
         }
 
         private void ServerPathBrowse_Click(object sender, EventArgs e)
         {
-            string folder = GetFolder("Select the folder for the root of the server");
+            string folder = GetFolder("Select the root of the server");
 
             if (string.IsNullOrWhiteSpace(folder))
                 return;
 
             ServerPath.Text = folder;
+            UpdateServer.Enabled = !string.IsNullOrWhiteSpace(SteamCMDPath.Text);
+        }
 
-            if (!string.IsNullOrWhiteSpace(SteamCMDPath.Text))
-                UpdateServer.Enabled = true;
+        private void SrcdsPathBrowse_Click(object sender, EventArgs e)
+        {
+            string file = GetFile("Select the srcds.exe file", "srcds.exe");
+
+            if (string.IsNullOrWhiteSpace(file))
+                return;
+
+            SrcdsPath.Text = file;
+            MapList.Enabled = true;
         }
 
         private void CheckForUpdates_Click(object sender, EventArgs e)
@@ -155,6 +199,6 @@ namespace SteamCMD_GUI_Rewrite
         {
             Process.Start("https://developer.valvesoftware.com/wiki/SteamCMD");
         }
-        #endregion
+        #endregion // SmallEvents
     }
 }

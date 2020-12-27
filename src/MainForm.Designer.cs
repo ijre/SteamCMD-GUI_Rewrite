@@ -43,6 +43,8 @@ namespace SteamCMD_GUI_Rewrite
             this.ServerPath = new System.Windows.Forms.TextBox();
             this.SaveLoginDetails = new System.Windows.Forms.CheckBox();
             this.AnonymousLogin = new System.Windows.Forms.CheckBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.Label1 = new System.Windows.Forms.Label();
             this.Username = new System.Windows.Forms.TextBox();
             this.Password = new System.Windows.Forms.MaskedTextBox();
@@ -58,25 +60,16 @@ namespace SteamCMD_GUI_Rewrite
             this.RunServerButton = new System.Windows.Forms.Button();
             this.BotsCheckBox = new System.Windows.Forms.CheckBox();
             this.SourceTVCheckBox = new System.Windows.Forms.CheckBox();
-            this.DebugModeCheckBox = new System.Windows.Forms.CheckBox();
-            this.UDPPortTexBox = new System.Windows.Forms.NumericUpDown();
-            this.RconTextBox = new System.Windows.Forms.MaskedTextBox();
-            this.Label11 = new System.Windows.Forms.Label();
-            this.Label10 = new System.Windows.Forms.Label();
             this.NetworkComboBox = new System.Windows.Forms.ComboBox();
             this.ServerNameTextBox = new System.Windows.Forms.TextBox();
             this.Label7 = new System.Windows.Forms.Label();
             this.MaxPlayersTexBox = new System.Windows.Forms.NumericUpDown();
-            this.CustomModTextBox = new System.Windows.Forms.TextBox();
             this.GameListRunTab = new System.Windows.Forms.ComboBox();
-            this.CustomModCheckBox = new System.Windows.Forms.CheckBox();
             this.MapList = new System.Windows.Forms.ComboBox();
             this.Label6 = new System.Windows.Forms.Label();
             this.Label8 = new System.Windows.Forms.Label();
             this.Label5 = new System.Windows.Forms.Label();
             this.RunTab = new System.Windows.Forms.TabPage();
-            this.IPTextbox = new System.Windows.Forms.TextBox();
-            this.IPButton = new System.Windows.Forms.Button();
             this.MainTabs = new System.Windows.Forms.TabControl();
             this.FileStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveSettings = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,20 +81,21 @@ namespace SteamCMD_GUI_Rewrite
             this.CheckForUpdates = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.ValveDeveloperCommunity = new System.Windows.Forms.ToolStripMenuItem();
-            this.Status = new System.Windows.Forms.TextBox();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.label9 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
+            this.RconTextBox = new System.Windows.Forms.MaskedTextBox();
+            this.Label11 = new System.Windows.Forms.Label();
+            this.Label10 = new System.Windows.Forms.Label();
+            this.UDPPortTexBox = new System.Windows.Forms.NumericUpDown();
             this.UpdateTab.SuspendLayout();
             this.SteamCMDConfigGroup.SuspendLayout();
             this.ServerConfigGroup.SuspendLayout();
             this.GroupBox5.SuspendLayout();
             this.GroupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.UDPPortTexBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaxPlayersTexBox)).BeginInit();
             this.RunTab.SuspendLayout();
             this.MainTabs.SuspendLayout();
             this.MenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.UDPPortTexBox)).BeginInit();
             this.SuspendLayout();
             // 
             // UpdateTab
@@ -131,9 +125,9 @@ namespace SteamCMD_GUI_Rewrite
             // SteamCMDPathBrowse
             // 
             this.SteamCMDPathBrowse.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.SteamCMDPathBrowse.Location = new System.Drawing.Point(313, 15);
+            this.SteamCMDPathBrowse.Location = new System.Drawing.Point(313, 16);
             this.SteamCMDPathBrowse.Name = "SteamCMDPathBrowse";
-            this.SteamCMDPathBrowse.Size = new System.Drawing.Size(68, 23);
+            this.SteamCMDPathBrowse.Size = new System.Drawing.Size(68, 22);
             this.SteamCMDPathBrowse.TabIndex = 0;
             this.SteamCMDPathBrowse.Text = "Browse";
             this.SteamCMDPathBrowse.UseVisualStyleBackColor = true;
@@ -146,7 +140,7 @@ namespace SteamCMD_GUI_Rewrite
             this.SteamCMDPath.ReadOnly = true;
             this.SteamCMDPath.ShortcutsEnabled = false;
             this.SteamCMDPath.Size = new System.Drawing.Size(217, 20);
-            this.SteamCMDPath.TabIndex = 0;
+            this.SteamCMDPath.TabIndex = 1;
             this.SteamCMDPath.TabStop = false;
             this.SteamCMDPath.Click += new System.EventHandler(this.SteamCMDPathBrowse_Click);
             // 
@@ -189,7 +183,7 @@ namespace SteamCMD_GUI_Rewrite
             this.ValidateInstall.Location = new System.Drawing.Point(5, 174);
             this.ValidateInstall.Name = "ValidateInstall";
             this.ValidateInstall.Size = new System.Drawing.Size(88, 17);
-            this.ValidateInstall.TabIndex = 17;
+            this.ValidateInstall.TabIndex = 4;
             this.ValidateInstall.TabStop = false;
             this.ValidateInstall.Text = "Validate Files";
             this.ValidateInstall.UseVisualStyleBackColor = true;
@@ -200,7 +194,7 @@ namespace SteamCMD_GUI_Rewrite
             this.ServerPathBrowse.Location = new System.Drawing.Point(313, 140);
             this.ServerPathBrowse.Name = "ServerPathBrowse";
             this.ServerPathBrowse.Size = new System.Drawing.Size(68, 23);
-            this.ServerPathBrowse.TabIndex = 7;
+            this.ServerPathBrowse.TabIndex = 3;
             this.ServerPathBrowse.Text = "Browse";
             this.ServerPathBrowse.UseVisualStyleBackColor = true;
             this.ServerPathBrowse.Click += new System.EventHandler(this.ServerPathBrowse_Click);
@@ -212,7 +206,7 @@ namespace SteamCMD_GUI_Rewrite
             this.UpdateServer.Location = new System.Drawing.Point(208, 168);
             this.UpdateServer.Name = "UpdateServer";
             this.UpdateServer.Size = new System.Drawing.Size(99, 23);
-            this.UpdateServer.TabIndex = 16;
+            this.UpdateServer.TabIndex = 5;
             this.UpdateServer.Text = "Update/Install";
             this.UpdateServer.UseVisualStyleBackColor = true;
             this.UpdateServer.Click += new System.EventHandler(this.UpdateServerButton_Click);
@@ -248,6 +242,7 @@ namespace SteamCMD_GUI_Rewrite
             this.SaveLoginDetails.TabIndex = 6;
             this.SaveLoginDetails.Text = "Save Details in Config";
             this.SaveLoginDetails.ThreeState = true;
+            this.ToolTip.SetToolTip(this.SaveLoginDetails, "Half check means it will only save your username");
             this.SaveLoginDetails.UseVisualStyleBackColor = true;
             // 
             // AnonymousLogin
@@ -262,6 +257,26 @@ namespace SteamCMD_GUI_Rewrite
             this.AnonymousLogin.TabIndex = 6;
             this.AnonymousLogin.Text = "Login as Anonymous";
             this.AnonymousLogin.UseVisualStyleBackColor = true;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label12.Location = new System.Drawing.Point(40, 101);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(30, 13);
+            this.label12.TabIndex = 8;
+            this.label12.Text = "Pass";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label9.Location = new System.Drawing.Point(40, 75);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(29, 13);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "User";
             // 
             // Label1
             // 
@@ -278,7 +293,7 @@ namespace SteamCMD_GUI_Rewrite
             this.Username.Location = new System.Drawing.Point(75, 72);
             this.Username.Name = "Username";
             this.Username.Size = new System.Drawing.Size(100, 20);
-            this.Username.TabIndex = 4;
+            this.Username.TabIndex = 1;
             // 
             // Password
             // 
@@ -287,7 +302,7 @@ namespace SteamCMD_GUI_Rewrite
             this.Password.Name = "Password";
             this.Password.PasswordChar = '*';
             this.Password.Size = new System.Drawing.Size(100, 22);
-            this.Password.TabIndex = 5;
+            this.Password.TabIndex = 2;
             // 
             // GameListUpdateTab
             // 
@@ -297,25 +312,25 @@ namespace SteamCMD_GUI_Rewrite
             this.GameListUpdateTab.Location = new System.Drawing.Point(75, 25);
             this.GameListUpdateTab.Name = "GameListUpdateTab";
             this.GameListUpdateTab.Size = new System.Drawing.Size(215, 21);
-            this.GameListUpdateTab.TabIndex = 1;
+            this.GameListUpdateTab.TabIndex = 0;
             // 
             // SrcdsExeBrowserButton
             // 
             this.SrcdsExeBrowserButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.SrcdsExeBrowserButton.Location = new System.Drawing.Point(312, 14);
+            this.SrcdsExeBrowserButton.Location = new System.Drawing.Point(311, 16);
             this.SrcdsExeBrowserButton.Name = "SrcdsExeBrowserButton";
-            this.SrcdsExeBrowserButton.Size = new System.Drawing.Size(68, 23);
+            this.SrcdsExeBrowserButton.Size = new System.Drawing.Size(68, 22);
             this.SrcdsExeBrowserButton.TabIndex = 0;
             this.SrcdsExeBrowserButton.Text = "Browse";
             this.SrcdsExeBrowserButton.UseVisualStyleBackColor = true;
             // 
             // SrcdsExePathTextBox
             // 
-            this.SrcdsExePathTextBox.Location = new System.Drawing.Point(71, 17);
+            this.SrcdsExePathTextBox.Location = new System.Drawing.Point(64, 17);
             this.SrcdsExePathTextBox.Name = "SrcdsExePathTextBox";
             this.SrcdsExePathTextBox.ReadOnly = true;
-            this.SrcdsExePathTextBox.Size = new System.Drawing.Size(235, 20);
-            this.SrcdsExePathTextBox.TabIndex = 0;
+            this.SrcdsExePathTextBox.Size = new System.Drawing.Size(242, 20);
+            this.SrcdsExePathTextBox.TabIndex = 1;
             this.SrcdsExePathTextBox.TabStop = false;
             // 
             // Label3
@@ -345,10 +360,10 @@ namespace SteamCMD_GUI_Rewrite
             this.AddLaunchParams.BackgroundImage = global::SteamCMD_GUI_Rewrite.Properties.Resources.Add;
             this.AddLaunchParams.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.AddLaunchParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.AddLaunchParams.Location = new System.Drawing.Point(346, 175);
+            this.AddLaunchParams.Location = new System.Drawing.Point(243, 175);
             this.AddLaunchParams.Name = "AddLaunchParams";
             this.AddLaunchParams.Size = new System.Drawing.Size(23, 23);
-            this.AddLaunchParams.TabIndex = 22;
+            this.AddLaunchParams.TabIndex = 11;
             this.ToolTip.SetToolTip(this.AddLaunchParams, "Add More Command Line Params");
             this.AddLaunchParams.UseVisualStyleBackColor = true;
             // 
@@ -360,7 +375,6 @@ namespace SteamCMD_GUI_Rewrite
             this.GroupBox6.Controls.Add(this.RunServerButton);
             this.GroupBox6.Controls.Add(this.BotsCheckBox);
             this.GroupBox6.Controls.Add(this.SourceTVCheckBox);
-            this.GroupBox6.Controls.Add(this.DebugModeCheckBox);
             this.GroupBox6.Controls.Add(this.UDPPortTexBox);
             this.GroupBox6.Controls.Add(this.RconTextBox);
             this.GroupBox6.Controls.Add(this.Label11);
@@ -369,9 +383,7 @@ namespace SteamCMD_GUI_Rewrite
             this.GroupBox6.Controls.Add(this.ServerNameTextBox);
             this.GroupBox6.Controls.Add(this.Label7);
             this.GroupBox6.Controls.Add(this.MaxPlayersTexBox);
-            this.GroupBox6.Controls.Add(this.CustomModTextBox);
             this.GroupBox6.Controls.Add(this.GameListRunTab);
-            this.GroupBox6.Controls.Add(this.CustomModCheckBox);
             this.GroupBox6.Controls.Add(this.MapList);
             this.GroupBox6.Controls.Add(this.Label6);
             this.GroupBox6.Controls.Add(this.Label8);
@@ -390,7 +402,7 @@ namespace SteamCMD_GUI_Rewrite
             this.InsecureCheckBox.Location = new System.Drawing.Point(11, 179);
             this.InsecureCheckBox.Name = "InsecureCheckBox";
             this.InsecureCheckBox.Size = new System.Drawing.Size(67, 17);
-            this.InsecureCheckBox.TabIndex = 16;
+            this.InsecureCheckBox.TabIndex = 9;
             this.InsecureCheckBox.Text = "Insecure";
             this.InsecureCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -398,10 +410,10 @@ namespace SteamCMD_GUI_Rewrite
             // 
             this.DevModeCheckBox.AutoSize = true;
             this.DevModeCheckBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DevModeCheckBox.Location = new System.Drawing.Point(196, 179);
+            this.DevModeCheckBox.Location = new System.Drawing.Point(94, 179);
             this.DevModeCheckBox.Name = "DevModeCheckBox";
             this.DevModeCheckBox.Size = new System.Drawing.Size(97, 17);
-            this.DevModeCheckBox.TabIndex = 18;
+            this.DevModeCheckBox.TabIndex = 10;
             this.DevModeCheckBox.Text = "Dev Messages";
             this.DevModeCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -409,21 +421,22 @@ namespace SteamCMD_GUI_Rewrite
             // 
             this.RunServerButton.Enabled = false;
             this.RunServerButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.RunServerButton.Location = new System.Drawing.Point(300, 175);
+            this.RunServerButton.Location = new System.Drawing.Point(197, 175);
             this.RunServerButton.Name = "RunServerButton";
             this.RunServerButton.Size = new System.Drawing.Size(40, 23);
-            this.RunServerButton.TabIndex = 19;
+            this.RunServerButton.TabIndex = 12;
             this.RunServerButton.Text = "Run";
             this.RunServerButton.UseVisualStyleBackColor = true;
+            this.RunServerButton.Click += new System.EventHandler(this.RunServerButton_Click);
             // 
             // BotsCheckBox
             // 
             this.BotsCheckBox.AutoSize = true;
             this.BotsCheckBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.BotsCheckBox.Location = new System.Drawing.Point(105, 179);
+            this.BotsCheckBox.Location = new System.Drawing.Point(94, 154);
             this.BotsCheckBox.Name = "BotsCheckBox";
             this.BotsCheckBox.Size = new System.Drawing.Size(85, 17);
-            this.BotsCheckBox.TabIndex = 17;
+            this.BotsCheckBox.TabIndex = 8;
             this.BotsCheckBox.Text = "Disable Bots";
             this.BotsCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -431,70 +444,12 @@ namespace SteamCMD_GUI_Rewrite
             // 
             this.SourceTVCheckBox.AutoSize = true;
             this.SourceTVCheckBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.SourceTVCheckBox.Location = new System.Drawing.Point(105, 156);
+            this.SourceTVCheckBox.Location = new System.Drawing.Point(11, 154);
             this.SourceTVCheckBox.Name = "SourceTVCheckBox";
             this.SourceTVCheckBox.Size = new System.Drawing.Size(74, 17);
-            this.SourceTVCheckBox.TabIndex = 14;
+            this.SourceTVCheckBox.TabIndex = 7;
             this.SourceTVCheckBox.Text = "SourceTV";
             this.SourceTVCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // DebugModeCheckBox
-            // 
-            this.DebugModeCheckBox.AutoSize = true;
-            this.DebugModeCheckBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DebugModeCheckBox.Location = new System.Drawing.Point(11, 156);
-            this.DebugModeCheckBox.Name = "DebugModeCheckBox";
-            this.DebugModeCheckBox.Size = new System.Drawing.Size(88, 17);
-            this.DebugModeCheckBox.TabIndex = 13;
-            this.DebugModeCheckBox.Text = "Debug Mode";
-            this.DebugModeCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // UDPPortTexBox
-            // 
-            this.UDPPortTexBox.Location = new System.Drawing.Point(79, 128);
-            this.UDPPortTexBox.Maximum = new decimal(new int[] {
-            49151,
-            0,
-            0,
-            0});
-            this.UDPPortTexBox.Name = "UDPPortTexBox";
-            this.UDPPortTexBox.Size = new System.Drawing.Size(100, 20);
-            this.UDPPortTexBox.TabIndex = 10;
-            this.UDPPortTexBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.UDPPortTexBox.Value = new decimal(new int[] {
-            27015,
-            0,
-            0,
-            0});
-            // 
-            // RconTextBox
-            // 
-            this.RconTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.RconTextBox.Location = new System.Drawing.Point(289, 125);
-            this.RconTextBox.Name = "RconTextBox";
-            this.RconTextBox.PasswordChar = '*';
-            this.RconTextBox.Size = new System.Drawing.Size(91, 22);
-            this.RconTextBox.TabIndex = 11;
-            // 
-            // Label11
-            // 
-            this.Label11.AutoSize = true;
-            this.Label11.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label11.Location = new System.Drawing.Point(249, 130);
-            this.Label11.Name = "Label11";
-            this.Label11.Size = new System.Drawing.Size(38, 13);
-            this.Label11.TabIndex = 15;
-            this.Label11.Text = "RCON";
-            // 
-            // Label10
-            // 
-            this.Label10.AutoSize = true;
-            this.Label10.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label10.Location = new System.Drawing.Point(6, 130);
-            this.Label10.Name = "Label10";
-            this.Label10.Size = new System.Drawing.Size(52, 13);
-            this.Label10.TabIndex = 12;
-            this.Label10.Text = "UDP Port";
             // 
             // NetworkComboBox
             // 
@@ -505,7 +460,7 @@ namespace SteamCMD_GUI_Rewrite
             this.NetworkComboBox.Location = new System.Drawing.Point(79, 100);
             this.NetworkComboBox.Name = "NetworkComboBox";
             this.NetworkComboBox.Size = new System.Drawing.Size(128, 21);
-            this.NetworkComboBox.TabIndex = 8;
+            this.NetworkComboBox.TabIndex = 3;
             // 
             // ServerNameTextBox
             // 
@@ -513,7 +468,7 @@ namespace SteamCMD_GUI_Rewrite
             this.ServerNameTextBox.MaxLength = 50;
             this.ServerNameTextBox.Name = "ServerNameTextBox";
             this.ServerNameTextBox.Size = new System.Drawing.Size(199, 20);
-            this.ServerNameTextBox.TabIndex = 6;
+            this.ServerNameTextBox.TabIndex = 1;
             this.ServerNameTextBox.Text = "Source Dedicated Server";
             // 
             // Label7
@@ -528,7 +483,7 @@ namespace SteamCMD_GUI_Rewrite
             // 
             // MaxPlayersTexBox
             // 
-            this.MaxPlayersTexBox.Location = new System.Drawing.Point(333, 101);
+            this.MaxPlayersTexBox.Location = new System.Drawing.Point(267, 111);
             this.MaxPlayersTexBox.Maximum = new decimal(new int[] {
             64,
             0,
@@ -541,42 +496,22 @@ namespace SteamCMD_GUI_Rewrite
             0});
             this.MaxPlayersTexBox.Name = "MaxPlayersTexBox";
             this.MaxPlayersTexBox.Size = new System.Drawing.Size(46, 20);
-            this.MaxPlayersTexBox.TabIndex = 9;
+            this.MaxPlayersTexBox.TabIndex = 4;
             this.MaxPlayersTexBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.MaxPlayersTexBox.Value = new decimal(new int[] {
-            24,
+            32,
             0,
             0,
             0});
-            // 
-            // CustomModTextBox
-            // 
-            this.CustomModTextBox.Enabled = false;
-            this.CustomModTextBox.Location = new System.Drawing.Point(204, 20);
-            this.CustomModTextBox.MaxLength = 15;
-            this.CustomModTextBox.Name = "CustomModTextBox";
-            this.CustomModTextBox.Size = new System.Drawing.Size(74, 20);
-            this.CustomModTextBox.TabIndex = 3;
             // 
             // GameListRunTab
             // 
             this.GameListRunTab.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.GameListRunTab.FormattingEnabled = true;
-            this.GameListRunTab.Location = new System.Drawing.Point(9, 20);
+            this.GameListRunTab.Location = new System.Drawing.Point(79, 20);
             this.GameListRunTab.Name = "GameListRunTab";
-            this.GameListRunTab.Size = new System.Drawing.Size(189, 21);
-            this.GameListRunTab.TabIndex = 2;
-            // 
-            // CustomModCheckBox
-            // 
-            this.CustomModCheckBox.AutoSize = true;
-            this.CustomModCheckBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CustomModCheckBox.Location = new System.Drawing.Point(284, 22);
-            this.CustomModCheckBox.Name = "CustomModCheckBox";
-            this.CustomModCheckBox.Size = new System.Drawing.Size(85, 17);
-            this.CustomModCheckBox.TabIndex = 4;
-            this.CustomModCheckBox.Text = "Custom Mod";
-            this.CustomModCheckBox.UseVisualStyleBackColor = true;
+            this.GameListRunTab.Size = new System.Drawing.Size(209, 21);
+            this.GameListRunTab.TabIndex = 0;
             // 
             // MapList
             // 
@@ -587,13 +522,13 @@ namespace SteamCMD_GUI_Rewrite
             this.MapList.Location = new System.Drawing.Point(79, 73);
             this.MapList.Name = "MapList";
             this.MapList.Size = new System.Drawing.Size(199, 21);
-            this.MapList.TabIndex = 7;
+            this.MapList.TabIndex = 2;
             // 
             // Label6
             // 
             this.Label6.AutoSize = true;
             this.Label6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label6.Location = new System.Drawing.Point(249, 103);
+            this.Label6.Location = new System.Drawing.Point(318, 114);
             this.Label6.Name = "Label6";
             this.Label6.Size = new System.Drawing.Size(64, 13);
             this.Label6.TabIndex = 0;
@@ -631,33 +566,6 @@ namespace SteamCMD_GUI_Rewrite
             this.RunTab.Text = "Run";
             this.RunTab.UseVisualStyleBackColor = true;
             // 
-            // IPTextbox
-            // 
-            this.IPTextbox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.IPTextbox.Enabled = false;
-            this.IPTextbox.Font = new System.Drawing.Font("Consolas", 8.25F);
-            this.IPTextbox.Location = new System.Drawing.Point(334, 337);
-            this.IPTextbox.Name = "IPTextbox";
-            this.IPTextbox.ReadOnly = true;
-            this.IPTextbox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.IPTextbox.Size = new System.Drawing.Size(80, 20);
-            this.IPTextbox.TabIndex = 101;
-            this.IPTextbox.TabStop = false;
-            this.IPTextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // IPButton
-            // 
-            this.IPButton.BackColor = System.Drawing.Color.Transparent;
-            this.IPButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.IPButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.IPButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.IPButton.Location = new System.Drawing.Point(334, 336);
-            this.IPButton.Name = "IPButton";
-            this.IPButton.Size = new System.Drawing.Size(80, 20);
-            this.IPButton.TabIndex = 102;
-            this.IPButton.TabStop = false;
-            this.IPButton.UseVisualStyleBackColor = false;
-            // 
             // MainTabs
             // 
             this.MainTabs.Controls.Add(this.UpdateTab);
@@ -666,7 +574,7 @@ namespace SteamCMD_GUI_Rewrite
             this.MainTabs.Name = "MainTabs";
             this.MainTabs.SelectedIndex = 0;
             this.MainTabs.Size = new System.Drawing.Size(403, 303);
-            this.MainTabs.TabIndex = 103;
+            this.MainTabs.TabIndex = 0;
             // 
             // FileStripMenu
             // 
@@ -707,8 +615,8 @@ namespace SteamCMD_GUI_Rewrite
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
             this.MenuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.MenuStrip.Size = new System.Drawing.Size(414, 24);
-            this.MenuStrip.TabIndex = 109;
+            this.MenuStrip.Size = new System.Drawing.Size(423, 24);
+            this.MenuStrip.TabIndex = 2;
             this.MenuStrip.Text = "MenuStrip1";
             // 
             // ToolsStripMenu
@@ -749,49 +657,68 @@ namespace SteamCMD_GUI_Rewrite
             this.ValveDeveloperCommunity.Text = "Valve Developer Community";
             this.ValveDeveloperCommunity.Click += new System.EventHandler(this.ValveDeveloperCommunity_Click);
             // 
-            // Status
+            // ToolTip
             // 
-            this.Status.BackColor = System.Drawing.SystemColors.Control;
-            this.Status.Enabled = false;
-            this.Status.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.Status.Location = new System.Drawing.Point(11, 337);
-            this.Status.Name = "Status";
-            this.Status.Size = new System.Drawing.Size(317, 20);
-            this.Status.TabIndex = 108;
+            this.ToolTip.AutoPopDelay = 5000;
+            this.ToolTip.InitialDelay = 200;
+            this.ToolTip.ReshowDelay = 100;
+            this.ToolTip.ShowAlways = true;
             // 
-            // label9
+            // RconTextBox
             // 
-            this.label9.AutoSize = true;
-            this.label9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label9.Location = new System.Drawing.Point(40, 75);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(29, 13);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "User";
+            this.RconTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.RconTextBox.Location = new System.Drawing.Point(244, 133);
+            this.RconTextBox.Name = "RconTextBox";
+            this.RconTextBox.PasswordChar = '*';
+            this.RconTextBox.Size = new System.Drawing.Size(91, 22);
+            this.RconTextBox.TabIndex = 5;
             // 
-            // label12
+            // Label11
             // 
-            this.label12.AutoSize = true;
-            this.label12.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label12.Location = new System.Drawing.Point(40, 101);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(30, 13);
-            this.label12.TabIndex = 8;
-            this.label12.Text = "Pass";
+            this.Label11.AutoSize = true;
+            this.Label11.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.Label11.Location = new System.Drawing.Point(341, 138);
+            this.Label11.Name = "Label11";
+            this.Label11.Size = new System.Drawing.Size(38, 13);
+            this.Label11.TabIndex = 15;
+            this.Label11.Text = "RCON";
+            // 
+            // Label10
+            // 
+            this.Label10.AutoSize = true;
+            this.Label10.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.Label10.Location = new System.Drawing.Point(6, 130);
+            this.Label10.Name = "Label10";
+            this.Label10.Size = new System.Drawing.Size(52, 13);
+            this.Label10.TabIndex = 12;
+            this.Label10.Text = "UDP Port";
+            // 
+            // UDPPortTexBox
+            // 
+            this.UDPPortTexBox.Location = new System.Drawing.Point(79, 128);
+            this.UDPPortTexBox.Maximum = new decimal(new int[] {
+            49151,
+            0,
+            0,
+            0});
+            this.UDPPortTexBox.Name = "UDPPortTexBox";
+            this.UDPPortTexBox.Size = new System.Drawing.Size(100, 20);
+            this.UDPPortTexBox.TabIndex = 6;
+            this.UDPPortTexBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.UDPPortTexBox.Value = new decimal(new int[] {
+            27015,
+            0,
+            0,
+            0});
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(414, 358);
-            this.Controls.Add(this.IPTextbox);
-            this.Controls.Add(this.IPButton);
+            this.ClientSize = new System.Drawing.Size(423, 336);
             this.Controls.Add(this.MainTabs);
             this.Controls.Add(this.MenuStrip);
-            this.Controls.Add(this.Status);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(430, 397);
-            this.MinimumSize = new System.Drawing.Size(430, 397);
             this.Name = "MainForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -805,12 +732,12 @@ namespace SteamCMD_GUI_Rewrite
             this.GroupBox5.PerformLayout();
             this.GroupBox6.ResumeLayout(false);
             this.GroupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.UDPPortTexBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaxPlayersTexBox)).EndInit();
             this.RunTab.ResumeLayout(false);
             this.MainTabs.ResumeLayout(false);
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.UDPPortTexBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -829,7 +756,6 @@ namespace SteamCMD_GUI_Rewrite
         private System.Windows.Forms.Button UpdateServer;
         private System.Windows.Forms.Label Label2;
         private System.Windows.Forms.TextBox ServerPath;
-        private System.Windows.Forms.CheckBox SaveLoginDetails;
         private System.Windows.Forms.CheckBox AnonymousLogin;
         private System.Windows.Forms.Label Label1;
         private System.Windows.Forms.TextBox Username;
@@ -846,32 +772,22 @@ namespace SteamCMD_GUI_Rewrite
         private System.Windows.Forms.Button RunServerButton;
         private System.Windows.Forms.CheckBox BotsCheckBox;
         private System.Windows.Forms.CheckBox SourceTVCheckBox;
-        private System.Windows.Forms.CheckBox DebugModeCheckBox;
-        private System.Windows.Forms.NumericUpDown UDPPortTexBox;
-        private System.Windows.Forms.MaskedTextBox RconTextBox;
-        private System.Windows.Forms.Label Label11;
-        private System.Windows.Forms.Label Label10;
         private System.Windows.Forms.ComboBox NetworkComboBox;
         private System.Windows.Forms.TextBox ServerNameTextBox;
         private System.Windows.Forms.Label Label7;
         private System.Windows.Forms.NumericUpDown MaxPlayersTexBox;
-        private System.Windows.Forms.TextBox CustomModTextBox;
         private System.Windows.Forms.ComboBox GameListRunTab;
-        private System.Windows.Forms.CheckBox CustomModCheckBox;
         private System.Windows.Forms.ComboBox MapList;
         private System.Windows.Forms.Label Label6;
         private System.Windows.Forms.Label Label8;
         private System.Windows.Forms.Label Label5;
         private System.Windows.Forms.TabPage RunTab;
-        private System.Windows.Forms.TextBox IPTextbox;
-        private System.Windows.Forms.Button IPButton;
         private System.Windows.Forms.TabControl MainTabs;
         private System.Windows.Forms.ToolStripMenuItem FileStripMenu;
         private System.Windows.Forms.ToolStripMenuItem SaveSettings;
         private System.Windows.Forms.ToolStripMenuItem LoadSettings;
         private System.Windows.Forms.ToolStripSeparator ToolStripSeparator3;
         private System.Windows.Forms.MenuStrip MenuStrip;
-        private System.Windows.Forms.TextBox Status;
         private System.Windows.Forms.ToolStripMenuItem ToolsStripMenu;
         private System.Windows.Forms.ToolStripMenuItem DownloadSteamCMD;
         private System.Windows.Forms.ToolStripMenuItem HelpStripMenu;
@@ -880,6 +796,11 @@ namespace SteamCMD_GUI_Rewrite
         private System.Windows.Forms.ToolTip ToolTip;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.CheckBox SaveLoginDetails;
+        private System.Windows.Forms.NumericUpDown UDPPortTexBox;
+        private System.Windows.Forms.MaskedTextBox RconTextBox;
+        private System.Windows.Forms.Label Label11;
+        private System.Windows.Forms.Label Label10;
     }
 }
 

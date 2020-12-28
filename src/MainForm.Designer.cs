@@ -84,9 +84,9 @@ namespace SteamCMD_GUI
             this.DownloadSteamCMD = new System.Windows.Forms.ToolStripMenuItem();
             this.CheckForUpdates = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpStripMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.ValveDeveloperCommunity = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.AdditionalCommands = new System.Windows.Forms.TextBox();
+            this.SrcdsLaunchOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.UpdateTab.SuspendLayout();
             this.SteamCMDConfigGroup.SuspendLayout();
             this.ServerConfigGroup.SuspendLayout();
@@ -707,17 +707,10 @@ namespace SteamCMD_GUI
             // HelpStripMenu
             // 
             this.HelpStripMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ValveDeveloperCommunity});
+            this.SrcdsLaunchOptions});
             this.HelpStripMenu.Name = "HelpStripMenu";
             this.HelpStripMenu.Size = new System.Drawing.Size(44, 20);
             this.HelpStripMenu.Text = "Help";
-            // 
-            // ValveDeveloperCommunity
-            // 
-            this.ValveDeveloperCommunity.Name = "ValveDeveloperCommunity";
-            this.ValveDeveloperCommunity.Size = new System.Drawing.Size(224, 22);
-            this.ValveDeveloperCommunity.Text = "Valve Developer Community";
-            this.ValveDeveloperCommunity.Click += new System.EventHandler(this.ValveDeveloperCommunity_Click);
             // 
             // ToolTip
             // 
@@ -738,6 +731,13 @@ namespace SteamCMD_GUI
             this.AdditionalCommands.WordWrap = false;
             this.AdditionalCommands.KeyUp += new System.Windows.Forms.KeyEventHandler(this.AdditionalCommands_KeyUp);
             this.AdditionalCommands.Leave += new System.EventHandler(this.AdditionalCommands_Leave);
+            // 
+            // SrcdsLaunchOptions
+            // 
+            this.SrcdsLaunchOptions.Name = "SrcdsLaunchOptions";
+            this.SrcdsLaunchOptions.Size = new System.Drawing.Size(189, 22);
+            this.SrcdsLaunchOptions.Text = "Srcds Launch Options";
+            this.SrcdsLaunchOptions.Click += new System.EventHandler(this.SrcdsLaunchOptions_Click);
             // 
             // MainForm
             // 
@@ -817,7 +817,6 @@ namespace SteamCMD_GUI
         private System.Windows.Forms.ToolStripMenuItem DownloadSteamCMD;
         private System.Windows.Forms.ToolStripMenuItem HelpStripMenu;
         private System.Windows.Forms.ToolStripMenuItem CheckForUpdates;
-        private System.Windows.Forms.ToolStripMenuItem ValveDeveloperCommunity;
         private System.Windows.Forms.ToolTip ToolTip;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label9;
@@ -830,6 +829,7 @@ namespace SteamCMD_GUI
         private System.Windows.Forms.TextBox AdditionalCommands;
         private System.Windows.Forms.TextBox Rcon;
         private System.Windows.Forms.TextBox Password;
+        private System.Windows.Forms.ToolStripMenuItem SrcdsLaunchOptions;
     }
 }
 

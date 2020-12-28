@@ -445,9 +445,9 @@ namespace SteamCMD_GUI
             Process.Start("http://media.steampowered.com/installer/steamcmd.zip");
         }
 
-        private void ValveDeveloperCommunity_Click(object sender, EventArgs e)
+        private void SrcdsLaunchOptions_Click(object sender, EventArgs e)
         {
-            Process.Start("https://developer.valvesoftware.com/wiki/SteamCMD");
+            Process.Start("https://developer.valvesoftware.com/wiki/Command_Line_Options#Source_Dedicated_Server");
         }
         #endregion // SmallEvents
     }

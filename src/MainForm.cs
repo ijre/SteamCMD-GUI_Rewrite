@@ -47,6 +47,7 @@ namespace SteamCMD_GUI
         }
 
         #region Events
+        #region Settings
         private void SaveSettings_Click(object sender, EventArgs e)
         {
             using var diag = new SaveFileDialog
@@ -171,6 +172,7 @@ namespace SteamCMD_GUI
 
             MapList.SelectedItem = mapToSelect;
         }
+        #endregion // Settings
 
         private void UpdateServerButton_Click(object sender, EventArgs e)
         {
@@ -254,7 +256,7 @@ namespace SteamCMD_GUI
 
                 lastCount = -2;
 
-                // HACK: Because this event happens on leaving the control as well as entering, we don't want to yell at the user a second time
+                // HACK: Because this event happens on leaving the control as well as entering, I don't want to yell at the user a second time
                 // So I re-use the lastCount var as it'll be an invalid number anyways
 
                 return;

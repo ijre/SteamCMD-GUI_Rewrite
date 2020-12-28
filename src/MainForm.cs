@@ -19,6 +19,7 @@ namespace SteamCMD_GUI
         public MainForm()
         {
             InitializeComponent();
+            Icon = Properties.Resources.Icon;
 
             for (int i = 0; i < GameInfo.GetLength(0); i++)
             {

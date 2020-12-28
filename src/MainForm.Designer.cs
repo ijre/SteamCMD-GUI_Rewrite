@@ -749,7 +749,6 @@ namespace SteamCMD_GUI
             this.Controls.Add(this.AdditionalCommands);
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SteamCMD GUI";
             this.UpdateTab.ResumeLayout(false);

@@ -252,9 +252,8 @@ namespace SteamCMD_GUI
                 if (lastCount != -2)
                 {
                     MessageBox.Show("Error! Invalid directory or game for said directory. Please try again.", "Invalid Directory", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    lastCount = -2;
                 }
-
-                lastCount = -2;
 
                 // HACK: Because this event happens on leaving the control as well as entering, I don't want to yell at the user a second time
                 // So I re-use the lastCount var as it'll be an invalid number anyways

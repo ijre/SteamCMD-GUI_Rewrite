@@ -46,7 +46,7 @@ namespace SteamCMD_GUI
             this.label12 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.Password = new System.Windows.Forms.TextBox();
+            this.PasswordLogin = new System.Windows.Forms.TextBox();
             this.Username = new System.Windows.Forms.TextBox();
             this.GameListUpdateTab = new System.Windows.Forms.ComboBox();
             this.SrcdsPathBrowse = new System.Windows.Forms.Button();
@@ -84,9 +84,12 @@ namespace SteamCMD_GUI
             this.DownloadSteamCMD = new System.Windows.Forms.ToolStripMenuItem();
             this.CheckForUpdates = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpStripMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.SrcdsLaunchOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.AdditionalCommands = new System.Windows.Forms.TextBox();
-            this.SrcdsLaunchOptions = new System.Windows.Forms.ToolStripMenuItem();
+            this.PasswordServer = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.SaveRCON = new System.Windows.Forms.CheckBox();
             this.UpdateTab.SuspendLayout();
             this.SteamCMDConfigGroup.SuspendLayout();
             this.ServerConfigGroup.SuspendLayout();
@@ -106,7 +109,7 @@ namespace SteamCMD_GUI
             this.UpdateTab.Location = new System.Drawing.Point(4, 22);
             this.UpdateTab.Name = "UpdateTab";
             this.UpdateTab.Padding = new System.Windows.Forms.Padding(3);
-            this.UpdateTab.Size = new System.Drawing.Size(395, 277);
+            this.UpdateTab.Size = new System.Drawing.Size(453, 300);
             this.UpdateTab.TabIndex = 0;
             this.UpdateTab.Text = "Update/Install";
             this.UpdateTab.UseVisualStyleBackColor = true;
@@ -118,7 +121,7 @@ namespace SteamCMD_GUI
             this.SteamCMDConfigGroup.Controls.Add(this.Label4);
             this.SteamCMDConfigGroup.Location = new System.Drawing.Point(4, 3);
             this.SteamCMDConfigGroup.Name = "SteamCMDConfigGroup";
-            this.SteamCMDConfigGroup.Size = new System.Drawing.Size(386, 48);
+            this.SteamCMDConfigGroup.Size = new System.Drawing.Size(442, 48);
             this.SteamCMDConfigGroup.TabIndex = 0;
             this.SteamCMDConfigGroup.TabStop = false;
             this.SteamCMDConfigGroup.Text = "SteamCMD Configuration";
@@ -126,7 +129,7 @@ namespace SteamCMD_GUI
             // SteamCMDPathBrowse
             // 
             this.SteamCMDPathBrowse.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.SteamCMDPathBrowse.Location = new System.Drawing.Point(313, 16);
+            this.SteamCMDPathBrowse.Location = new System.Drawing.Point(368, 16);
             this.SteamCMDPathBrowse.Name = "SteamCMDPathBrowse";
             this.SteamCMDPathBrowse.Size = new System.Drawing.Size(68, 22);
             this.SteamCMDPathBrowse.TabIndex = 0;
@@ -140,7 +143,7 @@ namespace SteamCMD_GUI
             this.SteamCMDPath.Name = "SteamCMDPath";
             this.SteamCMDPath.ReadOnly = true;
             this.SteamCMDPath.ShortcutsEnabled = false;
-            this.SteamCMDPath.Size = new System.Drawing.Size(217, 20);
+            this.SteamCMDPath.Size = new System.Drawing.Size(272, 20);
             this.SteamCMDPath.TabIndex = 1;
             this.SteamCMDPath.TabStop = false;
             this.SteamCMDPath.Click += new System.EventHandler(this.SteamCMDPathBrowse_Click);
@@ -167,12 +170,12 @@ namespace SteamCMD_GUI
             this.ServerConfigGroup.Controls.Add(this.label12);
             this.ServerConfigGroup.Controls.Add(this.label14);
             this.ServerConfigGroup.Controls.Add(this.label9);
-            this.ServerConfigGroup.Controls.Add(this.Password);
+            this.ServerConfigGroup.Controls.Add(this.PasswordLogin);
             this.ServerConfigGroup.Controls.Add(this.Username);
             this.ServerConfigGroup.Controls.Add(this.GameListUpdateTab);
             this.ServerConfigGroup.Location = new System.Drawing.Point(4, 57);
             this.ServerConfigGroup.Name = "ServerConfigGroup";
-            this.ServerConfigGroup.Size = new System.Drawing.Size(387, 217);
+            this.ServerConfigGroup.Size = new System.Drawing.Size(443, 237);
             this.ServerConfigGroup.TabIndex = 1;
             this.ServerConfigGroup.TabStop = false;
             this.ServerConfigGroup.Text = "Server Configuration";
@@ -181,7 +184,7 @@ namespace SteamCMD_GUI
             // 
             this.ValidateInstall.AutoSize = true;
             this.ValidateInstall.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.ValidateInstall.Location = new System.Drawing.Point(5, 174);
+            this.ValidateInstall.Location = new System.Drawing.Point(6, 178);
             this.ValidateInstall.Name = "ValidateInstall";
             this.ValidateInstall.Size = new System.Drawing.Size(88, 17);
             this.ValidateInstall.TabIndex = 4;
@@ -192,7 +195,7 @@ namespace SteamCMD_GUI
             // ServerPathBrowse
             // 
             this.ServerPathBrowse.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.ServerPathBrowse.Location = new System.Drawing.Point(313, 141);
+            this.ServerPathBrowse.Location = new System.Drawing.Point(370, 148);
             this.ServerPathBrowse.Name = "ServerPathBrowse";
             this.ServerPathBrowse.Size = new System.Drawing.Size(68, 22);
             this.ServerPathBrowse.TabIndex = 3;
@@ -204,7 +207,7 @@ namespace SteamCMD_GUI
             // 
             this.UpdateServer.Enabled = false;
             this.UpdateServer.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.UpdateServer.Location = new System.Drawing.Point(208, 168);
+            this.UpdateServer.Location = new System.Drawing.Point(265, 174);
             this.UpdateServer.Name = "UpdateServer";
             this.UpdateServer.Size = new System.Drawing.Size(99, 23);
             this.UpdateServer.TabIndex = 5;
@@ -216,7 +219,7 @@ namespace SteamCMD_GUI
             // 
             this.Label2.AutoSize = true;
             this.Label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label2.Location = new System.Drawing.Point(2, 126);
+            this.Label2.Location = new System.Drawing.Point(3, 132);
             this.Label2.Name = "Label2";
             this.Label2.Size = new System.Drawing.Size(63, 13);
             this.Label2.TabIndex = 11;
@@ -224,11 +227,11 @@ namespace SteamCMD_GUI
             // 
             // ServerPath
             // 
-            this.ServerPath.Location = new System.Drawing.Point(5, 142);
+            this.ServerPath.Location = new System.Drawing.Point(6, 148);
             this.ServerPath.Name = "ServerPath";
             this.ServerPath.ReadOnly = true;
             this.ServerPath.ShortcutsEnabled = false;
-            this.ServerPath.Size = new System.Drawing.Size(302, 20);
+            this.ServerPath.Size = new System.Drawing.Size(358, 20);
             this.ServerPath.TabIndex = 0;
             this.ServerPath.TabStop = false;
             this.ServerPath.Click += new System.EventHandler(this.ServerPathBrowse_Click);
@@ -237,11 +240,11 @@ namespace SteamCMD_GUI
             // 
             this.SaveLoginDetails.AutoSize = true;
             this.SaveLoginDetails.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.SaveLoginDetails.Location = new System.Drawing.Point(181, 92);
+            this.SaveLoginDetails.Location = new System.Drawing.Point(230, 106);
             this.SaveLoginDetails.Name = "SaveLoginDetails";
-            this.SaveLoginDetails.Size = new System.Drawing.Size(159, 17);
+            this.SaveLoginDetails.Size = new System.Drawing.Size(115, 17);
             this.SaveLoginDetails.TabIndex = 6;
-            this.SaveLoginDetails.Text = "Save Login Details in Config";
+            this.SaveLoginDetails.Text = "Save Login Details";
             this.SaveLoginDetails.ThreeState = true;
             this.ToolTip.SetToolTip(this.SaveLoginDetails, "Half check means it will only save your username");
             this.SaveLoginDetails.UseVisualStyleBackColor = true;
@@ -254,7 +257,7 @@ namespace SteamCMD_GUI
             this.AnonymousLogin.Checked = true;
             this.AnonymousLogin.CheckState = System.Windows.Forms.CheckState.Checked;
             this.AnonymousLogin.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.AnonymousLogin.Location = new System.Drawing.Point(181, 66);
+            this.AnonymousLogin.Location = new System.Drawing.Point(230, 80);
             this.AnonymousLogin.Name = "AnonymousLogin";
             this.AnonymousLogin.Size = new System.Drawing.Size(124, 17);
             this.AnonymousLogin.TabIndex = 6;
@@ -266,7 +269,7 @@ namespace SteamCMD_GUI
             // 
             this.label12.AutoSize = true;
             this.label12.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label12.Location = new System.Drawing.Point(40, 93);
+            this.label12.Location = new System.Drawing.Point(89, 107);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(30, 13);
             this.label12.TabIndex = 8;
@@ -276,7 +279,7 @@ namespace SteamCMD_GUI
             // 
             this.label14.AutoSize = true;
             this.label14.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label14.Location = new System.Drawing.Point(39, 29);
+            this.label14.Location = new System.Drawing.Point(88, 43);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(35, 13);
             this.label14.TabIndex = 8;
@@ -286,24 +289,24 @@ namespace SteamCMD_GUI
             // 
             this.label9.AutoSize = true;
             this.label9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label9.Location = new System.Drawing.Point(40, 67);
+            this.label9.Location = new System.Drawing.Point(89, 81);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(29, 13);
             this.label9.TabIndex = 8;
             this.label9.Text = "User";
             // 
-            // Password
+            // PasswordLogin
             // 
-            this.Password.Enabled = false;
-            this.Password.Location = new System.Drawing.Point(75, 89);
-            this.Password.Name = "Password";
-            this.Password.Size = new System.Drawing.Size(100, 20);
-            this.Password.TabIndex = 1;
+            this.PasswordLogin.Enabled = false;
+            this.PasswordLogin.Location = new System.Drawing.Point(124, 103);
+            this.PasswordLogin.Name = "PasswordLogin";
+            this.PasswordLogin.Size = new System.Drawing.Size(100, 20);
+            this.PasswordLogin.TabIndex = 1;
             // 
             // Username
             // 
             this.Username.Enabled = false;
-            this.Username.Location = new System.Drawing.Point(75, 64);
+            this.Username.Location = new System.Drawing.Point(124, 78);
             this.Username.Name = "Username";
             this.Username.Size = new System.Drawing.Size(100, 20);
             this.Username.TabIndex = 1;
@@ -313,7 +316,7 @@ namespace SteamCMD_GUI
             this.GameListUpdateTab.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.GameListUpdateTab.FormattingEnabled = true;
             this.GameListUpdateTab.IntegralHeight = false;
-            this.GameListUpdateTab.Location = new System.Drawing.Point(75, 25);
+            this.GameListUpdateTab.Location = new System.Drawing.Point(124, 39);
             this.GameListUpdateTab.Name = "GameListUpdateTab";
             this.GameListUpdateTab.Size = new System.Drawing.Size(215, 21);
             this.GameListUpdateTab.TabIndex = 0;
@@ -321,7 +324,7 @@ namespace SteamCMD_GUI
             // SrcdsPathBrowse
             // 
             this.SrcdsPathBrowse.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.SrcdsPathBrowse.Location = new System.Drawing.Point(311, 16);
+            this.SrcdsPathBrowse.Location = new System.Drawing.Point(369, 16);
             this.SrcdsPathBrowse.Name = "SrcdsPathBrowse";
             this.SrcdsPathBrowse.Size = new System.Drawing.Size(68, 22);
             this.SrcdsPathBrowse.TabIndex = 0;
@@ -334,7 +337,7 @@ namespace SteamCMD_GUI
             this.SrcdsPath.Location = new System.Drawing.Point(64, 17);
             this.SrcdsPath.Name = "SrcdsPath";
             this.SrcdsPath.ReadOnly = true;
-            this.SrcdsPath.Size = new System.Drawing.Size(242, 20);
+            this.SrcdsPath.Size = new System.Drawing.Size(299, 20);
             this.SrcdsPath.TabIndex = 1;
             this.SrcdsPath.TabStop = false;
             this.SrcdsPath.Click += new System.EventHandler(this.SrcdsPathBrowse_Click);
@@ -356,7 +359,7 @@ namespace SteamCMD_GUI
             this.GroupBox5.Controls.Add(this.Label3);
             this.GroupBox5.Location = new System.Drawing.Point(4, 6);
             this.GroupBox5.Name = "GroupBox5";
-            this.GroupBox5.Size = new System.Drawing.Size(386, 48);
+            this.GroupBox5.Size = new System.Drawing.Size(443, 48);
             this.GroupBox5.TabIndex = 1;
             this.GroupBox5.TabStop = false;
             this.GroupBox5.Text = "Srcds Configuration";
@@ -366,10 +369,10 @@ namespace SteamCMD_GUI
             this.AddLaunchParams.BackgroundImage = global::SteamCMD_GUI.Properties.Resources.Add;
             this.AddLaunchParams.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.AddLaunchParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.AddLaunchParams.Location = new System.Drawing.Point(243, 175);
+            this.AddLaunchParams.Location = new System.Drawing.Point(265, 207);
             this.AddLaunchParams.Name = "AddLaunchParams";
             this.AddLaunchParams.Size = new System.Drawing.Size(23, 23);
-            this.AddLaunchParams.TabIndex = 11;
+            this.AddLaunchParams.TabIndex = 13;
             this.ToolTip.SetToolTip(this.AddLaunchParams, "Add More Command Line Params");
             this.AddLaunchParams.UseVisualStyleBackColor = true;
             this.AddLaunchParams.Click += new System.EventHandler(this.AddLaunchParams_Click);
@@ -381,14 +384,17 @@ namespace SteamCMD_GUI
             this.GroupBox6.Controls.Add(this.Insecure);
             this.GroupBox6.Controls.Add(this.DevMessages);
             this.GroupBox6.Controls.Add(this.RunServer);
+            this.GroupBox6.Controls.Add(this.SaveRCON);
             this.GroupBox6.Controls.Add(this.NoBots);
             this.GroupBox6.Controls.Add(this.SourceTV);
             this.GroupBox6.Controls.Add(this.UDPPort);
             this.GroupBox6.Controls.Add(this.Label11);
             this.GroupBox6.Controls.Add(this.Label10);
             this.GroupBox6.Controls.Add(this.NetworkType);
+            this.GroupBox6.Controls.Add(this.PasswordServer);
             this.GroupBox6.Controls.Add(this.Hostname);
             this.GroupBox6.Controls.Add(this.label13);
+            this.GroupBox6.Controls.Add(this.label1);
             this.GroupBox6.Controls.Add(this.Label7);
             this.GroupBox6.Controls.Add(this.MaxPlayers);
             this.GroupBox6.Controls.Add(this.GameListRunTab);
@@ -398,26 +404,26 @@ namespace SteamCMD_GUI
             this.GroupBox6.Controls.Add(this.Label5);
             this.GroupBox6.Location = new System.Drawing.Point(4, 60);
             this.GroupBox6.Name = "GroupBox6";
-            this.GroupBox6.Size = new System.Drawing.Size(386, 211);
+            this.GroupBox6.Size = new System.Drawing.Size(443, 234);
             this.GroupBox6.TabIndex = 2;
             this.GroupBox6.TabStop = false;
             this.GroupBox6.Text = "Game Configuration";
             // 
             // Rcon
             // 
-            this.Rcon.Location = new System.Drawing.Point(244, 134);
+            this.Rcon.Location = new System.Drawing.Point(332, 132);
             this.Rcon.Name = "Rcon";
             this.Rcon.Size = new System.Drawing.Size(91, 20);
-            this.Rcon.TabIndex = 16;
+            this.Rcon.TabIndex = 7;
             // 
             // Insecure
             // 
             this.Insecure.AutoSize = true;
             this.Insecure.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Insecure.Location = new System.Drawing.Point(11, 179);
+            this.Insecure.Location = new System.Drawing.Point(10, 211);
             this.Insecure.Name = "Insecure";
             this.Insecure.Size = new System.Drawing.Size(67, 17);
-            this.Insecure.TabIndex = 9;
+            this.Insecure.TabIndex = 11;
             this.Insecure.Text = "Insecure";
             this.Insecure.UseVisualStyleBackColor = true;
             // 
@@ -425,10 +431,10 @@ namespace SteamCMD_GUI
             // 
             this.DevMessages.AutoSize = true;
             this.DevMessages.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DevMessages.Location = new System.Drawing.Point(94, 179);
+            this.DevMessages.Location = new System.Drawing.Point(93, 211);
             this.DevMessages.Name = "DevMessages";
             this.DevMessages.Size = new System.Drawing.Size(97, 17);
-            this.DevMessages.TabIndex = 10;
+            this.DevMessages.TabIndex = 12;
             this.DevMessages.Text = "Dev Messages";
             this.DevMessages.UseVisualStyleBackColor = true;
             // 
@@ -436,10 +442,10 @@ namespace SteamCMD_GUI
             // 
             this.RunServer.Enabled = false;
             this.RunServer.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.RunServer.Location = new System.Drawing.Point(197, 175);
+            this.RunServer.Location = new System.Drawing.Point(219, 207);
             this.RunServer.Name = "RunServer";
             this.RunServer.Size = new System.Drawing.Size(40, 23);
-            this.RunServer.TabIndex = 12;
+            this.RunServer.TabIndex = 14;
             this.RunServer.Text = "Run";
             this.RunServer.UseVisualStyleBackColor = true;
             this.RunServer.Click += new System.EventHandler(this.RunServerButton_Click);
@@ -448,10 +454,10 @@ namespace SteamCMD_GUI
             // 
             this.NoBots.AutoSize = true;
             this.NoBots.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.NoBots.Location = new System.Drawing.Point(94, 154);
+            this.NoBots.Location = new System.Drawing.Point(93, 186);
             this.NoBots.Name = "NoBots";
             this.NoBots.Size = new System.Drawing.Size(85, 17);
-            this.NoBots.TabIndex = 8;
+            this.NoBots.TabIndex = 10;
             this.NoBots.Text = "Disable Bots";
             this.NoBots.UseVisualStyleBackColor = true;
             // 
@@ -459,10 +465,10 @@ namespace SteamCMD_GUI
             // 
             this.SourceTV.AutoSize = true;
             this.SourceTV.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.SourceTV.Location = new System.Drawing.Point(11, 154);
+            this.SourceTV.Location = new System.Drawing.Point(10, 186);
             this.SourceTV.Name = "SourceTV";
             this.SourceTV.Size = new System.Drawing.Size(74, 17);
-            this.SourceTV.TabIndex = 7;
+            this.SourceTV.TabIndex = 9;
             this.SourceTV.Text = "SourceTV";
             this.SourceTV.UseVisualStyleBackColor = true;
             // 
@@ -488,7 +494,7 @@ namespace SteamCMD_GUI
             // 
             this.Label11.AutoSize = true;
             this.Label11.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label11.Location = new System.Drawing.Point(341, 138);
+            this.Label11.Location = new System.Drawing.Point(288, 135);
             this.Label11.Name = "Label11";
             this.Label11.Size = new System.Drawing.Size(38, 13);
             this.Label11.TabIndex = 15;
@@ -546,7 +552,7 @@ namespace SteamCMD_GUI
             // 
             // MaxPlayers
             // 
-            this.MaxPlayers.Location = new System.Drawing.Point(267, 111);
+            this.MaxPlayers.Location = new System.Drawing.Point(377, 110);
             this.MaxPlayers.Maximum = new decimal(new int[] {
             64,
             0,
@@ -559,7 +565,7 @@ namespace SteamCMD_GUI
             0});
             this.MaxPlayers.Name = "MaxPlayers";
             this.MaxPlayers.Size = new System.Drawing.Size(46, 20);
-            this.MaxPlayers.TabIndex = 4;
+            this.MaxPlayers.TabIndex = 6;
             this.MaxPlayers.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.MaxPlayers.Value = new decimal(new int[] {
             32,
@@ -594,7 +600,7 @@ namespace SteamCMD_GUI
             // 
             this.Label6.AutoSize = true;
             this.Label6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.Label6.Location = new System.Drawing.Point(318, 114);
+            this.Label6.Location = new System.Drawing.Point(288, 112);
             this.Label6.Name = "Label6";
             this.Label6.Size = new System.Drawing.Size(64, 13);
             this.Label6.TabIndex = 0;
@@ -624,10 +630,11 @@ namespace SteamCMD_GUI
             // 
             this.RunTab.Controls.Add(this.GroupBox6);
             this.RunTab.Controls.Add(this.GroupBox5);
+            this.RunTab.Controls.Add(this.AdditionalCommands);
             this.RunTab.Location = new System.Drawing.Point(4, 22);
             this.RunTab.Name = "RunTab";
             this.RunTab.Padding = new System.Windows.Forms.Padding(3);
-            this.RunTab.Size = new System.Drawing.Size(395, 277);
+            this.RunTab.Size = new System.Drawing.Size(453, 300);
             this.RunTab.TabIndex = 1;
             this.RunTab.Text = "Run";
             this.RunTab.UseVisualStyleBackColor = true;
@@ -639,7 +646,7 @@ namespace SteamCMD_GUI
             this.MainTabs.Location = new System.Drawing.Point(11, 29);
             this.MainTabs.Name = "MainTabs";
             this.MainTabs.SelectedIndex = 0;
-            this.MainTabs.Size = new System.Drawing.Size(403, 303);
+            this.MainTabs.Size = new System.Drawing.Size(461, 326);
             this.MainTabs.TabIndex = 0;
             // 
             // FileStripMenu
@@ -655,7 +662,7 @@ namespace SteamCMD_GUI
             // 
             this.SaveSettings.Name = "SaveSettings";
             this.SaveSettings.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.SaveSettings.Size = new System.Drawing.Size(143, 22);
+            this.SaveSettings.Size = new System.Drawing.Size(180, 22);
             this.SaveSettings.Text = "Save";
             this.SaveSettings.Click += new System.EventHandler(this.SaveSettings_Click);
             // 
@@ -663,7 +670,7 @@ namespace SteamCMD_GUI
             // 
             this.LoadSettings.Name = "LoadSettings";
             this.LoadSettings.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.LoadSettings.Size = new System.Drawing.Size(143, 22);
+            this.LoadSettings.Size = new System.Drawing.Size(180, 22);
             this.LoadSettings.Text = "Load";
             this.LoadSettings.Click += new System.EventHandler(this.LoadSettings_Click);
             // 
@@ -677,7 +684,7 @@ namespace SteamCMD_GUI
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MenuStrip.Name = "MenuStrip";
             this.MenuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.MenuStrip.Size = new System.Drawing.Size(423, 24);
+            this.MenuStrip.Size = new System.Drawing.Size(481, 24);
             this.MenuStrip.TabIndex = 2;
             this.MenuStrip.Text = "MenuStrip1";
             // 
@@ -712,6 +719,13 @@ namespace SteamCMD_GUI
             this.HelpStripMenu.Size = new System.Drawing.Size(44, 20);
             this.HelpStripMenu.Text = "Help";
             // 
+            // SrcdsLaunchOptions
+            // 
+            this.SrcdsLaunchOptions.Name = "SrcdsLaunchOptions";
+            this.SrcdsLaunchOptions.Size = new System.Drawing.Size(189, 22);
+            this.SrcdsLaunchOptions.Text = "Srcds Launch Options";
+            this.SrcdsLaunchOptions.Click += new System.EventHandler(this.SrcdsLaunchOptions_Click);
+            // 
             // ToolTip
             // 
             this.ToolTip.AutoPopDelay = 5000;
@@ -721,10 +735,10 @@ namespace SteamCMD_GUI
             // 
             // AdditionalCommands
             // 
-            this.AdditionalCommands.Location = new System.Drawing.Point(1, 51);
+            this.AdditionalCommands.Location = new System.Drawing.Point(-3, -4);
             this.AdditionalCommands.Multiline = true;
             this.AdditionalCommands.Name = "AdditionalCommands";
-            this.AdditionalCommands.Size = new System.Drawing.Size(421, 280);
+            this.AdditionalCommands.Size = new System.Drawing.Size(457, 308);
             this.AdditionalCommands.TabIndex = 999;
             this.AdditionalCommands.TabStop = false;
             this.AdditionalCommands.Visible = false;
@@ -732,21 +746,43 @@ namespace SteamCMD_GUI
             this.AdditionalCommands.KeyUp += new System.Windows.Forms.KeyEventHandler(this.AdditionalCommands_KeyUp);
             this.AdditionalCommands.Leave += new System.EventHandler(this.AdditionalCommands_Leave);
             // 
-            // SrcdsLaunchOptions
+            // PasswordServer
             // 
-            this.SrcdsLaunchOptions.Name = "SrcdsLaunchOptions";
-            this.SrcdsLaunchOptions.Size = new System.Drawing.Size(189, 22);
-            this.SrcdsLaunchOptions.Text = "Srcds Launch Options";
-            this.SrcdsLaunchOptions.Click += new System.EventHandler(this.SrcdsLaunchOptions_Click);
+            this.PasswordServer.Location = new System.Drawing.Point(79, 154);
+            this.PasswordServer.MaxLength = 50;
+            this.PasswordServer.Name = "PasswordServer";
+            this.PasswordServer.Size = new System.Drawing.Size(128, 20);
+            this.PasswordServer.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label1.Location = new System.Drawing.Point(6, 157);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 13);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Password";
+            // 
+            // SaveRCON
+            // 
+            this.SaveRCON.AutoSize = true;
+            this.SaveRCON.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.SaveRCON.Location = new System.Drawing.Point(287, 158);
+            this.SaveRCON.Name = "SaveRCON";
+            this.SaveRCON.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.SaveRCON.Size = new System.Drawing.Size(85, 17);
+            this.SaveRCON.TabIndex = 8;
+            this.SaveRCON.Text = "Save RCON";
+            this.SaveRCON.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(423, 336);
+            this.ClientSize = new System.Drawing.Size(481, 359);
             this.Controls.Add(this.MainTabs);
             this.Controls.Add(this.MenuStrip);
-            this.Controls.Add(this.AdditionalCommands);
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -763,6 +799,7 @@ namespace SteamCMD_GUI
             ((System.ComponentModel.ISupportInitialize)(this.UDPPort)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaxPlayers)).EndInit();
             this.RunTab.ResumeLayout(false);
+            this.RunTab.PerformLayout();
             this.MainTabs.ResumeLayout(false);
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();
@@ -828,8 +865,11 @@ namespace SteamCMD_GUI
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox AdditionalCommands;
         private System.Windows.Forms.TextBox Rcon;
-        private System.Windows.Forms.TextBox Password;
+        private System.Windows.Forms.TextBox PasswordLogin;
         private System.Windows.Forms.ToolStripMenuItem SrcdsLaunchOptions;
+        private System.Windows.Forms.CheckBox SaveRCON;
+        private System.Windows.Forms.TextBox PasswordServer;
+        private System.Windows.Forms.Label label1;
     }
 }
 

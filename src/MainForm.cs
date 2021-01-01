@@ -69,7 +69,7 @@ namespace SteamCMD_GUI
                 string input = "";
 
                 bool user = interactable[i].Name == Username.Name;
-                bool pass = interactable[i].Name == Password.Name;
+                bool pass = interactable[i].Name == PasswordLogin.Name;
 
                 if (user && !SaveLoginDetails.Checked
                     || pass && SaveLoginDetails.CheckState != CheckState.Checked)
@@ -181,9 +181,9 @@ namespace SteamCMD_GUI
             {
                 arguments += "anonymous ";
             }
-            else if (!string.IsNullOrWhiteSpace(Username.Text) && !string.IsNullOrWhiteSpace(Password.Text))
+            else if (!string.IsNullOrWhiteSpace(Username.Text) && !string.IsNullOrWhiteSpace(PasswordLogin.Text))
             {
-                arguments += $"{Username.Text} {Password.Text} ";
+                arguments += $"{Username.Text} {PasswordLogin.Text} ";
             }
             else
             {
@@ -425,7 +425,7 @@ namespace SteamCMD_GUI
 
         private void AnonymousLogin_CheckedChanged(object sender, EventArgs e)
         {
-            SaveLoginDetails.Visible = Username.Enabled = Password.Enabled = !AnonymousLogin.Checked;
+            SaveLoginDetails.Visible = Username.Enabled = PasswordLogin.Enabled = !AnonymousLogin.Checked;
             // what if there's a mantrain
         }
 

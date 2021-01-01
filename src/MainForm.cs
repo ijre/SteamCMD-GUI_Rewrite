@@ -70,9 +70,16 @@ namespace SteamCMD_GUI
 
                 bool user = interactable[i].Name == Username.Name;
                 bool pass = interactable[i].Name == PasswordLogin.Name;
+                bool rcon = interactable[i].Name == Rcon.Name;
 
                 if (user && !SaveLoginDetails.Checked
-                    || pass && SaveLoginDetails.CheckState != CheckState.Checked)
+                    ||
+                    pass && SaveLoginDetails.CheckState != CheckState.Checked)
+                {
+                    continue;
+                }
+
+                if (rcon && !SaveRCON.Checked)
                 {
                     continue;
                 }
@@ -230,7 +237,8 @@ namespace SteamCMD_GUI
             string arguments =
                 $"-console -game {GameInfo[GameListRunTab.SelectedIndex][2]} -port {UDPPort.Text} +hostname \"{Hostname.Text}\" " +
                 $"+map {MapList.SelectedItem} +maxplayers {MaxPlayers.Text} +sv_lan {NetworkType.SelectedIndex} " +
-                $"+rcon_password {Rcon.Text} {buttonParams} {AdditionalCommands.Text}";
+                $"+rcon_password {Rcon.Text} +password {PasswordServer.Text} " +
+                $"{buttonParams} {AdditionalCommands.Text}";
 
 
             StartCLI(SrcdsPath.Text, arguments);

@@ -127,45 +127,45 @@ namespace SteamCMD_GUI
                 return;
 
             var lines = File.ReadAllLines(diag.FileName);
-            var totalInteractables = GetAllInteractables();
+            var total = GetAllInteractables();
 
             string mapToSelect = "";
 
-            for (int lineIndex = 0; lineIndex < lines.Length; lineIndex++)
+            for (int index = 0; index < lines.Length; index++)
             {
-                var lineSplit = new[]
-                {
-                    lines[lineIndex].Substring(0, lines[lineIndex].IndexOf(" ")),
-                    lines[lineIndex].Substring(lines[lineIndex].IndexOf(" ")).TrimStart()
-                };
+                var controlName = lines[index].Substring(0, lines[index].IndexOf(" "));
+                var controlValue = lines[index].Substring(lines[index].IndexOf(" ")).TrimStart();
 
-                for (int interactable = 0; interactable < totalInteractables.Count; interactable++)
+                for (int control = 0; control < total.Count; control++)
                 {
-                    if (lineSplit[0] != totalInteractables[interactable].Name)
+                    if (controlName != total[control].Name)
                     {
                         continue;
                     }
 
-                    switch (totalInteractables[interactable])
+                    switch (total[control])
                     {
                         case NumericUpDown _:
                         case TextBox _:
-                            totalInteractables[interactable].Text = lineSplit[1];
+                            total[control].Text = controlValue;
                             break;
+
                         case CheckBox child:
-                            child.CheckState = (CheckState)int.Parse(lineSplit[1]);
+                            child.CheckState = (CheckState)int.Parse(controlValue);
                             break;
+
                         case ComboBox child:
                             if (child.Name != MapList.Name)
                             {
-                                child.SelectedIndex = int.Parse(lineSplit[1]);
+                                child.SelectedIndex = int.Parse(controlValue);
                             }
                             else
                             {
-                                mapToSelect = lineSplit[1];
+                                mapToSelect = controlValue;
                             }
 
                             break;
+
                         default:
                             continue;
                     }

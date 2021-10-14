@@ -223,7 +223,7 @@ namespace SteamCMD_GUI
       string arguments =
           $"-console -game {GameInfo[GameListRunTab.SelectedIndex][2]} -port {UDPPort.Text} +hostname \"{Hostname.Text}\" " +
           $"+map {MapList.SelectedItem} +maxplayers {MaxPlayers.Text} +sv_lan {NetworkType.SelectedIndex} " +
-          $"+rcon_password {Rcon.Text} +password {PasswordServer.Text} " +
+          $"+rcon_password {Rcon.Text} +sv_password {PasswordServer.Text} " +
           $"{buttonParams} {AdditionalCommands.Text}";
 
 

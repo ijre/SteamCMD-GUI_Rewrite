@@ -325,7 +325,8 @@ namespace SteamCMD_GUI
       {
                 new[] { "232250", "Team Fortress 2", "tf" },
                 new[] { "740", "Counter-Strike: Global Offensive", "csgo" },
-                new[] { "232330", "Counter-Strike: Source", "cstrike" }
+                new[] { "232330", "Counter-Strike: Source", "cstrike" },
+                new[] { "222860", "Left 4 Dead 2", "left4dead2" }
             };
     }
 

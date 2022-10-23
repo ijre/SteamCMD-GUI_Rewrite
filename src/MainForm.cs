@@ -266,7 +266,11 @@ namespace SteamCMD_GUI
       for (int i = 0; i < maps.Count; i++)
       {
         if (!maps[i].EndsWith(".bsp"))
+        {
           maps.RemoveAt(i);
+          i--;
+          continue;
+        }
 
         maps[i] = maps[i].Substring(maps[i].LastIndexOf("\\") + 1); // remove slashes from absolute dir
         maps[i] = maps[i].Remove(maps[i].LastIndexOf("."), 4); // remove ext because it breaks srcds

@@ -386,6 +386,7 @@ namespace SteamCMD_GUI
             this.GroupBox6.Controls.Add(this.DevMessages);
             this.GroupBox6.Controls.Add(this.RunServer);
             this.GroupBox6.Controls.Add(this.SaveRCON);
+            this.GroupBox6.Controls.Add(this.HideRCON);
             this.GroupBox6.Controls.Add(this.NoBots);
             this.GroupBox6.Controls.Add(this.SourceTV);
             this.GroupBox6.Controls.Add(this.UDPPort);

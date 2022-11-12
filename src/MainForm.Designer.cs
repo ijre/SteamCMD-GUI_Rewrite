@@ -60,6 +60,7 @@ namespace SteamCMD_GUI
             this.DevMessages = new System.Windows.Forms.CheckBox();
             this.RunServer = new System.Windows.Forms.Button();
             this.SaveRCON = new System.Windows.Forms.CheckBox();
+            this.HideRCON = new System.Windows.Forms.CheckBox();
             this.NoBots = new System.Windows.Forms.CheckBox();
             this.SourceTV = new System.Windows.Forms.CheckBox();
             this.UDPPort = new System.Windows.Forms.NumericUpDown();
@@ -776,6 +777,20 @@ namespace SteamCMD_GUI
             this.label1.TabIndex = 9;
             this.label1.Text = "Password";
             // 
+            // HideRCON
+            // 
+            this.HideRCON.AutoSize = true;
+            this.HideRCON.Checked = true;
+            this.HideRCON.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.HideRCON.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.HideRCON.Location = new System.Drawing.Point(291, 174);
+            this.HideRCON.Name = "HideRCON";
+            this.HideRCON.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.HideRCON.Size = new System.Drawing.Size(82, 17);
+            this.HideRCON.TabIndex = 9;
+            this.HideRCON.Text = "Hide RCON";
+            this.HideRCON.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -869,6 +884,7 @@ namespace SteamCMD_GUI
         private System.Windows.Forms.TextBox PasswordLogin;
         private System.Windows.Forms.ToolStripMenuItem SrcdsLaunchOptions;
         private System.Windows.Forms.CheckBox SaveRCON;
+        private System.Windows.Forms.CheckBox HideRCON;
         private System.Windows.Forms.TextBox PasswordServer;
         private System.Windows.Forms.Label label1;
     }

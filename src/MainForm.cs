@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -15,6 +16,7 @@ namespace SteamCMD_GUI
   {
     // ReSharper disable once FieldCanBeMadeReadOnly.Local
     private string[][] GameInfo = GetDefaultGames();
+    private const string ReleaseUrl = "https://github.com/ijre/SteamCMD-GUI_Rewrite/releases/latest";
 
     public MainForm()
     {
@@ -397,6 +399,11 @@ namespace SteamCMD_GUI
       RunServer.Enabled = MapList.SelectedIndex != -1 && !string.IsNullOrWhiteSpace(MapList.SelectedItem.ToString());
     }
 
+    private void HideRCON_CheckedChanged(object sender, EventArgs e)
+    {
+      Rcon.UseSystemPasswordChar = HideRCON.Checked;
+    }
+
     private void AddLaunchParams_Click(object sender, EventArgs e)
     {
       AdditionalCommands.Visible = true;
@@ -433,7 +440,32 @@ namespace SteamCMD_GUI
 
     private void CheckForUpdates_Click(object sender, EventArgs e)
     {
-      Process.Start("https://github.com/ijre/SteamCMD-GUI/releases/latest");
+      WebClient client = new WebClient
+      {
+        Proxy = WebRequest.DefaultWebProxy
+      };
+      client.Proxy.Credentials = CredentialCache.DefaultCredentials;
+
+      string rawVersionResponse = client.DownloadString(ReleaseUrl);
+
+      int versionNumRawStart = rawVersionResponse.IndexOf("Release v");
+      int versionNumRawEnd = rawVersionResponse.IndexOf("\n", versionNumRawStart) - versionNumRawStart;
+      int versionNumRawShortened = rawVersionResponse.Substring(versionNumRawStart, versionNumRawEnd).LastIndexOf(".") + 2;
+
+      string versionNum = rawVersionResponse.Substring(versionNumRawStart, versionNumRawShortened).Remove(0, 9);
+      // removing the now unrequired "Release v"
+
+      if (string.Equals(ProductVersion, versionNum)
+          ||
+          int.Parse(ProductVersion.Replace(".", "")) > int.Parse(versionNum.Replace(".", "")))
+      {
+        return;
+      }
+
+      if (MessageBox.Show("New version available! Would you like to update now?", "New Version Available", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+      {
+        Process.Start(ReleaseUrl);
+      }
     }
 
     private void DownloadSteamCMD_Click(object sender, EventArgs e)

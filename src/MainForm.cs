@@ -171,7 +171,7 @@ namespace SteamCMD_GUI
 
     private void UpdateServerButton_Click(object sender, EventArgs e)
     {
-      string arguments = "SteamCmd +login ";
+      string arguments = $"SteamCmd +force_install_dir \"{ServerPath.Text}\" +login ";
       if (AnonymousLogin.Checked)
       {
         arguments += "anonymous ";
@@ -187,7 +187,7 @@ namespace SteamCMD_GUI
         return;
       }
 
-      arguments += $"+force_install_dir \"{ServerPath.Text}\" +app_update {GameInfo[GameListUpdateTab.SelectedIndex][0]}";
+      arguments += $"+app_update {GameInfo[GameListUpdateTab.SelectedIndex][0]}";
 
       if (ValidateInstall.Checked)
         arguments += " validate";

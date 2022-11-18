@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("SteamCMD-GUI")]
-[assembly: AssemblyCopyright("Copyright © Paige Seivertson 2020")]
+[assembly: AssemblyCopyright("Copyright © Paige Seivertson 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

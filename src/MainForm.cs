@@ -1,6 +1,4 @@
-﻿// TODO: custom games list file
-
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -15,7 +13,7 @@ namespace SteamCMD_GUI
   public partial class MainForm : Form
   {
     // ReSharper disable once FieldCanBeMadeReadOnly.Local
-    private string[][] GameInfo = GetDefaultGames();
+    private string[][] GameInfo = GetGames();
     private const string ReleaseUrl = "https://github.com/ijre/SteamCMD-GUI_Rewrite/releases/latest";
 
     public MainForm()
@@ -23,10 +21,26 @@ namespace SteamCMD_GUI
       InitializeComponent();
       Icon = Properties.Resources.Icon;
 
+      if (GameInfo == null)
+      {
+        if (MessageBox.Show("GAMES.cfg missing; download from repository?", "Fatal Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+        {
+          Process.Start("https://github.com/ijre/SteamCMD-GUI_Rewrite");
+        }
+
+        Close();
+        return;
+      }
+
       for (int i = 0; i < GameInfo.GetLength(0); i++)
       {
-        GameListUpdateTab.Items.Add(GameInfo[i][1]);
-        GameListRunTab.Items.Add(GameInfo[i][1]);
+        if (GameInfo[i][0] == null)
+        {
+          break;
+        }
+
+        GameListUpdateTab.Items.Add(GameInfo[i][2]);
+        GameListRunTab.Items.Add(GameInfo[i][2]);
       }
 
       GameListUpdateTab.SelectedIndex = 0;
@@ -223,7 +237,7 @@ namespace SteamCMD_GUI
       }
 
       string arguments =
-          $"-console -game {GameInfo[GameListRunTab.SelectedIndex][2]} -port {UDPPort.Text} +hostname \"{Hostname.Text}\" " +
+          $"-console -game {GameInfo[GameListRunTab.SelectedIndex][1]} -port {UDPPort.Text} +hostname \"{Hostname.Text}\" " +
           $"+map {MapList.SelectedItem} +maxplayers {MaxPlayers.Text} +sv_lan {NetworkType.SelectedIndex} " +
           $"+rcon_password {Rcon.Text} +sv_password {PasswordServer.Text} " +
           $"{buttonParams} {AdditionalCommands.Text}";
@@ -235,7 +249,7 @@ namespace SteamCMD_GUI
     private int lastCount;
     private void MapList_EnterOrLeave(object sender, EventArgs e)
     {
-      string root = GameInfo[GameListRunTab.SelectedIndex][2];
+      string root = GameInfo[GameListRunTab.SelectedIndex][1];
 
       List<string> maps;
 
@@ -325,15 +339,61 @@ namespace SteamCMD_GUI
       process.Start();
     }
 
-    private static string[][] GetDefaultGames()
+    private static string[][] GetGames()
     {
-      return new[]
+      if (!File.Exists("GAMES.cfg"))
       {
-                new[] { "232250", "Team Fortress 2", "tf" },
-                new[] { "740", "Counter-Strike: Global Offensive", "csgo" },
-                new[] { "232330", "Counter-Strike: Source", "cstrike" },
-                new[] { "222860", "Left 4 Dead 2", "left4dead2" }
-            };
+        return null;
+      }
+
+      string[] gamesRaw = File.ReadAllLines("GAMES.cfg");
+      int size = gamesRaw.Length;
+
+      string[][] games = new string[size][];
+      for (int i = 0; i < size; i++)
+      {
+        games[i] = new string[3];
+      }
+
+      int linesToSkip = 0;
+
+      for (int i = 0; i < size; i++)
+      {
+        string line = gamesRaw[i];
+        if (line.Trim().Equals("") || line.Trim().StartsWith("//"))
+        {
+          linesToSkip++;
+          continue;
+        }
+
+        int trueIndex = i - linesToSkip;
+
+        string[] split = line.Split(' ');
+        int splitSize = split.Length;
+
+        for (int i2 = 0; i2 < splitSize; i2++)
+        {
+          if (split[i2].Equals(""))
+          {
+            continue;
+          }
+
+          if (string.IsNullOrEmpty(games[trueIndex][0]))
+          {
+            games[trueIndex][0] = split[i2];
+          }
+          else if (string.IsNullOrEmpty(games[trueIndex][1]))
+          {
+            games[trueIndex][1] = split[i2];
+          }
+          else
+          {
+            games[trueIndex][2] += $"{ split[i2] }{ (i2 != splitSize - 1 ? " " : "") }";
+          }
+        }
+      }
+
+      return games;
     }
 
     private static string GetFolder(string title)

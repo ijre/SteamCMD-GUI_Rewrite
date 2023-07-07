@@ -201,13 +201,14 @@ namespace SteamCMD_GUI
         return;
       }
 
+      arguments += $"{ AdditionalSteamCMDCommands.Text } ";
+
       arguments += $"+app_update {GameInfo[GameListUpdateTab.SelectedIndex][0]}";
 
       if (ValidateInstall.Checked)
         arguments += " validate";
 
-
-      StartCLI(SteamCMDPath.Text, arguments);
+      StartCLI(SteamCMDPath.Text, arguments.TrimEnd());
     }
 
     private void RunServerButton_Click(object sender, EventArgs e)
@@ -320,6 +321,7 @@ namespace SteamCMD_GUI
       }
 
       buff.Add(AdditionalCommands);
+      buff.Add(AdditionalSteamCMDCommands);
 
       return buff;
     }
@@ -464,18 +466,35 @@ namespace SteamCMD_GUI
       Rcon.UseSystemPasswordChar = HideRCON.Checked;
     }
 
+    private TextBox GetMenuForResponsibleLaunchParam(object objSender)
+    {
+      switch (((Control)objSender).Name)
+      {
+        case "AddLaunchParams":
+          return AdditionalCommands;
+        case "AddSteamCMDLaunchParams":
+          return AdditionalSteamCMDCommands;
+        default:
+          throw new Exception("\"GetMenuForResponsibleLaunchParam func\" called with objSender other than the \"add launch param\" controls?");
+      }
+    }
+
     private void AddLaunchParams_Click(object sender, EventArgs e)
     {
-      AdditionalCommands.Visible = true;
-      AdditionalCommands.BringToFront();
-      AdditionalCommands.Focus();
+      TextBox cmds = GetMenuForResponsibleLaunchParam(sender);
+
+      cmds.Visible = true;
+      cmds.BringToFront();
+      cmds.Focus();
     }
 
     private void AdditionalCommands_Leave(object sender, EventArgs e)
     {
-      AdditionalCommands.Visible = false;
-      AdditionalCommands.SendToBack();
-      AdditionalCommands.Text = AdditionalCommands.Text.Replace("\r\n", " ");
+      TextBox cmds = (TextBox)sender;
+
+      cmds.Visible = false;
+      cmds.SendToBack();
+      cmds.Text = cmds.Text.Replace("\r\n", " ");
     }
 
     private void AdditionalCommands_KeyUp(object sender, KeyEventArgs e)
@@ -483,7 +502,7 @@ namespace SteamCMD_GUI
       if (e.KeyCode == Keys.Escape)
       {
         e.SuppressKeyPress = true;
-        AdditionalCommands_Leave(sender, new EventArgs());
+        AdditionalCommands_Leave(sender, EventArgs.Empty);
       }
     }
 

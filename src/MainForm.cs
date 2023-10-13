@@ -70,8 +70,8 @@ namespace SteamCMD_GUI
       {
         string input = "";
 
-        bool user = interactable[i].Name == Username.Name;
-        bool pass = interactable[i].Name == PasswordLogin.Name;
+        bool user = interactable[i].Name == Username.Name && !AnonymousLogin.Checked;
+        bool pass = interactable[i].Name == PasswordLogin.Name && !AnonymousLogin.Checked;
         bool rcon = interactable[i].Name == Rcon.Name;
 
         if (user && !SaveLoginDetails.Checked
@@ -510,11 +510,6 @@ namespace SteamCMD_GUI
     {
       SaveLoginDetails.Visible = Username.Enabled = PasswordLogin.Enabled = !AnonymousLogin.Checked;
       // what if there's a mantrain
-    }
-
-    private void SaveLoginDetails_VisibleChanged(object sender, EventArgs e)
-    {
-      SaveLoginDetails.Checked = false;
     }
 
     private void CheckForUpdates_Click(object sender, EventArgs e)

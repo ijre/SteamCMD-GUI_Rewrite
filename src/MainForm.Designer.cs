@@ -254,7 +254,6 @@ namespace SteamCMD_GUI
       this.ToolTip.SetToolTip(this.SaveLoginDetails, "Half check means it will only save your username");
       this.SaveLoginDetails.UseVisualStyleBackColor = true;
       this.SaveLoginDetails.Visible = false;
-      this.SaveLoginDetails.VisibleChanged += new System.EventHandler(this.SaveLoginDetails_VisibleChanged);
       // 
       // AnonymousLogin
       // 

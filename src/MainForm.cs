@@ -542,6 +542,7 @@ namespace SteamCMD_GUI
           ||
           int.Parse(ProductVersion.Replace(".", "")) > int.Parse(versionNum.Replace(".", "")))
       {
+        MessageBox.Show("Your SteamCMD-GUI is currently up-to-date.", "No New Version Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
         return;
       }
 

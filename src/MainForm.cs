@@ -237,8 +237,10 @@ namespace SteamCMD_GUI
         buttonParams += "-dev ";
       }
 
+      string addDedicatedIfCS2 = ServerPath.Text.EndsWith("\\game") && GameInfo[GameListRunTab.SelectedIndex][0] == "730" ? "-dedicated" : "";
+
       string arguments =
-          $"-console -game {GameInfo[GameListRunTab.SelectedIndex][1]} -port {UDPPort.Text} +hostname \"{Hostname.Text}\" " +
+          $"-console ${addDedicatedIfCS2} -game {GameInfo[GameListRunTab.SelectedIndex][1]} -port {UDPPort.Text} +hostname \"{Hostname.Text}\" " +
           $"+map {MapList.SelectedItem} +maxplayers {MaxPlayers.Text} +sv_lan {NetworkType.SelectedIndex} " +
           $"+rcon_password {Rcon.Text} +sv_password {PasswordServer.Text} " +
           $"{buttonParams} {AdditionalCommands.Text}";
@@ -250,13 +252,20 @@ namespace SteamCMD_GUI
     private int lastCount;
     private void MapList_EnterOrLeave(object sender, EventArgs e)
     {
-      string root = GameInfo[GameListRunTab.SelectedIndex][1];
-
       List<string> maps;
 
       try
       {
-        maps = Directory.GetFiles($"{SrcdsPath.Text.Substring(0, SrcdsPath.Text.LastIndexOf("\\"))}\\{root}\\maps").ToList();
+        string root = GameInfo[GameListRunTab.SelectedIndex][1];
+
+        if (ServerPath.Text.EndsWith("\\game") && GameInfo[GameListRunTab.SelectedIndex][0] == "730")
+        {
+          maps = Directory.GetFiles($"{ServerPath.Text.Substring(0, ServerPath.Text.LastIndexOf("\\"))}\\{root}\\maps").ToList();
+        }
+        else
+        {
+          maps = Directory.GetFiles($"{SrcdsPath.Text.Substring(0, SrcdsPath.Text.LastIndexOf("\\"))}\\{root}\\maps").ToList();
+        }
       }
       catch (DirectoryNotFoundException)
       {
@@ -436,7 +445,7 @@ namespace SteamCMD_GUI
 
     private void ServerPathBrowse_Click(object sender, EventArgs e)
     {
-      string folder = GetFolder("Select the root of your server");
+      string folder = GetFolder("Select the root of your server (for cs2, you must select the \"game\" folder)");
 
       if (string.IsNullOrWhiteSpace(folder))
         return;
@@ -447,7 +456,7 @@ namespace SteamCMD_GUI
 
     private void SrcdsPathBrowse_Click(object sender, EventArgs e)
     {
-      string file = GetFile("Select the srcds.exe file", "srcds.exe");
+      string file = GetFile("Select the srcds.exe file (for cs2, you must select the cs2.exe in \"game/bin/win64\")", "srcds.exe;cs2.exe");
 
       if (string.IsNullOrWhiteSpace(file))
         return;

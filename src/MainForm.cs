@@ -240,7 +240,7 @@ namespace SteamCMD_GUI
       string addDedicatedIfCS2 = ServerPath.Text.EndsWith("\\game") && GameInfo[GameListRunTab.SelectedIndex][0] == "730" ? "-dedicated" : "";
 
       string arguments =
-          $"-console ${addDedicatedIfCS2} -game {GameInfo[GameListRunTab.SelectedIndex][1]} -port {UDPPort.Text} +hostname \"{Hostname.Text}\" " +
+          $"-console {addDedicatedIfCS2} -game {GameInfo[GameListRunTab.SelectedIndex][1]} -port {UDPPort.Text} +hostname \"{Hostname.Text}\" " +
           $"+map {MapList.SelectedItem} +maxplayers {MaxPlayers.Text} +sv_lan {NetworkType.SelectedIndex} " +
           $"+rcon_password {Rcon.Text} +sv_password {PasswordServer.Text} " +
           $"{buttonParams} {AdditionalCommands.Text}";

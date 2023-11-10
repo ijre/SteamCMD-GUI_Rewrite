@@ -517,8 +517,13 @@ namespace SteamCMD_GUI
 
     private void AnonymousLogin_CheckedChanged(object sender, EventArgs e)
     {
-      SaveLoginDetails.Visible = Username.Enabled = PasswordLogin.Enabled = !AnonymousLogin.Checked;
+      SaveLoginDetails.Visible = Username.Enabled = PasswordLogin.Enabled = HidePassword.Visible = !AnonymousLogin.Checked;
       // what if there's a mantrain
+    }
+
+    private void HidePassword_CheckedChanged(object sender, EventArgs e)
+    {
+      PasswordLogin.UseSystemPasswordChar = HidePassword.Checked;
     }
 
     private void CheckForUpdates_Click(object sender, EventArgs e)

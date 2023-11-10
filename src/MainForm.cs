@@ -13,8 +13,17 @@ namespace SteamCMD_GUI
   public partial class MainForm : Form
   {
     // ReSharper disable once FieldCanBeMadeReadOnly.Local
-    private string[][] GameInfo = GetGames();
     private const string ReleaseUrl = "https://github.com/ijre/SteamCMD-GUI_Rewrite/releases/latest";
+
+    private string[][] GameInfo = GetGames();
+    private class InfoEnum
+    {
+      // i cannot fucking stand how c# lacks both cpp #define AND enums that act like ints
+      // values used will be properly optimized to literals, so this shouldnt be a problem
+      public const int APP_ID = 0;
+      public const int INTERNAL_NAME = 1;
+      public const int CUSTOM_NAME = 2;
+    }
 
     public MainForm()
     {
@@ -39,8 +48,8 @@ namespace SteamCMD_GUI
           break;
         }
 
-        GameListUpdateTab.Items.Add(GameInfo[i][2]);
-        GameListRunTab.Items.Add(GameInfo[i][2]);
+        GameListUpdateTab.Items.Add(GameInfo[i][InfoEnum.CUSTOM_NAME]);
+        GameListRunTab.Items.Add(GameInfo[i][InfoEnum.CUSTOM_NAME]);
       }
 
       GameListUpdateTab.SelectedIndex = 0;
@@ -203,7 +212,7 @@ namespace SteamCMD_GUI
 
       arguments += $"{ AdditionalSteamCMDCommands.Text } ";
 
-      arguments += $"+app_update {GameInfo[GameListUpdateTab.SelectedIndex][0]}";
+      arguments += $"+app_update {GameInfo[GameListUpdateTab.SelectedIndex][InfoEnum.APP_ID]}";
 
       if (ValidateInstall.Checked)
         arguments += " validate";
@@ -240,7 +249,7 @@ namespace SteamCMD_GUI
       string addDedicatedIfCS2 = IsCS2(GameListRunTab.SelectedIndex) ? "-dedicated" : "";
 
       string arguments =
-          $"-console {addDedicatedIfCS2} -game {GameInfo[GameListRunTab.SelectedIndex][1]} -port {UDPPort.Text} +hostname \"{Hostname.Text}\" " +
+          $"-console {addDedicatedIfCS2} -game {GameInfo[GameListRunTab.SelectedIndex][InfoEnum.INTERNAL_NAME]} -port {UDPPort.Text} +hostname \"{Hostname.Text}\" " +
           $"+map {MapList.SelectedItem} +maxplayers {MaxPlayers.Text} +sv_lan {NetworkType.SelectedIndex} " +
           $"+rcon_password {Rcon.Text} +sv_password {PasswordServer.Text} " +
           $"{buttonParams} {AdditionalCommands.Text}";
@@ -256,7 +265,7 @@ namespace SteamCMD_GUI
 
       try
       {
-        string root = GameInfo[GameListRunTab.SelectedIndex][1];
+        string root = GameInfo[GameListRunTab.SelectedIndex][InfoEnum.INTERNAL_NAME];
 
         if (IsCS2(GameListRunTab.SelectedIndex))
         {

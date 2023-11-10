@@ -237,7 +237,7 @@ namespace SteamCMD_GUI
         buttonParams += "-dev ";
       }
 
-      string addDedicatedIfCS2 = ServerPath.Text.EndsWith("\\game") && GameInfo[GameListRunTab.SelectedIndex][0] == "730" ? "-dedicated" : "";
+      string addDedicatedIfCS2 = IsCS2(GameListRunTab.SelectedIndex) ? "-dedicated" : "";
 
       string arguments =
           $"-console {addDedicatedIfCS2} -game {GameInfo[GameListRunTab.SelectedIndex][1]} -port {UDPPort.Text} +hostname \"{Hostname.Text}\" " +
@@ -258,9 +258,9 @@ namespace SteamCMD_GUI
       {
         string root = GameInfo[GameListRunTab.SelectedIndex][1];
 
-        if (ServerPath.Text.EndsWith("\\game") && GameInfo[GameListRunTab.SelectedIndex][0] == "730")
+        if (IsCS2(GameListRunTab.SelectedIndex))
         {
-          maps = Directory.GetFiles($"{ServerPath.Text.Substring(0, ServerPath.Text.LastIndexOf("\\"))}\\{root}\\maps").ToList();
+          maps = Directory.GetFiles($"{ServerPath.Text}\\game\\csgo\\maps").ToList();
         }
         else
         {
@@ -289,9 +289,11 @@ namespace SteamCMD_GUI
       else
         return;
 
+      bool isCS2 = IsCS2(GameListRunTab.SelectedIndex);
+
       for (int i = 0; i < maps.Count; i++)
       {
-        if (!maps[i].EndsWith(".bsp"))
+        if ((!isCS2 && !maps[i].EndsWith(".bsp")) || (isCS2 && !maps[i].EndsWith(".vpk")))
         {
           maps.RemoveAt(i);
           i--;
@@ -427,6 +429,11 @@ namespace SteamCMD_GUI
       };
 
       return diag.ShowDialog() == DialogResult.OK ? diag.FileName : "";
+    }
+
+    private bool IsCS2(int GameIndex)
+    {
+      return GameInfo[GameIndex][0] == "730" || GameInfo[GameIndex][1].ToLower() == "cs2";
     }
     #endregion // Helpers
 

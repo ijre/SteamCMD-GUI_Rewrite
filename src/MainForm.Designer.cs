@@ -36,6 +36,7 @@ namespace SteamCMD_GUI
       this.SteamCMDPath = new System.Windows.Forms.TextBox();
       this.Label4 = new System.Windows.Forms.Label();
       this.ServerConfigGroup = new System.Windows.Forms.GroupBox();
+      this.AddSteamCMDLaunchParams = new System.Windows.Forms.Button();
       this.ValidateInstall = new System.Windows.Forms.CheckBox();
       this.ServerPathBrowse = new System.Windows.Forms.Button();
       this.UpdateServer = new System.Windows.Forms.Button();
@@ -49,6 +50,7 @@ namespace SteamCMD_GUI
       this.PasswordLogin = new System.Windows.Forms.TextBox();
       this.Username = new System.Windows.Forms.TextBox();
       this.GameListUpdateTab = new System.Windows.Forms.ComboBox();
+      this.AdditionalSteamCMDCommands = new System.Windows.Forms.TextBox();
       this.SrcdsPathBrowse = new System.Windows.Forms.Button();
       this.SrcdsPath = new System.Windows.Forms.TextBox();
       this.Label3 = new System.Windows.Forms.Label();
@@ -79,6 +81,7 @@ namespace SteamCMD_GUI
       this.Label8 = new System.Windows.Forms.Label();
       this.Label5 = new System.Windows.Forms.Label();
       this.RunTab = new System.Windows.Forms.TabPage();
+      this.AdditionalCommands = new System.Windows.Forms.TextBox();
       this.MainTabs = new System.Windows.Forms.TabControl();
       this.FileStripMenu = new System.Windows.Forms.ToolStripMenuItem();
       this.SaveSettings = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,9 +93,6 @@ namespace SteamCMD_GUI
       this.HelpStripMenu = new System.Windows.Forms.ToolStripMenuItem();
       this.SrcdsLaunchOptions = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
-      this.AddSteamCMDLaunchParams = new System.Windows.Forms.Button();
-      this.AdditionalSteamCMDCommands = new System.Windows.Forms.TextBox();
-      this.AdditionalCommands = new System.Windows.Forms.TextBox();
       this.UpdateTab.SuspendLayout();
       this.SteamCMDConfigGroup.SuspendLayout();
       this.ServerConfigGroup.SuspendLayout();
@@ -184,6 +184,19 @@ namespace SteamCMD_GUI
       this.ServerConfigGroup.TabIndex = 1;
       this.ServerConfigGroup.TabStop = false;
       this.ServerConfigGroup.Text = "Server Configuration";
+      // 
+      // AddSteamCMDLaunchParams
+      // 
+      this.AddSteamCMDLaunchParams.BackgroundImage = global::SteamCMD_GUI.Properties.Resources.Add;
+      this.AddSteamCMDLaunchParams.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+      this.AddSteamCMDLaunchParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+      this.AddSteamCMDLaunchParams.Location = new System.Drawing.Point(370, 174);
+      this.AddSteamCMDLaunchParams.Name = "AddSteamCMDLaunchParams";
+      this.AddSteamCMDLaunchParams.Size = new System.Drawing.Size(23, 23);
+      this.AddSteamCMDLaunchParams.TabIndex = 14;
+      this.ToolTip.SetToolTip(this.AddSteamCMDLaunchParams, "Add More Command Line Params");
+      this.AddSteamCMDLaunchParams.UseVisualStyleBackColor = true;
+      this.AddSteamCMDLaunchParams.Click += new System.EventHandler(this.AddLaunchParams_Click);
       // 
       // ValidateInstall
       // 
@@ -324,6 +337,19 @@ namespace SteamCMD_GUI
       this.GameListUpdateTab.Name = "GameListUpdateTab";
       this.GameListUpdateTab.Size = new System.Drawing.Size(215, 21);
       this.GameListUpdateTab.TabIndex = 0;
+      // 
+      // AdditionalSteamCMDCommands
+      // 
+      this.AdditionalSteamCMDCommands.Location = new System.Drawing.Point(-3, -4);
+      this.AdditionalSteamCMDCommands.Multiline = true;
+      this.AdditionalSteamCMDCommands.Name = "AdditionalSteamCMDCommands";
+      this.AdditionalSteamCMDCommands.Size = new System.Drawing.Size(457, 308);
+      this.AdditionalSteamCMDCommands.TabIndex = 1000;
+      this.AdditionalSteamCMDCommands.TabStop = false;
+      this.AdditionalSteamCMDCommands.Visible = false;
+      this.AdditionalSteamCMDCommands.WordWrap = false;
+      this.AdditionalSteamCMDCommands.KeyUp += new System.Windows.Forms.KeyEventHandler(this.AdditionalCommands_KeyUp);
+      this.AdditionalSteamCMDCommands.Leave += new System.EventHandler(this.AdditionalCommands_Leave);
       // 
       // SrcdsPathBrowse
       // 
@@ -688,6 +714,19 @@ namespace SteamCMD_GUI
       this.RunTab.Text = "Run";
       this.RunTab.UseVisualStyleBackColor = true;
       // 
+      // AdditionalCommands
+      // 
+      this.AdditionalCommands.Location = new System.Drawing.Point(-3, -4);
+      this.AdditionalCommands.Multiline = true;
+      this.AdditionalCommands.Name = "AdditionalCommands";
+      this.AdditionalCommands.Size = new System.Drawing.Size(457, 308);
+      this.AdditionalCommands.TabIndex = 999;
+      this.AdditionalCommands.TabStop = false;
+      this.AdditionalCommands.Visible = false;
+      this.AdditionalCommands.WordWrap = false;
+      this.AdditionalCommands.KeyUp += new System.Windows.Forms.KeyEventHandler(this.AdditionalCommands_KeyUp);
+      this.AdditionalCommands.Leave += new System.EventHandler(this.AdditionalCommands_Leave);
+      // 
       // MainTabs
       // 
       this.MainTabs.Controls.Add(this.UpdateTab);
@@ -711,7 +750,7 @@ namespace SteamCMD_GUI
       // 
       this.SaveSettings.Name = "SaveSettings";
       this.SaveSettings.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-      this.SaveSettings.Size = new System.Drawing.Size(180, 22);
+      this.SaveSettings.Size = new System.Drawing.Size(143, 22);
       this.SaveSettings.Text = "Save";
       this.SaveSettings.Click += new System.EventHandler(this.SaveSettings_Click);
       // 
@@ -719,7 +758,7 @@ namespace SteamCMD_GUI
       // 
       this.LoadSettings.Name = "LoadSettings";
       this.LoadSettings.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-      this.LoadSettings.Size = new System.Drawing.Size(180, 22);
+      this.LoadSettings.Size = new System.Drawing.Size(143, 22);
       this.LoadSettings.Text = "Load";
       this.LoadSettings.Click += new System.EventHandler(this.LoadSettings_Click);
       // 
@@ -781,45 +820,6 @@ namespace SteamCMD_GUI
       this.ToolTip.InitialDelay = 200;
       this.ToolTip.ReshowDelay = 100;
       this.ToolTip.ShowAlways = true;
-      // 
-      // AddSteamCMDLaunchParams
-      // 
-      this.AddSteamCMDLaunchParams.BackgroundImage = global::SteamCMD_GUI.Properties.Resources.Add;
-      this.AddSteamCMDLaunchParams.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-      this.AddSteamCMDLaunchParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-      this.AddSteamCMDLaunchParams.Location = new System.Drawing.Point(370, 174);
-      this.AddSteamCMDLaunchParams.Name = "AddSteamCMDLaunchParams";
-      this.AddSteamCMDLaunchParams.Size = new System.Drawing.Size(23, 23);
-      this.AddSteamCMDLaunchParams.TabIndex = 14;
-      this.ToolTip.SetToolTip(this.AddSteamCMDLaunchParams, "Add More Command Line Params");
-      this.AddSteamCMDLaunchParams.UseVisualStyleBackColor = true;
-      this.AddSteamCMDLaunchParams.Click += new System.EventHandler(this.AddLaunchParams_Click);
-      // 
-      // AdditionalSteamCMDCommands
-      // 
-      this.AdditionalSteamCMDCommands.Location = new System.Drawing.Point(-3, -4);
-      this.AdditionalSteamCMDCommands.Multiline = true;
-      this.AdditionalSteamCMDCommands.Name = "AdditionalSteamCMDCommands";
-      this.AdditionalSteamCMDCommands.Size = new System.Drawing.Size(457, 308);
-      this.AdditionalSteamCMDCommands.TabIndex = 1000;
-      this.AdditionalSteamCMDCommands.TabStop = false;
-      this.AdditionalSteamCMDCommands.Visible = false;
-      this.AdditionalSteamCMDCommands.WordWrap = false;
-      this.AdditionalSteamCMDCommands.KeyUp += new System.Windows.Forms.KeyEventHandler(this.AdditionalCommands_KeyUp);
-      this.AdditionalSteamCMDCommands.Leave += new System.EventHandler(this.AdditionalCommands_Leave);
-      // 
-      // AdditionalCommands
-      // 
-      this.AdditionalCommands.Location = new System.Drawing.Point(-3, -4);
-      this.AdditionalCommands.Multiline = true;
-      this.AdditionalCommands.Name = "AdditionalCommands";
-      this.AdditionalCommands.Size = new System.Drawing.Size(457, 308);
-      this.AdditionalCommands.TabIndex = 999;
-      this.AdditionalCommands.TabStop = false;
-      this.AdditionalCommands.Visible = false;
-      this.AdditionalCommands.WordWrap = false;
-      this.AdditionalCommands.KeyUp += new System.Windows.Forms.KeyEventHandler(this.AdditionalCommands_KeyUp);
-      this.AdditionalCommands.Leave += new System.EventHandler(this.AdditionalCommands_Leave);
       // 
       // MainForm
       // 

@@ -446,6 +446,7 @@ namespace SteamCMD_GUI
       this.Rcon.Name = "Rcon";
       this.Rcon.Size = new System.Drawing.Size(91, 20);
       this.Rcon.TabIndex = 7;
+      this.Rcon.UseSystemPasswordChar = true;
       // 
       // Insecure
       // 
@@ -506,6 +507,7 @@ namespace SteamCMD_GUI
       this.HideRCON.TabIndex = 9;
       this.HideRCON.Text = "Hide RCON";
       this.HideRCON.UseVisualStyleBackColor = true;
+      this.HideRCON.CheckedChanged += new System.EventHandler(this.HideRCON_CheckedChanged);
       // 
       // NoBots
       // 

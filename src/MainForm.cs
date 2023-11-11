@@ -30,30 +30,8 @@ namespace SteamCMD_GUI
       InitializeComponent();
       Icon = Properties.Resources.Icon;
 
-      if (GameInfo == null)
-      {
-        if (MessageBox.Show("GAMES.cfg missing; download from repository?", "Fatal Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-        {
-          Process.Start("https://github.com/ijre/SteamCMD-GUI_Rewrite");
-        }
+      UpdateGameLists();
 
-        Close();
-        return;
-      }
-
-      for (int i = 0; i < GameInfo.GetLength(0); i++)
-      {
-        if (GameInfo[i][0] == null)
-        {
-          break;
-        }
-
-        GameListUpdateTab.Items.Add(GameInfo[i][InfoEnum.CUSTOM_NAME]);
-        GameListRunTab.Items.Add(GameInfo[i][InfoEnum.CUSTOM_NAME]);
-      }
-
-      GameListUpdateTab.SelectedIndex = 0;
-      GameListRunTab.SelectedIndex = 0;
       NetworkType.SelectedIndex = 0;
     }
 
@@ -418,6 +396,37 @@ namespace SteamCMD_GUI
       return games;
     }
 
+    private void UpdateGameLists()
+    {
+      if (GameInfo == null)
+      {
+        if (MessageBox.Show("GAMES.cfg missing; download from repository?", "Fatal Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+        {
+          Process.Start("https://raw.githubusercontent.com/ijre/SteamCMD-GUI_Rewrite/main/src/GAMES.cfg");
+        }
+
+        Close();
+        return;
+      }
+
+      GameListUpdateTab.Items.Clear();
+      GameListRunTab.Items.Clear();
+
+      for (int i = 0; i < GameInfo.GetLength(0); i++)
+      {
+        if (GameInfo[i][0] == null)
+        {
+          break;
+        }
+
+        GameListUpdateTab.Items.Add(GameInfo[i][InfoEnum.CUSTOM_NAME]);
+        GameListRunTab.Items.Add(GameInfo[i][InfoEnum.CUSTOM_NAME]);
+      }
+
+      GameListUpdateTab.SelectedIndex = 0;
+      GameListRunTab.SelectedIndex = 0;
+    }
+
     private static string GetFolder(string title)
     {
       using var diag = new CommonOpenFileDialog
@@ -571,6 +580,12 @@ namespace SteamCMD_GUI
       {
         Process.Start(ReleaseUrl);
       }
+    }
+
+    private void RefreshGameConfig_Click(object sender, EventArgs e)
+    {
+      GameInfo = GetGames();
+      UpdateGameLists();
     }
 
     private void DownloadSteamCMD_Click(object sender, EventArgs e)

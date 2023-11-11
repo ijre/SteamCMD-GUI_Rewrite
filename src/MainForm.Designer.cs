@@ -94,6 +94,7 @@ namespace SteamCMD_GUI
       this.SrcdsLaunchOptions = new System.Windows.Forms.ToolStripMenuItem();
       this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
       this.HidePassword = new System.Windows.Forms.CheckBox();
+      this.RefreshGameConfig = new System.Windows.Forms.ToolStripMenuItem();
       this.UpdateTab.SuspendLayout();
       this.SteamCMDConfigGroup.SuspendLayout();
       this.ServerConfigGroup.SuspendLayout();
@@ -799,6 +800,7 @@ namespace SteamCMD_GUI
       // ToolsStripMenu
       // 
       this.ToolsStripMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.RefreshGameConfig,
             this.DownloadSteamCMD,
             this.CheckForUpdates});
       this.ToolsStripMenu.Name = "ToolsStripMenu";
@@ -840,6 +842,13 @@ namespace SteamCMD_GUI
       this.ToolTip.InitialDelay = 200;
       this.ToolTip.ReshowDelay = 100;
       this.ToolTip.ShowAlways = true;
+      // 
+      // RefreshGameConfig
+      // 
+      this.RefreshGameConfig.Name = "RefreshGameConfig";
+      this.RefreshGameConfig.Size = new System.Drawing.Size(191, 22);
+      this.RefreshGameConfig.Text = "Refresh GAMES.cfg";
+      this.RefreshGameConfig.Click += new System.EventHandler(this.RefreshGameConfig_Click);
       // 
       // MainForm
       // 
@@ -941,6 +950,7 @@ namespace SteamCMD_GUI
     private System.Windows.Forms.TextBox AdditionalSteamCMDCommands;
     private System.Windows.Forms.TextBox AdditionalCommands;
     private System.Windows.Forms.CheckBox HidePassword;
+    private System.Windows.Forms.ToolStripMenuItem RefreshGameConfig;
   }
 }
 

@@ -57,7 +57,7 @@ namespace SteamCMD_GUI
       this.GroupBox5 = new System.Windows.Forms.GroupBox();
       this.AddLaunchParams = new System.Windows.Forms.Button();
       this.GroupBox6 = new System.Windows.Forms.GroupBox();
-      this.Rcon = new System.Windows.Forms.TextBox();
+      this.RCON = new System.Windows.Forms.TextBox();
       this.Insecure = new System.Windows.Forms.CheckBox();
       this.DevMessages = new System.Windows.Forms.CheckBox();
       this.RunServer = new System.Windows.Forms.Button();
@@ -428,7 +428,7 @@ namespace SteamCMD_GUI
       // 
       // GroupBox6
       // 
-      this.GroupBox6.Controls.Add(this.Rcon);
+      this.GroupBox6.Controls.Add(this.RCON);
       this.GroupBox6.Controls.Add(this.AddLaunchParams);
       this.GroupBox6.Controls.Add(this.Insecure);
       this.GroupBox6.Controls.Add(this.DevMessages);
@@ -459,13 +459,13 @@ namespace SteamCMD_GUI
       this.GroupBox6.TabStop = false;
       this.GroupBox6.Text = "Game Configuration";
       // 
-      // Rcon
+      // RCON
       // 
-      this.Rcon.Location = new System.Drawing.Point(332, 132);
-      this.Rcon.Name = "Rcon";
-      this.Rcon.Size = new System.Drawing.Size(91, 20);
-      this.Rcon.TabIndex = 7;
-      this.Rcon.UseSystemPasswordChar = true;
+      this.RCON.Location = new System.Drawing.Point(332, 132);
+      this.RCON.Name = "RCON";
+      this.RCON.Size = new System.Drawing.Size(91, 20);
+      this.RCON.TabIndex = 7;
+      this.RCON.UseSystemPasswordChar = true;
       // 
       // Insecure
       // 
@@ -939,7 +939,7 @@ namespace SteamCMD_GUI
         private System.Windows.Forms.Label Label10;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox Rcon;
+        private System.Windows.Forms.TextBox RCON;
         private System.Windows.Forms.TextBox PasswordLogin;
         private System.Windows.Forms.ToolStripMenuItem SrcdsLaunchOptions;
         private System.Windows.Forms.CheckBox SaveRCON;

@@ -59,7 +59,7 @@ namespace SteamCMD_GUI
 
         bool user = interactable[i].Name == Username.Name && !AnonymousLogin.Checked;
         bool pass = interactable[i].Name == PasswordLogin.Name && !AnonymousLogin.Checked;
-        bool rcon = interactable[i].Name == Rcon.Name;
+        bool rcon = interactable[i].Name == RCON.Name;
 
         if (user && !SaveLoginDetails.Checked
             ||
@@ -229,7 +229,7 @@ namespace SteamCMD_GUI
       string arguments =
           $"-console {addDedicatedIfCS2} -game {GameInfo[GameListRunTab.SelectedIndex][InfoEnum.INTERNAL_NAME]} -port {UDPPort.Text} +hostname \"{Hostname.Text}\" " +
           $"+map {MapList.SelectedItem} +maxplayers {MaxPlayers.Text} +sv_lan {NetworkType.SelectedIndex} " +
-          $"+rcon_password {Rcon.Text} +sv_password {PasswordServer.Text} " +
+          $"+rcon_password {RCON.Text} +sv_password {PasswordServer.Text} " +
           $"{buttonParams} {AdditionalCommands.Text}";
 
 
@@ -497,7 +497,7 @@ namespace SteamCMD_GUI
 
     private void HideRCON_CheckedChanged(object sender, EventArgs e)
     {
-      Rcon.UseSystemPasswordChar = HideRCON.Checked;
+      RCON.UseSystemPasswordChar = HideRCON.Checked;
     }
 
     private TextBox GetMenuForResponsibleLaunchParam(object objSender)

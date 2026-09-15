@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -25,6 +26,10 @@ namespace SteamCMD_GUI
       public const int CUSTOM_NAME = 2;
     }
 
+    //! [0] == original font
+    //! [1] == obscured font
+    private readonly Font[] RCONTextFonts = new Font[2];
+
     public MainForm()
     {
       InitializeComponent();
@@ -33,6 +38,11 @@ namespace SteamCMD_GUI
       UpdateGameLists();
 
       NetworkType.SelectedIndex = 0;
+
+      RCONTextFonts[0] = RCON.Font;
+      RCONTextFonts[1] = RCON.Font = new Font(SystemFonts.DefaultFont.Name, 1.0f, GraphicsUnit.Pixel);
+      // because HideRCON is on by default, we need to immediately change font
+        // doing it this way as i would rather use the designer to define the real font
     }
 
     #region Events
@@ -503,6 +513,8 @@ namespace SteamCMD_GUI
     private void HideRCON_CheckedChanged(object sender, EventArgs e)
     {
       RCON.UseSystemPasswordChar = HideRCON.Checked;
+      RCON.BackColor = HideRCON.Checked ? SystemColors.WindowText : SystemColors.Window;
+      RCON.Font = RCONTextFonts[(int)HideRCON.CheckState];
     }
 
     private TextBox GetMenuForResponsibleLaunchParam(object objSender)

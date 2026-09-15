@@ -461,9 +461,12 @@ namespace SteamCMD_GUI
       // 
       // RCON
       // 
+      this.RCON.BackColor = System.Drawing.SystemColors.WindowText;
+      this.RCON.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.RCON.Location = new System.Drawing.Point(332, 132);
+      this.RCON.MinimumSize = new System.Drawing.Size(90, 20);
       this.RCON.Name = "RCON";
-      this.RCON.Size = new System.Drawing.Size(91, 20);
+      this.RCON.Size = new System.Drawing.Size(90, 20);
       this.RCON.TabIndex = 7;
       this.RCON.UseSystemPasswordChar = true;
       // 

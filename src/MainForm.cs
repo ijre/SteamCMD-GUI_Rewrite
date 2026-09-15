@@ -125,6 +125,11 @@ namespace SteamCMD_GUI
         var controlName = lines[index].Substring(0, lines[index].IndexOf(" "));
         var controlValue = lines[index].Substring(lines[index].IndexOf(" ")).TrimStart();
 
+        if (controlName == "Rcon") // compatability for older versions
+        {
+          controlName = "RCON";
+        }
+
         for (int control = 0; control < total.Count; control++)
         {
           if (controlName != total[control].Name)
